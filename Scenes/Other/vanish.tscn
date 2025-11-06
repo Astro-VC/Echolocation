@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://xvqacbjtmvu3"]
+
+[ext_resource type="Script" uid="uid://cyp56k5ogps4" path="res://Scripts/Composition/vanish.gd" id="1_gpyqv"]
+
+[node name="Vanish" type="Node"]
+script = ExtResource("1_gpyqv")
+fade_speed = Vector2(2, 2)

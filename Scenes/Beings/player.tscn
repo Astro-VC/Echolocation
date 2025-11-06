@@ -1,0 +1,202 @@
+[gd_scene load_steps=31 format=3 uid="uid://bevm8733iebep"]
+
+[ext_resource type="Script" uid="uid://bi5hg7tb65moq" path="res://Scripts/State Machine/player.gd" id="1_cvnsp"]
+[ext_resource type="Script" uid="uid://bq2qoq5ybal0q" path="res://Scripts/State Machine/State_Machine.gd" id="1_v0iea"]
+[ext_resource type="Texture2D" uid="uid://bqdvol20iftyd" path="res://Sprites/Player/Bat.png" id="2_8erm5"]
+[ext_resource type="Script" uid="uid://bmwn7wjkepyo0" path="res://Scripts/State Machine/States/idle.gd" id="3_6t5aa"]
+[ext_resource type="Texture2D" uid="uid://ycrb8p6w8t1d" path="res://Sprites/Player/OutlinePlayer.png" id="3_mywf8"]
+[ext_resource type="Script" uid="uid://cskynxj3ye5lj" path="res://Scripts/State Machine/States/walk.gd" id="4_x3wgy"]
+[ext_resource type="Script" uid="uid://cljna3ygi6seg" path="res://Scripts/State Machine/States/jump.gd" id="5_3smsa"]
+[ext_resource type="Script" uid="uid://c04s813u8xgs4" path="res://Scripts/State Machine/States/fall.gd" id="6_8erm5"]
+[ext_resource type="Script" uid="uid://dykkrc4y2toyv" path="res://Scripts/State Machine/States/screech.gd" id="7_3smsa"]
+[ext_resource type="PackedScene" uid="uid://xvqacbjtmvu3" path="res://Scenes/Other/vanish.tscn" id="10_eltkk"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_v0iea"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f1ek2"]
+atlas = ExtResource("2_8erm5")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tx1dd"]
+atlas = ExtResource("2_8erm5")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gymyn"]
+atlas = ExtResource("2_8erm5")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pu2lt"]
+atlas = ExtResource("2_8erm5")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ukyrk"]
+atlas = ExtResource("2_8erm5")
+region = Rect2(128, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7dp3o"]
+atlas = ExtResource("2_8erm5")
+region = Rect2(160, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_h4iuc"]
+atlas = ExtResource("2_8erm5")
+region = Rect2(192, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fd4e3"]
+atlas = ExtResource("2_8erm5")
+region = Rect2(224, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_cvnsp"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f1ek2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tx1dd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gymyn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pu2lt")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 3.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ukyrk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7dp3o")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_h4iuc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fd4e3")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 5.0
+}]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_mywf8"]
+light_mode = 2
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_eltkk"]
+atlas = ExtResource("3_mywf8")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ijj68"]
+atlas = ExtResource("3_mywf8")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_10mje"]
+atlas = ExtResource("3_mywf8")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tf8jh"]
+atlas = ExtResource("3_mywf8")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_j4rlg"]
+atlas = ExtResource("3_mywf8")
+region = Rect2(128, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bq3id"]
+atlas = ExtResource("3_mywf8")
+region = Rect2(160, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0n2th"]
+atlas = ExtResource("3_mywf8")
+region = Rect2(192, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hjf0w"]
+atlas = ExtResource("3_mywf8")
+region = Rect2(224, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_bl7w6"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_eltkk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ijj68")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_10mje")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tf8jh")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 3.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_j4rlg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bq3id")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0n2th")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hjf0w")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 5.0
+}]
+
+[node name="Player" type="Node2D"]
+
+[node name="Player" type="CharacterBody2D" parent="." node_paths=PackedStringArray("normal_animation", "outline_animation", "state_machine")]
+script = ExtResource("1_cvnsp")
+normal_animation = NodePath("NormalSprite")
+outline_animation = NodePath("OutlineSprite")
+state_machine = NodePath("MovementMachine")
+
+[node name="Collison" type="CollisionShape2D" parent="Player"]
+shape = SubResource("RectangleShape2D_v0iea")
+debug_color = Color(1, 0.624771, 0.707048, 0)
+
+[node name="NormalSprite" type="AnimatedSprite2D" parent="Player"]
+sprite_frames = SubResource("SpriteFrames_cvnsp")
+animation = &"idle"
+frame_progress = 0.337409
+
+[node name="OutlineSprite" type="AnimatedSprite2D" parent="Player"]
+modulate = Color(1, 1, 1, 0)
+material = SubResource("CanvasItemMaterial_mywf8")
+sprite_frames = SubResource("SpriteFrames_bl7w6")
+animation = &"idle"
+
+[node name="MovementMachine" type="Node" parent="Player" node_paths=PackedStringArray("starting_state")]
+script = ExtResource("1_v0iea")
+starting_state = NodePath("idle")
+
+[node name="idle" type="Node" parent="Player/MovementMachine"]
+script = ExtResource("3_6t5aa")
+animation_name = "idle"
+
+[node name="walk" type="Node" parent="Player/MovementMachine"]
+script = ExtResource("4_x3wgy")
+
+[node name="jump" type="Node" parent="Player/MovementMachine"]
+script = ExtResource("5_3smsa")
+
+[node name="fall" type="Node" parent="Player/MovementMachine"]
+script = ExtResource("6_8erm5")
+
+[node name="Screech" type="Node" parent="."]
+script = ExtResource("7_3smsa")
+
+[node name="Vanish" parent="." node_paths=PackedStringArray("to_fade", "sig_node") instance=ExtResource("10_eltkk")]
+to_fade = NodePath("../Player/OutlineSprite")
+sig_node = NodePath("../Screech")

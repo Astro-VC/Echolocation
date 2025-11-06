@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=3 uid="uid://b16f5f02re3x8"]
+
+[ext_resource type="PackedScene" uid="uid://bevm8733iebep" path="res://Scenes/Beings/player.tscn" id="1_xrlby"]
+[ext_resource type="PackedScene" uid="uid://bp2k3u0g8mfdc" path="res://Scenes/Other/echo.tscn" id="2_w5gxp"]
+[ext_resource type="PackedScene" uid="uid://c6huc4vk41i8i" path="res://Scenes/Other/background.tscn" id="3_llp66"]
+
+[node name="Test" type="Node"]
+
+[node name="Player" parent="." instance=ExtResource("1_xrlby")]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(3, 3)
+
+[node name="Echo" parent="." instance=ExtResource("2_w5gxp")]
+position = Vector2(22, -21)
+scale = Vector2(4, 4)
+
+[node name="Background" parent="." instance=ExtResource("3_llp66")]
+background_color = Color(0.160784, 0.160784, 0.160784, 1)

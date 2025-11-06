@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://bp2k3u0g8mfdc"]
+
+[ext_resource type="Texture2D" uid="uid://d11qy25gidk0t" path="res://Sprites/Sound Waves/Light.png" id="1_nqw0r"]
+[ext_resource type="Script" uid="uid://cxlm1quq310ms" path="res://Scripts/Composition/delete.gd" id="2_gk1v2"]
+
+[node name="Echo" type="Node2D"]
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+position = Vector2(2, -7)
+blend_mode = 2
+texture = ExtResource("1_nqw0r")
+
+[node name="Timer" type="Timer" parent="."]
+one_shot = true
+
+[node name="Delete" type="Node" parent="." node_paths=PackedStringArray("timer")]
+script = ExtResource("2_gk1v2")
+timer = NodePath("../Timer")
