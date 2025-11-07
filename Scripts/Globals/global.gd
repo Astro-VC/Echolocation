@@ -1,4 +1,4 @@
 extends Node
 
 
-var time : float = 4
+signal echo

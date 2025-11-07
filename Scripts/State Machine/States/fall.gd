@@ -1,11 +1,19 @@
 extends State
 
+@export var idle : State
+@export var walk : State
 
-# Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	pass # Replace with function body.
+func enter() -> void:
+	super()
 
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
+func process_physics(delta: float) -> State:
+	move(delta, move_speed, m_acceleration, m_deceleration, gravity)
+	
+	if parent.is_on_floor() and parent.velocity.x == 0:
+		return idle
+	
+	if parent.is_on_floor() and parent.velocity.x != 0:
+		return walk
+	
+	return null

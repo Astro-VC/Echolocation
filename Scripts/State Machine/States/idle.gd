@@ -16,3 +16,9 @@ func process_input(event: InputEvent) -> State:
 	
 	
 	return null
+
+func process_physics(delta: float) -> State:
+	
+	parent.velocity = lerp(parent.velocity, Vector2.ZERO, m_deceleration * delta)
+	parent.move_and_slide()
+	return null

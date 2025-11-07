@@ -4,4 +4,3 @@
 
 [node name="Vanish" type="Node"]
 script = ExtResource("1_gpyqv")
-fade_speed = Vector2(2, 2)
