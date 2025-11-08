@@ -3,7 +3,9 @@ extends Node
 #Stores scenes and textures
 
 var echo : PackedScene = load("res://Scenes/Other/echo.tscn")
+var audio : PackedScene = load("res://Scenes/Other/sound.tscn")
 
+var buffer : PackedStringArray = ["res://Audio/object release.mp3"]
 var projectiles : PackedStringArray = ["res://Scenes/Objects/rock.tscn"]
 var particles : PackedStringArray = [
  "res://Scenes/Particle/breack_particle.tscn",

@@ -30,7 +30,7 @@ signal echo
 func _ready() -> void:
 	timer.timeout.connect(update.bind())
 	
-	if use_signal == true:
+	if use_signal == true and sig_node:
 		sig_node.echo.connect(screech.bind())
 
 func _unhandled_input(event: InputEvent) -> void:

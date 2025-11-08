@@ -15,6 +15,7 @@ func _ready() -> void:
 	if collider:
 		collider.body_entered.connect(check_collision.bind())
 
+
 func check(ar : Area2D) -> void:
 	if ar.name == "on_echo":
 		inside.emit()

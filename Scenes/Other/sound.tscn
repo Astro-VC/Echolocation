@@ -1,0 +1,20 @@
+[gd_scene load_steps=3 format=3 uid="uid://35fpufpr1o04"]
+
+[ext_resource type="AudioStream" uid="uid://dda8xwg7cghrf" path="res://Audio/object release.mp3" id="1_ubnvw"]
+
+[sub_resource type="GDScript" id="GDScript_ubnvw"]
+script/source = "extends AudioStreamPlayer2D
+
+func _on_finished() -> void:
+	queue_free()
+"
+
+[node name="Audio" type="Node2D"]
+
+[node name="Sound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("1_ubnvw")
+autoplay = true
+max_distance = 500.0
+script = SubResource("GDScript_ubnvw")
+
+[connection signal="finished" from="Sound" to="Sound" method="_on_finished"]

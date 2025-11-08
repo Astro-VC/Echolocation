@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://dwu8bc082s5fr"
+path="res://.godot/imported/LAND BOUGHT 3.mp3-8bb8d2341b764deb50483b7707479866.mp3str"
+
+[deps]
+
+source_file="res://Audio/LAND BOUGHT 3.mp3"
+dest_files=["res://.godot/imported/LAND BOUGHT 3.mp3-8bb8d2341b764deb50483b7707479866.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

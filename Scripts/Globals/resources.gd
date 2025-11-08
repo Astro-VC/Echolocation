@@ -2,4 +2,4 @@ extends Node
 
 #Stores values
 
-var projectiles : PackedInt64Array = [0]
+var projectiles : PackedInt64Array = [10]

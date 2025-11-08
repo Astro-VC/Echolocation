@@ -221,6 +221,9 @@ position = Vector2(0, 6)
 shape = SubResource("RectangleShape2D_tf8jh")
 debug_color = Color(1, 0.624771, 0.707048, 0)
 
+[node name="AudioListener2D" type="AudioListener2D" parent="Player"]
+current = true
+
 [node name="NormalSprite" type="AnimatedSprite2D" parent="Player"]
 light_mask = 0
 sprite_frames = SubResource("SpriteFrames_cvnsp")

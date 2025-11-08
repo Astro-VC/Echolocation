@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://co44s1prswpj4"]
+
+[ext_resource type="Script" uid="uid://ddo828qrhrdka" path="res://Scripts/Composition/produce_audio.gd" id="1_ngpu3"]
+
+[node name="ProduceAudio" type="Node"]
+script = ExtResource("1_ngpu3")
