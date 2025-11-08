@@ -1,0 +1,46 @@
+[gd_scene load_steps=8 format=3 uid="uid://bsp7cqqshbjay"]
+
+[ext_resource type="Texture2D" uid="uid://ckd46u2y2viev" path="res://Sprites/Objects/Rock (1).png" id="1_8gfo0"]
+[ext_resource type="Texture2D" uid="uid://cox4dcsvutncx" path="res://Sprites/Objects/RockOutline.png" id="3_bk1ij"]
+[ext_resource type="PackedScene" uid="uid://xvqacbjtmvu3" path="res://Scenes/Other/vanish.tscn" id="3_brjug"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_8gfo0"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_8gfo0"]
+radius = 4.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_nqguc"]
+radius = 8.0
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_l0sgq"]
+light_mode = 2
+
+[node name="Rock" type="Node2D"]
+
+[node name="Vanish" parent="." node_paths=PackedStringArray("to_fade") instance=ExtResource("3_brjug")]
+to_fade = NodePath("../Ball/Outline")
+use_global_sig = true
+
+[node name="Ball" type="RigidBody2D" parent="."]
+physics_material_override = SubResource("PhysicsMaterial_8gfo0")
+freeze_mode = 1
+
+[node name="Collision" type="CollisionShape2D" parent="Ball"]
+shape = SubResource("CircleShape2D_8gfo0")
+debug_color = Color(0.065, 0.65, 0.23075, 0)
+
+[node name="Detect" type="Area2D" parent="Ball"]
+
+[node name="Collision" type="CollisionShape2D" parent="Ball/Detect"]
+shape = SubResource("CircleShape2D_nqguc")
+debug_color = Color(1, 0.774651, 0.292471, 0)
+
+[node name="Base" type="Sprite2D" parent="Ball"]
+light_mask = 0
+texture = ExtResource("1_8gfo0")
+hframes = 3
+
+[node name="Outline" type="Sprite2D" parent="Ball"]
+material = SubResource("CanvasItemMaterial_l0sgq")
+texture = ExtResource("3_bk1ij")
+hframes = 3

@@ -6,12 +6,14 @@ extends State
 func enter() -> void:
 	super()
 
+
+
 func process_input(event: InputEvent) -> State:
 	
 	if Input.is_action_just_pressed("checkMovement"):
 		return walk
 	
-	if Input.is_action_just_pressed("up"):
+	if Input.is_action_just_pressed("up") and parent.is_on_floor():
 		return jump
 	
 	
@@ -19,6 +21,9 @@ func process_input(event: InputEvent) -> State:
 
 func process_physics(delta: float) -> State:
 	
-	parent.velocity = lerp(parent.velocity, Vector2.ZERO, m_deceleration * delta)
+	move(delta, move_speed, m_acceleration, m_deceleration, gravity)
+	reset_scale(delta, squish_speed)
+	parent.velocity.x = lerpf(parent.velocity.x, 0, m_deceleration * delta)
 	parent.move_and_slide()
+	
 	return null

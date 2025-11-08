@@ -22,8 +22,7 @@ func _physics_process(delta: float) -> void:
 func move_wave() -> void:
 	var tween : Tween = get_parent().create_tween()
 	
-	tween.tween_property(wave, "scale", scale_to, 0.5).set_trans(Tween.TRANS_EXPO)
+	tween.tween_property(wave, "scale", scale_to, 0.1).set_trans(Tween.TRANS_EXPO)
 
 func delete() -> void:
-	print("dead")
 	get_parent().queue_free()
