@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://ctg3xodcramq2"]
+
+[ext_resource type="Script" uid="uid://de78evk6arciy" path="res://Scripts/Composition/set_color.gd" id="1_hbcwc"]
+
+[node name="SetColor" type="Node"]
+script = ExtResource("1_hbcwc")

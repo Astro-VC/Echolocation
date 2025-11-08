@@ -1,10 +1,13 @@
-[gd_scene load_steps=8 format=3 uid="uid://bsp7cqqshbjay"]
+[gd_scene load_steps=13 format=3 uid="uid://bsp7cqqshbjay"]
 
 [ext_resource type="Texture2D" uid="uid://ckd46u2y2viev" path="res://Sprites/Objects/Rock (1).png" id="1_8gfo0"]
 [ext_resource type="Texture2D" uid="uid://cox4dcsvutncx" path="res://Sprites/Objects/RockOutline.png" id="3_bk1ij"]
 [ext_resource type="PackedScene" uid="uid://xvqacbjtmvu3" path="res://Scenes/Other/vanish.tscn" id="3_brjug"]
-
-[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_8gfo0"]
+[ext_resource type="PackedScene" uid="uid://cjk0l6gi7roc8" path="res://Scenes/Particle/breack_particle.tscn" id="3_xwwti"]
+[ext_resource type="PackedScene" uid="uid://dy180hpj3xd1e" path="res://Scenes/Other/detect_sound.tscn" id="4_brjug"]
+[ext_resource type="PackedScene" uid="uid://d4nvdcxabix6v" path="res://Scenes/Other/delete.tscn" id="5_nqguc"]
+[ext_resource type="Script" uid="uid://dxpvia2buqong" path="res://Scripts/Composition/collect.gd" id="6_fsbm5"]
+[ext_resource type="PackedScene" uid="uid://dc2qoqskj6apx" path="res://Scenes/Other/screech.tscn" id="7_fsbm5"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_8gfo0"]
 radius = 4.0
@@ -15,32 +18,105 @@ radius = 8.0
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_l0sgq"]
 light_mode = 2
 
+[sub_resource type="GDScript" id="GDScript_fsbm5"]
+script/source = "extends Node
+
+@export var parent : Node2D
+@export var tree : Node2D
+@export var timer : Timer
+
+@export var particle_ID : int
+
+var particle : PackedScene
+var del : bool = false
+
+
+func _ready() -> void:
+	particle = load(Textures.particles[particle_ID])
+	if del == true:
+		timer.timeout.connect(delete.bind())
+
+
+func delete() -> void:
+	var temp := particle.instantiate()
+	temp.global_position = parent.global_position
+	tree.get_parent().call_deferred(\"add_child\", temp)
+	
+	tree.queue_free()
+"
+
 [node name="Rock" type="Node2D"]
 
-[node name="Vanish" parent="." node_paths=PackedStringArray("to_fade") instance=ExtResource("3_brjug")]
-to_fade = NodePath("../Ball/Outline")
-use_global_sig = true
-
-[node name="Ball" type="RigidBody2D" parent="."]
-physics_material_override = SubResource("PhysicsMaterial_8gfo0")
+[node name="Projectile" type="RigidBody2D" parent="."]
+collision_layer = 2
+collision_mask = 2
 freeze_mode = 1
+contact_monitor = true
+max_contacts_reported = 1
 
-[node name="Collision" type="CollisionShape2D" parent="Ball"]
+[node name="Collision" type="CollisionShape2D" parent="Projectile"]
 shape = SubResource("CircleShape2D_8gfo0")
 debug_color = Color(0.065, 0.65, 0.23075, 0)
 
-[node name="Detect" type="Area2D" parent="Ball"]
+[node name="detect" type="Area2D" parent="Projectile"]
+monitorable = false
 
-[node name="Collision" type="CollisionShape2D" parent="Ball/Detect"]
+[node name="Collision" type="CollisionShape2D" parent="Projectile/detect"]
 shape = SubResource("CircleShape2D_nqguc")
 debug_color = Color(1, 0.774651, 0.292471, 0)
 
-[node name="Base" type="Sprite2D" parent="Ball"]
-light_mask = 0
+[node name="Base" type="Sprite2D" parent="Projectile"]
 texture = ExtResource("1_8gfo0")
 hframes = 3
 
-[node name="Outline" type="Sprite2D" parent="Ball"]
+[node name="Outline" type="Sprite2D" parent="Projectile"]
 material = SubResource("CanvasItemMaterial_l0sgq")
 texture = ExtResource("3_bk1ij")
 hframes = 3
+
+[node name="BreackParticle" parent="Projectile" instance=ExtResource("3_xwwti")]
+
+[node name="Detect" parent="." node_paths=PackedStringArray("area", "collider") instance=ExtResource("4_brjug")]
+area = NodePath("../Projectile/detect")
+collider = NodePath("../Projectile")
+
+[node name="Collect" parent="." node_paths=PackedStringArray("tree", "parent", "sig_node", "delete_node", "sprite", "timer") instance=ExtResource("5_nqguc")]
+script = ExtResource("6_fsbm5")
+tree = NodePath("..")
+parent = NodePath("../Projectile")
+sig_node = NodePath("../Detect")
+delete_node = NodePath("../Delete")
+projectile_id = 0
+sprite = NodePath("../Projectile/Base")
+timer = NodePath("../CollectedTimer")
+collected_id = 0
+duration = 0.1
+particle_id = 0
+
+[node name="Vanish" parent="." node_paths=PackedStringArray("to_fade") instance=ExtResource("3_brjug")]
+to_fade = NodePath("../Projectile/Outline")
+use_global_sig = true
+
+[node name="Screech" parent="." node_paths=PackedStringArray("parent", "tree", "sig_node", "timer") instance=ExtResource("7_fsbm5")]
+parent = NodePath("../Projectile")
+tree = NodePath("..")
+echo_color_id = 1
+echo_size = Vector2(5, 5)
+detection_area_name = "on_echo2"
+use_input = false
+sig_node = NodePath("../Detect")
+use_signal = true
+timer = NodePath("../ScreechTimer")
+cooldown = 0.5
+
+[node name="Delete" type="Node" parent="." node_paths=PackedStringArray("parent", "tree", "timer")]
+process_mode = 3
+script = SubResource("GDScript_fsbm5")
+parent = NodePath("../Projectile")
+tree = NodePath("..")
+timer = NodePath("../ScreechTimer")
+
+[node name="ScreechTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="CollectedTimer" type="Timer" parent="."]

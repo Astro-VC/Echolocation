@@ -12,6 +12,7 @@ func enter() -> void:
 	super()
 
 
+
 func process_input(event: InputEvent) -> State:
 	
 	if Input.is_action_just_pressed("up") and !coyote.is_stopped():

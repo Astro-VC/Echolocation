@@ -17,15 +17,21 @@ extends Node
 @export var gravity : float = 980
 @export var max_fall_speed : float = 120
 
-
 @export_category("Squish")
 @export var squish_speed : float = 6
 @export var squish_amount : Vector2 = Vector2(1,1)
 
+@export_category("Particle")
+@export var tree : Node2D
+@export var particle_ID : int
+
+
 ## Hold a reference to the parent so that it can be controlled by the state
 var parent : CharacterBody2D
+var particle : PackedScene
 
 func enter() -> void:
+	particle = load(Textures.particles[particle_ID])
 	parent.normal_animation.play(animation_name)
 	parent.outline_animation.play(animation_name)
 	print(animation_name)
@@ -73,3 +79,8 @@ func move(delta : float, spd : float, acc : float, deac : float, grav : float, m
 func squish(delta : float, sqsh_speed : float = squish_speed) -> void:
 	parent.normal_animation.scale = lerp(parent.normal_animation.scale, squish_amount, delta * sqsh_speed)
 	parent.outline_animation.scale = lerp(parent.outline_animation.scale, squish_amount, delta * sqsh_speed)
+
+func do_particle() -> void:
+	var temp := particle.instantiate()
+	temp.global_position = Vector2(parent.global_position.x, parent.global_position.y + 12)
+	tree.get_parent().call_deferred("add_child", temp)

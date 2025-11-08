@@ -4,12 +4,21 @@ extends State
 @export var jump : State
 @export var walk : State
 
+@export_category("Echo")
+@export var size : Vector2
+@export var area_name : String
+@export var color_id : int
+@export var cooldown : float
+
 @export_category("Timers")
 @export var buffer : Timer
 
+signal echo
 
 func enter() -> void:
 	super()
+	do_particle()
+	echo.emit(size, area_name, color_id, cooldown)
 	parent.normal_animation.scale = squish_amount
 	parent.outline_animation.scale = squish_amount
 

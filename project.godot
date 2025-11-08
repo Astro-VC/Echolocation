@@ -18,6 +18,7 @@ config/icon="res://Sprites/icon.svg"
 
 Textures="*res://Scripts/Globals/textrures.gd"
 Global="*res://Scripts/Globals/global.gd"
+Resources="*res://Scripts/Globals/resources.gd"
 
 [display]
 

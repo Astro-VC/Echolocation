@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://c803eehq2robn"]
+
+[ext_resource type="Script" uid="uid://babi58b4054g6" path="res://Scripts/Composition/trow_projectile.gd" id="1_0v7b5"]
+
+[node name="TrowProjectile" type="Node"]
+script = ExtResource("1_0v7b5")

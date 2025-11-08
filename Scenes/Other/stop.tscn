@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://2ta1x0uihou2"]
+
+[ext_resource type="Script" uid="uid://dqty3uuav0xki" path="res://Scripts/Composition/stop.gd" id="1_y45b4"]
+
+[node name="Stop" type="Node"]
+script = ExtResource("1_y45b4")

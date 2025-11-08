@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://d4nvdcxabix6v"]
+
+[ext_resource type="Script" uid="uid://cxlm1quq310ms" path="res://Scripts/Composition/delete.gd" id="1_wb7ic"]
+
+[node name="Delete" type="Node"]
+script = ExtResource("1_wb7ic")
