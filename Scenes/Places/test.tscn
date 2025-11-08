@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=4 uid="uid://b16f5f02re3x8"]
+[gd_scene load_steps=19 format=4 uid="uid://b16f5f02re3x8"]
 
 [ext_resource type="Material" uid="uid://do00jxdie5vra" path="res://Resources/sonar.tres" id="1_feuvl"]
 [ext_resource type="PackedScene" uid="uid://bevm8733iebep" path="res://Scenes/Beings/player.tscn" id="1_xrlby"]
@@ -10,6 +10,7 @@
 [ext_resource type="Texture2D" uid="uid://bk3d7usrirqe0" path="res://Sprites/Tiles/Lines.png" id="5_aamgo"]
 [ext_resource type="Texture2D" uid="uid://dew8lkq4u2h8m" path="res://Sprites/Tiles/BrickTile.png" id="5_rnorq"]
 [ext_resource type="Texture2D" uid="uid://buaj8226e6paf" path="res://Sprites/Tiles/Background .png" id="6_rnorq"]
+[ext_resource type="PackedScene" uid="uid://d1chejkbwy6eg" path="res://Scenes/UI/ui.tscn" id="11_b3see"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_k3ob8"]
 texture = ExtResource("2_k3ob8")
@@ -546,3 +547,5 @@ position = Vector2(16, -39)
 
 [node name="Background" parent="." instance=ExtResource("3_llp66")]
 background_color = Color(0.160784, 0.160784, 0.160784, 1)
+
+[node name="UI" parent="." instance=ExtResource("11_b3see")]

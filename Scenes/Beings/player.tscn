@@ -1,4 +1,4 @@
-[gd_scene load_steps=39 format=3 uid="uid://bevm8733iebep"]
+[gd_scene load_steps=40 format=3 uid="uid://bevm8733iebep"]
 
 [ext_resource type="Script" uid="uid://bi5hg7tb65moq" path="res://Scripts/State Machine/player.gd" id="1_cvnsp"]
 [ext_resource type="Script" uid="uid://bq2qoq5ybal0q" path="res://Scripts/State Machine/State_Machine.gd" id="1_v0iea"]
@@ -6,7 +6,6 @@
 [ext_resource type="Texture2D" uid="uid://bm8xbrshcjc6y" path="res://Sprites/Player/PlayerWJump.png" id="2_10mje"]
 [ext_resource type="Script" uid="uid://bmwn7wjkepyo0" path="res://Scripts/State Machine/States/idle.gd" id="3_6t5aa"]
 [ext_resource type="Texture2D" uid="uid://bpjbpnmltedt7" path="res://Sprites/Player/OutlinePlayerWJump.png" id="3_ijj68"]
-[ext_resource type="Texture2D" uid="uid://ycrb8p6w8t1d" path="res://Sprites/Player/OutlinePlayer.png" id="3_mywf8"]
 [ext_resource type="Script" uid="uid://cskynxj3ye5lj" path="res://Scripts/State Machine/States/walk.gd" id="4_x3wgy"]
 [ext_resource type="Script" uid="uid://cljna3ygi6seg" path="res://Scripts/State Machine/States/jump.gd" id="5_3smsa"]
 [ext_resource type="Script" uid="uid://c04s813u8xgs4" path="res://Scripts/State Machine/States/fall.gd" id="6_8erm5"]
@@ -41,6 +40,10 @@ region = Rect2(96, 0, 32, 32)
 [sub_resource type="AtlasTexture" id="AtlasTexture_0v33m"]
 atlas = ExtResource("2_10mje")
 region = Rect2(288, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bl7w6"]
+atlas = ExtResource("2_10mje")
+region = Rect2(256, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_j4rlg"]
 atlas = ExtResource("2_10mje")
@@ -95,6 +98,14 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_bl7w6")
+}],
+"loop": false,
+"name": &"land",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_j4rlg")
 }, {
 "duration": 1.0,
@@ -114,43 +125,47 @@ animations = [{
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_mywf8"]
 light_mode = 2
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_bl7w6"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_tf8jh"]
 atlas = ExtResource("3_ijj68")
 region = Rect2(320, 0, 32, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_eltkk"]
-atlas = ExtResource("3_mywf8")
+[sub_resource type="AtlasTexture" id="AtlasTexture_emc7e"]
+atlas = ExtResource("3_ijj68")
 region = Rect2(0, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_ijj68"]
-atlas = ExtResource("3_mywf8")
-region = Rect2(32, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_10mje"]
-atlas = ExtResource("3_mywf8")
-region = Rect2(64, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_tf8jh"]
-atlas = ExtResource("3_mywf8")
-region = Rect2(96, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ca2e4"]
 atlas = ExtResource("3_ijj68")
-region = Rect2(288, 0, 32, 32)
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1430o"]
+atlas = ExtResource("3_ijj68")
+region = Rect2(64, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_drq6x"]
 atlas = ExtResource("3_ijj68")
-region = Rect2(128, 0, 32, 32)
+region = Rect2(96, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_wj0qo"]
 atlas = ExtResource("3_ijj68")
-region = Rect2(160, 0, 32, 32)
+region = Rect2(288, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_2ouum"]
 atlas = ExtResource("3_ijj68")
-region = Rect2(192, 0, 32, 32)
+region = Rect2(256, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_aaxfx"]
+atlas = ExtResource("3_ijj68")
+region = Rect2(128, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tx84u"]
+atlas = ExtResource("3_ijj68")
+region = Rect2(160, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vlbs1"]
+atlas = ExtResource("3_ijj68")
+region = Rect2(192, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_u73ry"]
 atlas = ExtResource("3_ijj68")
 region = Rect2(224, 0, 32, 32)
 
@@ -158,7 +173,7 @@ region = Rect2(224, 0, 32, 32)
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_bl7w6")
+"texture": SubResource("AtlasTexture_tf8jh")
 }],
 "loop": true,
 "name": &"fall",
@@ -166,16 +181,16 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_eltkk")
+"texture": SubResource("AtlasTexture_emc7e")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_ijj68")
+"texture": SubResource("AtlasTexture_ca2e4")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_10mje")
+"texture": SubResource("AtlasTexture_1430o")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_tf8jh")
+"texture": SubResource("AtlasTexture_drq6x")
 }],
 "loop": true,
 "name": &"idle",
@@ -183,7 +198,7 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_ca2e4")
+"texture": SubResource("AtlasTexture_wj0qo")
 }],
 "loop": false,
 "name": &"jump",
@@ -191,16 +206,24 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_drq6x")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_wj0qo")
-}, {
-"duration": 1.0,
 "texture": SubResource("AtlasTexture_2ouum")
+}],
+"loop": false,
+"name": &"land",
+"speed": 5.0
 }, {
+"frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_aaxfx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tx84u")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vlbs1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_u73ry")
 }],
 "loop": true,
 "name": &"walk",
@@ -227,12 +250,12 @@ current = true
 [node name="NormalSprite" type="AnimatedSprite2D" parent="Player"]
 light_mask = 0
 sprite_frames = SubResource("SpriteFrames_cvnsp")
-animation = &"idle"
+animation = &"land"
 
 [node name="OutlineSprite" type="AnimatedSprite2D" parent="Player"]
 material = SubResource("CanvasItemMaterial_mywf8")
 sprite_frames = SubResource("SpriteFrames_bl7w6")
-animation = &"idle"
+animation = &"walk"
 
 [node name="MovementMachine" type="Node" parent="Player" node_paths=PackedStringArray("starting_state")]
 script = ExtResource("1_v0iea")
@@ -309,7 +332,7 @@ size = Vector2(3, 3)
 area_name = "on_area2"
 cooldown = 0.1
 buffer = NodePath("../../../BufferTimer")
-animation_name = "walk"
+animation_name = "land"
 move_speed = 75.0
 m_acceleration = 6.0
 max_fall_speed = 75.0

@@ -1,8 +1,7 @@
-[gd_scene load_steps=6 format=3 uid="uid://dcieph43xcbua"]
+[gd_scene load_steps=5 format=3 uid="uid://dcieph43xcbua"]
 
-[ext_resource type="Texture2D" uid="uid://c31w8hqy1s0cm" path="res://Sprites/Sprites With Normals/CommonParticle.tres" id="1_6xkcr"]
 [ext_resource type="PackedScene" uid="uid://2ta1x0uihou2" path="res://Scenes/Other/stop.tscn" id="1_kkqnu"]
-[ext_resource type="PackedScene" uid="uid://xvqacbjtmvu3" path="res://Scenes/Other/vanish.tscn" id="2_6xkcr"]
+[ext_resource type="Texture2D" uid="uid://c4wva51122cjw" path="res://Sprites/Particles/particles.png" id="1_m0xp0"]
 [ext_resource type="Gradient" uid="uid://dwjogb312p5di" path="res://Resources/Fade.tres" id="2_m0xp0"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_m0xp0"]
@@ -17,7 +16,7 @@ z_index = -1
 material = SubResource("CanvasItemMaterial_m0xp0")
 emitting = false
 amount = 1
-texture = ExtResource("1_6xkcr")
+texture = ExtResource("1_m0xp0")
 one_shot = true
 spread = 180.0
 gravity = Vector2(0, -20)
@@ -25,13 +24,11 @@ initial_velocity_min = 10.0
 initial_velocity_max = 10.0
 angle_min = -90.0
 angle_max = 90.0
+scale_amount_min = 2.0
+scale_amount_max = 2.0
 color_ramp = ExtResource("2_m0xp0")
 anim_speed_min = 1.0
 anim_speed_max = 1.0
 
 [node name="Stop" parent="." node_paths=PackedStringArray("parent") instance=ExtResource("1_kkqnu")]
 parent = NodePath("..")
-
-[node name="Vanish" parent="." node_paths=PackedStringArray("to_fade") instance=ExtResource("2_6xkcr")]
-to_fade = NodePath("..")
-use_global_sig = true

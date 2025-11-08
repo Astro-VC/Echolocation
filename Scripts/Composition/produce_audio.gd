@@ -23,7 +23,7 @@ func _ready() -> void:
 		sig_node.echo.connect(produce_audio.bind())
 
 func _unhandled_input(_event: InputEvent) -> void:
-	if Input.is_action_just_pressed(input) and use_input == true:
+	if use_input == true and Input.is_action_just_pressed(input):
 		produce_audio()
 
 func produce_audio() -> void:

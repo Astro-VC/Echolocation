@@ -1,8 +1,7 @@
-[gd_scene load_steps=6 format=3 uid="uid://dytbo0l50rpq8"]
+[gd_scene load_steps=5 format=3 uid="uid://dytbo0l50rpq8"]
 
-[ext_resource type="Texture2D" uid="uid://c1axwdcvxbqfa" path="res://Sprites/Sprites With Normals/LandParticle.tres" id="1_8kr02"]
+[ext_resource type="Texture2D" uid="uid://dy7qmro0ddg2" path="res://Sprites/Particles/land_particle.png" id="1_8kr02"]
 [ext_resource type="PackedScene" uid="uid://2ta1x0uihou2" path="res://Scenes/Other/stop.tscn" id="1_xtxxs"]
-[ext_resource type="PackedScene" uid="uid://xvqacbjtmvu3" path="res://Scenes/Other/vanish.tscn" id="2_8kr02"]
 [ext_resource type="Gradient" uid="uid://dwjogb312p5di" path="res://Resources/Fade.tres" id="2_ylcmv"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_ylcmv"]
@@ -29,7 +28,3 @@ anim_speed_max = 1.0
 
 [node name="Stop" parent="." node_paths=PackedStringArray("parent") instance=ExtResource("1_xtxxs")]
 parent = NodePath("..")
-
-[node name="Vanish" parent="." node_paths=PackedStringArray("to_fade") instance=ExtResource("2_8kr02")]
-to_fade = NodePath("..")
-use_global_sig = true

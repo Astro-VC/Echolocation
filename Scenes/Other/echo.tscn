@@ -9,23 +9,37 @@
 
 [node name="Echo" type="Node2D"]
 
-[node name="PointLight2D" type="PointLight2D" parent="."]
+[node name="Outside" type="PointLight2D" parent="."]
 color = Color(0.872362, 0.859906, 0.976277, 1)
 energy = 0.5
 blend_mode = 2
 texture = ExtResource("1_nqw0r")
 
-[node name="PointLight2D2" type="PointLight2D" parent="PointLight2D"]
+[node name="Inside" type="PointLight2D" parent="Outside"]
 use_parent_material = true
 scale = Vector2(0.7, 0.7)
 color = Color(0.961707, 0.98, 0.9408, 1)
 blend_mode = 2
 texture = ExtResource("2_1u7jf")
 
-[node name="on_echo" type="Area2D" parent="PointLight2D"]
+[node name="BlankOutside" type="PointLight2D" parent="Outside"]
+color = Color(0.87416, 0.8624, 0.98, 0)
+energy = 0.0
+range_item_cull_mask = 2
+texture = ExtResource("1_nqw0r")
+
+[node name="BlankInside" type="PointLight2D" parent="Outside"]
+use_parent_material = true
+scale = Vector2(0.7, 0.7)
+color = Color(0.961707, 0.98, 0.9408, 0)
+energy = 0.0
+range_item_cull_mask = 2
+texture = ExtResource("2_1u7jf")
+
+[node name="on_echo" type="Area2D" parent="Outside"]
 monitoring = false
 
-[node name="Collision" type="CollisionShape2D" parent="PointLight2D/on_echo"]
+[node name="Collision" type="CollisionShape2D" parent="Outside/on_echo"]
 shape = SubResource("CircleShape2D_1u7jf")
 debug_color = Color(0.84, 0.4956, 0.83426, 0)
 
@@ -35,8 +49,8 @@ one_shot = true
 [node name="Delete" type="Node" parent="." node_paths=PackedStringArray("timer", "wave")]
 script = ExtResource("2_gk1v2")
 timer = NodePath("../Timer")
-wave = NodePath("../PointLight2D")
+wave = NodePath("../Outside")
 
 [node name="SetColor" parent="." node_paths=PackedStringArray("wave1", "wave2") instance=ExtResource("4_0reps")]
-wave1 = NodePath("../PointLight2D")
-wave2 = NodePath("../PointLight2D/PointLight2D2")
+wave1 = NodePath("../Outside")
+wave2 = NodePath("../Outside/Inside")

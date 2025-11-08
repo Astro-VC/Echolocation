@@ -1,0 +1,8 @@
+[gd_resource type="LabelSettings" load_steps=2 format=3 uid="uid://bbbqp22a6es0l"]
+
+[ext_resource type="FontFile" uid="uid://dmrjoldmob4to" path="res://Resources/Fonts/Not Jam Atomic 20.ttf" id="1_vc3ee"]
+
+[resource]
+font = ExtResource("1_vc3ee")
+font_size = 80
+font_color = Color(0.796078, 0.796078, 0.796078, 1)

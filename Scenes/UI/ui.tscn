@@ -1,0 +1,66 @@
+[gd_scene load_steps=5 format=3 uid="uid://d1chejkbwy6eg"]
+
+[ext_resource type="LabelSettings" uid="uid://bbbqp22a6es0l" path="res://Resources/Fonts/Fade.tres" id="1_ahcct"]
+[ext_resource type="FontFile" uid="uid://dmrjoldmob4to" path="res://Resources/Fonts/Not Jam Atomic 20.ttf" id="2_de23q"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_ahcct"]
+light_mode = 2
+
+[sub_resource type="LabelSettings" id="LabelSettings_c7mb3"]
+font = ExtResource("2_de23q")
+font_size = 80
+font_color = Color(0.160784, 0.160784, 0.160784, 1)
+outline_size = 4
+outline_color = Color(0.160784, 0.160784, 0.160784, 1)
+
+[node name="UI" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Map" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Stats" type="Control" parent="."]
+z_index = -2
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Life" type="Label" parent="Stats"]
+modulate = Color(1, 1, 1, 0.247059)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "No Sight"
+label_settings = ExtResource("1_ahcct")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Life2" type="Label" parent="Stats"]
+light_mask = 2
+material = SubResource("CanvasItemMaterial_ahcct")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "No Sight"
+label_settings = SubResource("LabelSettings_c7mb3")
+horizontal_alignment = 1
+vertical_alignment = 1

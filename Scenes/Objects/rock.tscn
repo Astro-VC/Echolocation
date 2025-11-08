@@ -117,6 +117,7 @@ cooldown = 0.1
 [node name="ProduceAudio" parent="." node_paths=PackedStringArray("tree", "parent", "sig_node") instance=ExtResource("9_6y6ft")]
 tree = NodePath("..")
 parent = NodePath("../Projectile")
+input = "up"
 sig_node = NodePath("../Detect")
 use_signal = true
 
