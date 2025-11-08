@@ -26,6 +26,7 @@ func process_input(event: InputEvent) -> State:
 func process_physics(delta: float) -> State:
 	squish(delta)
 	move(delta, move_speed, m_acceleration, m_deceleration, gravity)
+	reset_scale(delta, squish_speed)
 	
 	if parent.is_on_floor():
 		return land

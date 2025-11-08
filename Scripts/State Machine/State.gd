@@ -28,6 +28,7 @@ var parent : CharacterBody2D
 func enter() -> void:
 	parent.normal_animation.play(animation_name)
 	parent.outline_animation.play(animation_name)
+	print(animation_name)
 
 func exit() -> void:
 	pass

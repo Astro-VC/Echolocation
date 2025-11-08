@@ -27,7 +27,8 @@ func process_physics(delta: float) -> State:
 	reset_scale(delta, squish_speed)
 	
 	if Engine.get_physics_frames() % 30 == 0:
-		squish(delta, 6)
+		parent.normal_animation.scale = squish_amount
+		parent.outline_animation.scale = squish_amount
 	
 	if parent.velocity.x == 0:
 		return idle

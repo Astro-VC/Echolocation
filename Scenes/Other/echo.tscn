@@ -25,6 +25,7 @@ monitoring = false
 
 [node name="Collision" type="CollisionShape2D" parent="PointLight2D/on_echo"]
 shape = SubResource("CircleShape2D_1u7jf")
+debug_color = Color(0.84, 0.4956, 0.83426, 0)
 
 [node name="Timer" type="Timer" parent="."]
 one_shot = true
