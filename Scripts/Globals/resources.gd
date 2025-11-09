@@ -2,5 +2,14 @@ extends Node
 
 #Stores values
 
-var projectiles : PackedInt32Array = [10]
+var projectiles : PackedInt32Array = [100]
 var life : PackedInt32Array = [3]
+
+var last_sound_pos : Vector2
+var sound_volume : float = 0
+
+
+func _physics_process(delta: float) -> void:
+	if sound_volume >= 1:
+		sound_volume -= delta * 4
+		Global.noise_updated.emit()

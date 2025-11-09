@@ -10,6 +10,11 @@ extends Node
 @export var direction : float
 @export var global_dir : bool = false
 
+@export_category("Cooldown")
+@export var timer : Timer
+@export var cooldown_time : float
+@export var use_cooldown : bool
+
 @export_category("Input")
 @export var use_input : bool
 @export var input : String
@@ -29,7 +34,7 @@ func _ready() -> void:
 
 func _unhandled_input(_event: InputEvent) -> void:
 	if Input.is_action_just_pressed(input) and use_input == true:
-		if check_inventory():
+		if check_inventory() and timer.is_stopped():
 			remove_value()
 			trow()
 
@@ -43,6 +48,11 @@ func trow() -> void:
 	temp.find_child("Delete").del = true
 	
 	tree.get_parent().add_child(temp)
+	Global.projectile_used.emit()
+	
+	if use_cooldown:
+		timer.start(cooldown_time)
+	
 	pass
 
 func global_set() -> void:

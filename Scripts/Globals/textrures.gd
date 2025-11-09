@@ -13,6 +13,6 @@ var particles : PackedStringArray = [
  "res://Scenes/Particle/land_particle.tscn"
 ]
 
-var colors : PackedColorArray = [Color("dedbf9"), Color("edcad2"), Color("f0faf9"), Color("f0f3c2")]
+var colors : PackedColorArray = [Color("dedbf9"), Color("c5edea"), Color("f0faf9"), Color("f0f3c2"), Color("ffc2c4"), Color("ff7569"), Color("bca59a"), Color("c4a082")]
 
 var collected : PackedStringArray = ["res://Sprites/Objects/RocKWHite.png"]

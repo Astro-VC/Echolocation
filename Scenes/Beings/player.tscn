@@ -242,7 +242,7 @@ state_machine = NodePath("MovementMachine")
 [node name="CollisonP" type="CollisionShape2D" parent="Player"]
 position = Vector2(0, 6)
 shape = SubResource("RectangleShape2D_tf8jh")
-debug_color = Color(1, 0.624771, 0.707048, 0)
+debug_color = Color(0.717915, 0.717623, 1, 0)
 
 [node name="AudioListener2D" type="AudioListener2D" parent="Player"]
 current = true
@@ -250,7 +250,7 @@ current = true
 [node name="NormalSprite" type="AnimatedSprite2D" parent="Player"]
 light_mask = 0
 sprite_frames = SubResource("SpriteFrames_cvnsp")
-animation = &"land"
+animation = &"idle"
 
 [node name="OutlineSprite" type="AnimatedSprite2D" parent="Player"]
 material = SubResource("CanvasItemMaterial_mywf8")
@@ -323,11 +323,12 @@ max_fall_speed = 490.0
 squish_speed = 3.0
 squish_amount = Vector2(0.9, 1.1)
 
-[node name="land" type="Node" parent="Player/MovementMachine" node_paths=PackedStringArray("idle", "jump", "walk", "buffer", "tree")]
+[node name="land" type="Node" parent="Player/MovementMachine" node_paths=PackedStringArray("idle", "jump", "walk", "fall", "buffer", "tree")]
 script = ExtResource("11_tf8jh")
 idle = NodePath("../idle")
 jump = NodePath("../jump")
 walk = NodePath("../walk")
+fall = NodePath("../fall")
 size = Vector2(3, 3)
 area_name = "on_area2"
 cooldown = 0.1
@@ -344,12 +345,14 @@ particle_ID = 2
 [node name="Screech" parent="." node_paths=PackedStringArray("parent", "tree", "timer") instance=ExtResource("12_j4rlg")]
 parent = NodePath("../Player")
 tree = NodePath("..")
+echo_noise = 5.0
 detection_area_name = "on_echo"
 timer = NodePath("../ScreechTimer")
 
 [node name="ScreechLand" parent="." node_paths=PackedStringArray("parent", "tree", "sig_node", "timer") instance=ExtResource("12_j4rlg")]
 parent = NodePath("../Player")
 tree = NodePath("..")
+echo_noise = 1.0
 fade_speed = Vector2(0.5, 0.5)
 detection_area_name = "on_echo"
 use_input = false
@@ -362,13 +365,16 @@ to_fade = NodePath("../Player/OutlineSprite")
 sig_node = NodePath("../Screech")
 use_global_sig = true
 
-[node name="TrowProjectile" parent="." node_paths=PackedStringArray("parent", "tree") instance=ExtResource("14_j4rlg")]
+[node name="TrowProjectile" parent="." node_paths=PackedStringArray("parent", "tree", "timer") instance=ExtResource("14_j4rlg")]
 parent = NodePath("../Player")
 tree = NodePath("..")
 amount = 1
 trow_velocity = Vector2(-500, 0)
 direction = 1.0
 global_dir = true
+timer = NodePath("../CooldownTimer")
+cooldown_time = 0.6
+use_cooldown = true
 use_input = true
 input = "down"
 
@@ -379,4 +385,7 @@ one_shot = true
 one_shot = true
 
 [node name="CoyoteTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="CooldownTimer" type="Timer" parent="."]
 one_shot = true

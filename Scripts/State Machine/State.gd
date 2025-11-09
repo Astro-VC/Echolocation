@@ -8,7 +8,7 @@ extends Node
 @export var m_acceleration : float = 10
 @export var m_deceleration : float = 8
 
-@export_category("Jump")
+@export_category("Jump / Tp")
 @export var jump_speed : float = 150
 @export var j_acceleration : float = 10
 @export var j_deceleration : float = 8
@@ -25,16 +25,19 @@ extends Node
 @export var tree : Node2D
 @export var particle_ID : int
 
+@export_category("Timer")
+@export var timer : Timer
+@export var time : float
 
 ## Hold a reference to the parent so that it can be controlled by the state
 var parent : CharacterBody2D
 var particle : PackedScene
+var rand_state : int
 
 func enter() -> void:
 	particle = load(Textures.particles[particle_ID])
 	parent.normal_animation.play(animation_name)
 	parent.outline_animation.play(animation_name)
-	print(animation_name)
 
 func exit() -> void:
 	pass
@@ -75,6 +78,16 @@ func move(delta : float, spd : float, acc : float, deac : float, grav : float, m
 		parent.velocity.x = lerpf(parent.velocity.x, 0, deac * delta)
 	
 	parent.move_and_slide()
+func mv_monster(delta : float, nav : NavigationAgent2D) -> void:
+	parent.velocity.y += gravity * delta
+	parent.velocity.y = clampf(parent.velocity.y, 0, max_fall_speed)
+	
+	if !nav.is_target_reached():
+		var direction : Vector2 = parent.to_local(nav.get_next_path_position()).normalized()
+		parent.velocity.x = lerpf(parent.velocity.x, (move_speed * direction.x), m_acceleration * delta)
+		flip(parent.velocity.x)
+	
+	parent.move_and_slide()
 
 func squish(delta : float, sqsh_speed : float = squish_speed) -> void:
 	parent.normal_animation.scale = lerp(parent.normal_animation.scale, squish_amount, delta * sqsh_speed)
@@ -84,3 +97,8 @@ func do_particle() -> void:
 	var temp := particle.instantiate()
 	temp.global_position = Vector2(parent.global_position.x, parent.global_position.y + 12)
 	tree.get_parent().call_deferred("add_child", temp)
+
+func check_monster_state() -> bool:
+	if Global.chase:
+		return true
+	return false

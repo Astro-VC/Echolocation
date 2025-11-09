@@ -3,6 +3,7 @@ extends State
 @export var idle : State
 @export var jump : State
 @export var walk : State
+@export var fall : State
 
 @export_category("Echo")
 @export var size : Vector2
@@ -24,6 +25,9 @@ func enter() -> void:
 
 func process_physics(delta: float) -> State:
 	move(delta, move_speed, m_acceleration, m_deceleration, gravity)
+	
+	if !parent.is_on_floor():
+		return fall
 	
 	if !buffer.is_stopped():
 		return jump

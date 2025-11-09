@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://bsp7cqqshbjay"]
+[gd_scene load_steps=15 format=3 uid="uid://bsp7cqqshbjay"]
 
 [ext_resource type="Texture2D" uid="uid://ckd46u2y2viev" path="res://Sprites/Objects/Rock (1).png" id="1_8gfo0"]
 [ext_resource type="Texture2D" uid="uid://cox4dcsvutncx" path="res://Sprites/Objects/RockOutline.png" id="3_bk1ij"]
@@ -10,8 +10,12 @@
 [ext_resource type="PackedScene" uid="uid://dc2qoqskj6apx" path="res://Scenes/Other/screech.tscn" id="7_fsbm5"]
 [ext_resource type="PackedScene" uid="uid://co44s1prswpj4" path="res://Scenes/Other/produce_audio.tscn" id="9_6y6ft"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_8gfo0"]
-radius = 4.0
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_6y6ft"]
+absorbent = true
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_6y6ft"]
+radius = 3.0
+height = 8.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_nqguc"]
 radius = 8.0
@@ -55,12 +59,16 @@ func delete() -> void:
 [node name="Projectile" type="RigidBody2D" parent="."]
 collision_layer = 2
 collision_mask = 2
+collision_priority = 50.0
+physics_material_override = SubResource("PhysicsMaterial_6y6ft")
+center_of_mass_mode = 1
+can_sleep = false
 freeze_mode = 1
 contact_monitor = true
 max_contacts_reported = 1
 
 [node name="Collision" type="CollisionShape2D" parent="Projectile"]
-shape = SubResource("CircleShape2D_8gfo0")
+shape = SubResource("CapsuleShape2D_6y6ft")
 debug_color = Color(0.065, 0.65, 0.23075, 0)
 
 [node name="detect" type="Area2D" parent="Projectile"]
@@ -71,6 +79,7 @@ shape = SubResource("CircleShape2D_nqguc")
 debug_color = Color(1, 0.774651, 0.292471, 0)
 
 [node name="Base" type="Sprite2D" parent="Projectile"]
+light_mask = 0
 texture = ExtResource("1_8gfo0")
 hframes = 3
 
@@ -105,7 +114,8 @@ use_global_sig = true
 [node name="Screech" parent="." node_paths=PackedStringArray("parent", "tree", "sig_node", "timer") instance=ExtResource("7_fsbm5")]
 parent = NodePath("../Projectile")
 tree = NodePath("..")
-echo_color_id = 1
+echo_color_id = 6
+echo_noise = 3.0
 echo_size = Vector2(5, 5)
 detection_area_name = "on_echo2"
 use_input = false

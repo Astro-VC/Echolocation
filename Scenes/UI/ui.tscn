@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://d1chejkbwy6eg"]
+[gd_scene load_steps=6 format=3 uid="uid://d1chejkbwy6eg"]
 
 [ext_resource type="LabelSettings" uid="uid://bbbqp22a6es0l" path="res://Resources/Fonts/Fade.tres" id="1_ahcct"]
 [ext_resource type="FontFile" uid="uid://dmrjoldmob4to" path="res://Resources/Fonts/Not Jam Atomic 20.ttf" id="2_de23q"]
+[ext_resource type="Script" uid="uid://b0q62gu1pgwwu" path="res://Scripts/Composition/update_text.gd" id="3_c7mb3"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_ahcct"]
 light_mode = 2
@@ -39,7 +40,7 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="Life" type="Label" parent="Stats"]
-modulate = Color(1, 1, 1, 0.247059)
+modulate = Color(1, 1, 1, 0.164706)
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -64,3 +65,21 @@ text = "No Sight"
 label_settings = SubResource("LabelSettings_c7mb3")
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="UpdateText" type="Node" parent="Stats" node_paths=PackedStringArray("label")]
+script = ExtResource("3_c7mb3")
+label = NodePath("../Life")
+string = "Noise: "
+data_to_show = "sound_volume"
+use_data = true
+global_sig = "noise_updated"
+global_signal = true
+
+[node name="UpdateText2" type="Node" parent="Stats" node_paths=PackedStringArray("label")]
+script = ExtResource("3_c7mb3")
+label = NodePath("../Life2")
+string = "Noise: "
+data_to_show = "sound_volume"
+use_data = true
+global_sig = "noise_updated"
+global_signal = true
