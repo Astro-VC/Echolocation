@@ -4,12 +4,17 @@ extends State
 @export var walk : State
 @export var chase : State
 
+@export_category("Navigation")
+@export var nav_agent : NavigationAgent2D
+
 func enter() -> void:
 	super()
 	rand_state = randi_range(0,1)
+	parent.global_position = Resources.tp_pos
 
 
 func process_physics(delta: float) -> State:
+	mv_monster(delta, nav_agent)
 	
 	if parent.normal_animation.is_playing():
 		return null
@@ -17,11 +22,4 @@ func process_physics(delta: float) -> State:
 	if check_monster_state():
 		return chase
 	
-	match rand_state:
-		0:
-			return walk
-		1:
-			return idle
-	
-	
-	return null
+	return walk

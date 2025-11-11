@@ -11,6 +11,7 @@ extends Node
 
 @export_category("Area Settings")
 @export var detection_area_name : String
+@export var detect_player : bool
 
 @export_category("Input")
 @export var use_input : bool
@@ -50,6 +51,7 @@ func screech(ec_sz : Vector2 = echo_size, nam : String = detection_area_name, cl
 	var temp : Node2D = Textures.echo.instantiate()
 	temp.global_position = parent.global_position
 	temp.find_child("SetColor").color_id = clr_id
+	temp.find_child("DetectSound").detect_player = detect_player
 	temp.find_child("on_echo").name = nam
 	temp.find_child("Delete").time = fade_speed.x + fade_speed.y
 	temp.find_child("Delete").scale_to = ec_sz

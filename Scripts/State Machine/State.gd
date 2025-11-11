@@ -84,8 +84,25 @@ func mv_monster(delta : float, nav : NavigationAgent2D) -> void:
 	
 	if !nav.is_target_reached():
 		var direction : Vector2 = parent.to_local(nav.get_next_path_position()).normalized()
+		var di : Vector2 = nav.get_next_path_position()
+		
+		
+		if check_range(di):
+			var temp : PackedVector2Array = nav.get_current_navigation_path()
+			var tmp : int = temp.size()
+			
+			Resources.tp_pos = temp[tmp - 2]
+			Resources.can_tp = true
+		
 		parent.velocity.x = lerpf(parent.velocity.x, (move_speed * direction.x), m_acceleration * delta)
 		flip(parent.velocity.x)
+	
+	parent.move_and_slide()
+func walk_monster(delta : float, dir : int) -> void:
+	parent.velocity.y += gravity * delta
+	parent.velocity.y = clampf(parent.velocity.y, 0, max_fall_speed)
+	parent.velocity.x = lerpf(parent.velocity.x, (move_speed * dir), m_acceleration * delta)
+	flip(dir)
 	
 	parent.move_and_slide()
 
@@ -100,5 +117,9 @@ func do_particle() -> void:
 
 func check_monster_state() -> bool:
 	if Global.chase:
+		return true
+	return false
+func check_range(dir : Vector2) -> bool:
+	if dir.y < parent.global_position.y - 16:
 		return true
 	return false

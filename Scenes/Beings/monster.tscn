@@ -9,7 +9,6 @@
 [ext_resource type="PackedScene" uid="uid://dc2qoqskj6apx" path="res://Scenes/Other/screech.tscn" id="5_yfhod"]
 [ext_resource type="PackedScene" uid="uid://xvqacbjtmvu3" path="res://Scenes/Other/vanish.tscn" id="6_cnkcl"]
 [ext_resource type="Texture2D" uid="uid://sftps3na6d75" path="res://Sprites/Monster/WalkOutlineMonster.png" id="6_ixs0l"]
-[ext_resource type="PackedScene" uid="uid://dy180hpj3xd1e" path="res://Scenes/Other/detect_sound.tscn" id="7_ixs0l"]
 [ext_resource type="Script" uid="uid://bq2qoq5ybal0q" path="res://Scripts/State Machine/State_Machine.gd" id="7_rhwn1"]
 [ext_resource type="PackedScene" uid="uid://co44s1prswpj4" path="res://Scenes/Other/produce_audio.tscn" id="8_rhwn1"]
 [ext_resource type="Script" uid="uid://b0kupi70x4jam" path="res://Scripts/Monster/States/idle.gd" id="9_msaru"]
@@ -17,6 +16,7 @@
 [ext_resource type="Script" uid="uid://bhcyieh6nnwva" path="res://Scripts/Monster/States/chase.gd" id="11_ldsxp"]
 [ext_resource type="Script" uid="uid://bsoldk7h5s48i" path="res://Scripts/Monster/States/tp.gd" id="12_cx74k"]
 [ext_resource type="Script" uid="uid://ckjgsqrkqp4d" path="res://Scripts/Monster/States/tp_out.gd" id="13_uwsol"]
+[ext_resource type="Script" uid="uid://cw1ydtopbtprq" path="res://Scripts/Monster/States/scream.gd" id="14_uwsol"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_d4ttg"]
 size = Vector2(12, 14)
@@ -529,75 +529,111 @@ outline_animation = NodePath("Outline")
 state_machine = NodePath("MovementMachine")
 
 [node name="CollisionM" type="CollisionShape2D" parent="Monster"]
-position = Vector2(0, 7)
 shape = SubResource("RectangleShape2D_d4ttg")
 debug_color = Color(0.992352, 0, 0.208314, 0)
 
 [node name="Base" type="AnimatedSprite2D" parent="Monster"]
+light_mask = 0
+position = Vector2(0, -7)
 sprite_frames = SubResource("SpriteFrames_q3ga3")
-animation = &"tp_in"
-frame = 7
-frame_progress = 1.0
+animation = &"scream"
 
 [node name="Outline" type="AnimatedSprite2D" parent="Monster"]
 material = SubResource("CanvasItemMaterial_y7xhm")
+position = Vector2(0, -7)
 sprite_frames = SubResource("SpriteFrames_mv3y0")
-animation = &"walk"
+animation = &"scream"
 
 [node name="PathFinding" type="NavigationAgent2D" parent="Monster"]
+path_desired_distance = 40.0
+target_desired_distance = 60.0
 path_postprocessing = 1
 avoidance_enabled = true
+max_neighbors = 20
 debug_enabled = true
 debug_path_custom_color = Color(1, 0.33, 0.33, 1)
 
 [node name="MovementMachine" type="Node" parent="Monster" node_paths=PackedStringArray("starting_state")]
 script = ExtResource("7_rhwn1")
-starting_state = NodePath("tp_in")
+starting_state = NodePath("idle")
 
-[node name="idle" type="Node" parent="Monster/MovementMachine" node_paths=PackedStringArray("walk", "chase", "tp_out", "timer")]
+[node name="idle" type="Node" parent="Monster/MovementMachine" node_paths=PackedStringArray("walk", "chase", "scream", "timer")]
 script = ExtResource("9_msaru")
 walk = NodePath("../walk")
 chase = NodePath("../chase")
-tp_out = NodePath("../tp_out")
+scream = NodePath("../scream")
+change = Vector2i(0, 2)
 animation_name = "idle"
 timer = NodePath("../../../StateTimer")
+time = 5.0
 
-[node name="walk" type="Node" parent="Monster/MovementMachine"]
+[node name="walk" type="Node" parent="Monster/MovementMachine" node_paths=PackedStringArray("tp_out", "idle", "scream", "chase", "timer")]
 script = ExtResource("10_uwsol")
+tp_out = NodePath("../tp_out")
+idle = NodePath("../idle")
+scream = NodePath("../scream")
+chase = NodePath("../chase")
+change = Vector2i(0, 1)
 animation_name = "walk"
+move_speed = 15.0
+m_acceleration = 3.0
+m_deceleration = 3.0
+timer = NodePath("../../../StateTimer")
+time = 1.0
 
-[node name="chase" type="Node" parent="Monster/MovementMachine" node_paths=PackedStringArray("tp_out", "walk", "idle", "nav_agent")]
+[node name="chase" type="Node" parent="Monster/MovementMachine" node_paths=PackedStringArray("tp_out", "walk", "idle", "nav_agent", "timer")]
 script = ExtResource("11_ldsxp")
 tp_out = NodePath("../tp_out")
 walk = NodePath("../walk")
 idle = NodePath("../idle")
 nav_agent = NodePath("../../PathFinding")
-animation_name = "chase"
+animation_name = "walk"
+timer = NodePath("../../../StateTimer")
 
-[node name="tp_in" type="Node" parent="Monster/MovementMachine" node_paths=PackedStringArray("idle", "walk", "chase")]
+[node name="tp_in" type="Node" parent="Monster/MovementMachine" node_paths=PackedStringArray("idle", "walk", "chase", "nav_agent")]
 script = ExtResource("12_cx74k")
 idle = NodePath("../idle")
 walk = NodePath("../walk")
 chase = NodePath("../chase")
+nav_agent = NodePath("../../PathFinding")
 animation_name = "tp_in"
 
-[node name="tp_out" type="Node" parent="Monster/MovementMachine"]
+[node name="tp_out" type="Node" parent="Monster/MovementMachine" node_paths=PackedStringArray("tp_in", "chase", "walk", "idle")]
 script = ExtResource("13_uwsol")
+tp_in = NodePath("../tp_in")
+chase = NodePath("../chase")
+walk = NodePath("../walk")
+idle = NodePath("../idle")
 animation_name = "tp_out"
 
-[node name="Screech" parent="." node_paths=PackedStringArray("parent", "tree") instance=ExtResource("5_yfhod")]
+[node name="scream" type="Node" parent="Monster/MovementMachine" node_paths=PackedStringArray("idle", "walk", "chase")]
+script = ExtResource("14_uwsol")
+idle = NodePath("../idle")
+walk = NodePath("../walk")
+chase = NodePath("../chase")
+change = Vector2i(0, 1)
+animation_name = "scream"
+
+[node name="Screech" parent="." node_paths=PackedStringArray("parent", "tree", "sig_node", "timer") instance=ExtResource("5_yfhod")]
 parent = NodePath("../Monster")
 tree = NodePath("..")
-echo_color_id = 4
+echo_color_id = 5
 echo_size = Vector2(20, 20)
+detection_area_name = "on_area3"
+detect_player = true
+use_input = false
+sig_node = NodePath("../Monster/MovementMachine/scream")
+use_signal = true
+timer = NodePath("../EchoTimer")
 
 [node name="Vanish" parent="." node_paths=PackedStringArray("to_fade") instance=ExtResource("6_cnkcl")]
 to_fade = NodePath("../Monster/Outline")
 use_global_sig = true
 
-[node name="DetectSound" parent="." instance=ExtResource("7_ixs0l")]
-
 [node name="ProduceAudio" parent="." instance=ExtResource("8_rhwn1")]
 
 [node name="StateTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="EchoTimer" type="Timer" parent="."]
 one_shot = true
