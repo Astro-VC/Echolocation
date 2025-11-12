@@ -7,10 +7,13 @@ extends State
 @export_category("Navigation")
 @export var nav_agent : NavigationAgent2D
 
+signal echo
+
 func enter() -> void:
 	super()
 	rand_state = randi_range(0,1)
 	parent.global_position = Resources.tp_pos
+	echo.emit()
 
 
 func process_physics(delta: float) -> State:
@@ -19,7 +22,7 @@ func process_physics(delta: float) -> State:
 	if parent.normal_animation.is_playing():
 		return null
 	
-	if check_monster_state():
+	if check_player() or Global.noise:
 		return chase
 	
 	return walk

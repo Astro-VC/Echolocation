@@ -9,6 +9,7 @@ extends State
 
 func enter() -> void:
 	super()
+	
 	rand_state = randi_range(change.x,change.y)
 	print(rand_state)
 	timer.start(time)
@@ -19,7 +20,8 @@ func process_physics(delta: float) -> State:
 	parent.velocity.x = lerpf(parent.velocity.x, 0, m_deceleration * delta)
 	parent.move_and_slide()
 	
-	if check_monster_state():
+	
+	if (Global.noise and Resources.sound_volume >= 3) or check_player():
 		return chase
 	
 	if !timer.is_stopped():

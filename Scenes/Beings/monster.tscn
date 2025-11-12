@@ -1,4 +1,4 @@
-[gd_scene load_steps=84 format=3 uid="uid://hcdylxbcjni1"]
+[gd_scene load_steps=87 format=3 uid="uid://hcdylxbcjni1"]
 
 [ext_resource type="Texture2D" uid="uid://d2kqegovfa475" path="res://Sprites/Monster/MonsterBase.png" id="1_0akpd"]
 [ext_resource type="Script" uid="uid://bi5hg7tb65moq" path="res://Scripts/State Machine/player.gd" id="1_ixs0l"]
@@ -17,9 +17,14 @@
 [ext_resource type="Script" uid="uid://bsoldk7h5s48i" path="res://Scripts/Monster/States/tp.gd" id="12_cx74k"]
 [ext_resource type="Script" uid="uid://ckjgsqrkqp4d" path="res://Scripts/Monster/States/tp_out.gd" id="13_uwsol"]
 [ext_resource type="Script" uid="uid://cw1ydtopbtprq" path="res://Scripts/Monster/States/scream.gd" id="14_uwsol"]
+[ext_resource type="PackedScene" uid="uid://dy180hpj3xd1e" path="res://Scenes/Other/detect_sound.tscn" id="18_ldsxp"]
+[ext_resource type="Script" uid="uid://d12b3exd6fwih" path="res://Scripts/Composition/force_screech.gd" id="19_cx74k"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_d4ttg"]
 size = Vector2(12, 14)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_cx74k"]
+size = Vector2(10, 13)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_mv3y0"]
 atlas = ExtResource("1_0akpd")
@@ -532,6 +537,13 @@ state_machine = NodePath("MovementMachine")
 shape = SubResource("RectangleShape2D_d4ttg")
 debug_color = Color(0.992352, 0, 0.208314, 0)
 
+[node name="Hitbox" type="Area2D" parent="Monster"]
+
+[node name="CollisionH" type="CollisionShape2D" parent="Monster/Hitbox"]
+position = Vector2(0, 3.5)
+shape = SubResource("RectangleShape2D_cx74k")
+debug_color = Color(1, 0.51, 0.893833, 0)
+
 [node name="Base" type="AnimatedSprite2D" parent="Monster"]
 light_mask = 0
 position = Vector2(0, -7)
@@ -545,12 +557,9 @@ sprite_frames = SubResource("SpriteFrames_mv3y0")
 animation = &"scream"
 
 [node name="PathFinding" type="NavigationAgent2D" parent="Monster"]
-path_desired_distance = 40.0
-target_desired_distance = 60.0
 path_postprocessing = 1
 avoidance_enabled = true
 max_neighbors = 20
-debug_enabled = true
 debug_path_custom_color = Color(1, 0.33, 0.33, 1)
 
 [node name="MovementMachine" type="Node" parent="Monster" node_paths=PackedStringArray("starting_state")]
@@ -564,6 +573,9 @@ chase = NodePath("../chase")
 scream = NodePath("../scream")
 change = Vector2i(0, 2)
 animation_name = "idle"
+m_acceleration = 6.0
+m_deceleration = 4.0
+gravity = 200.0
 timer = NodePath("../../../StateTimer")
 time = 5.0
 
@@ -578,17 +590,25 @@ animation_name = "walk"
 move_speed = 15.0
 m_acceleration = 3.0
 m_deceleration = 3.0
+gravity = 200.0
 timer = NodePath("../../../StateTimer")
 time = 1.0
 
-[node name="chase" type="Node" parent="Monster/MovementMachine" node_paths=PackedStringArray("tp_out", "walk", "idle", "nav_agent", "timer")]
+[node name="chase" type="Node" parent="Monster/MovementMachine" node_paths=PackedStringArray("tp_out", "walk", "idle", "scream", "nav_agent", "timer")]
 script = ExtResource("11_ldsxp")
 tp_out = NodePath("../tp_out")
 walk = NodePath("../walk")
 idle = NodePath("../idle")
+scream = NodePath("../scream")
 nav_agent = NodePath("../../PathFinding")
+change = Vector2i(0, 1)
 animation_name = "walk"
+move_speed = 30.0
+m_acceleration = 6.0
+m_deceleration = 4.0
+gravity = 200.0
 timer = NodePath("../../../StateTimer")
+time = 5.0
 
 [node name="tp_in" type="Node" parent="Monster/MovementMachine" node_paths=PackedStringArray("idle", "walk", "chase", "nav_agent")]
 script = ExtResource("12_cx74k")
@@ -597,6 +617,10 @@ walk = NodePath("../walk")
 chase = NodePath("../chase")
 nav_agent = NodePath("../../PathFinding")
 animation_name = "tp_in"
+move_speed = 30.0
+m_acceleration = 6.0
+m_deceleration = 4.0
+gravity = 200.0
 
 [node name="tp_out" type="Node" parent="Monster/MovementMachine" node_paths=PackedStringArray("tp_in", "chase", "walk", "idle")]
 script = ExtResource("13_uwsol")
@@ -605,6 +629,10 @@ chase = NodePath("../chase")
 walk = NodePath("../walk")
 idle = NodePath("../idle")
 animation_name = "tp_out"
+move_speed = 30.0
+m_acceleration = 6.0
+m_deceleration = 4.0
+gravity = 200.0
 
 [node name="scream" type="Node" parent="Monster/MovementMachine" node_paths=PackedStringArray("idle", "walk", "chase")]
 script = ExtResource("14_uwsol")
@@ -613,16 +641,43 @@ walk = NodePath("../walk")
 chase = NodePath("../chase")
 change = Vector2i(0, 1)
 animation_name = "scream"
+m_acceleration = 6.0
+m_deceleration = 4.0
+gravity = 200.0
 
 [node name="Screech" parent="." node_paths=PackedStringArray("parent", "tree", "sig_node", "timer") instance=ExtResource("5_yfhod")]
 parent = NodePath("../Monster")
 tree = NodePath("..")
 echo_color_id = 5
-echo_size = Vector2(20, 20)
-detection_area_name = "on_area3"
-detect_player = true
+echo_size = Vector2(12, 12)
+produce_noise = false
+detection_area_name = "mons"
 use_input = false
 sig_node = NodePath("../Monster/MovementMachine/scream")
+use_signal = true
+timer = NodePath("../EchoTimer")
+
+[node name="ScreechTP" parent="." node_paths=PackedStringArray("parent", "tree", "sig_node", "timer") instance=ExtResource("5_yfhod")]
+parent = NodePath("../Monster")
+tree = NodePath("..")
+echo_color_id = 4
+echo_size = Vector2(5, 5)
+produce_noise = false
+detection_area_name = "null"
+use_input = false
+sig_node = NodePath("../Monster/MovementMachine/tp_out")
+use_signal = true
+timer = NodePath("../EchoTimer")
+
+[node name="ScreechTP2" parent="." node_paths=PackedStringArray("parent", "tree", "sig_node", "timer") instance=ExtResource("5_yfhod")]
+parent = NodePath("../Monster")
+tree = NodePath("..")
+echo_color_id = 4
+echo_size = Vector2(5, 5)
+produce_noise = false
+detection_area_name = "null"
+use_input = false
+sig_node = NodePath("../Monster/MovementMachine/tp_in")
 use_signal = true
 timer = NodePath("../EchoTimer")
 
@@ -631,6 +686,25 @@ to_fade = NodePath("../Monster/Outline")
 use_global_sig = true
 
 [node name="ProduceAudio" parent="." instance=ExtResource("8_rhwn1")]
+
+[node name="DetectSound" parent="." node_paths=PackedStringArray("area") instance=ExtResource("18_ldsxp")]
+area = NodePath("../Monster/Hitbox")
+
+[node name="DetectSound2" parent="." node_paths=PackedStringArray("area") instance=ExtResource("18_ldsxp")]
+area = NodePath("../Monster/Hitbox")
+area_name = "on_echo2"
+
+[node name="ForceScreech" type="Node" parent="." node_paths=PackedStringArray("node_to_force", "state_machine", "sig_node")]
+script = ExtResource("19_cx74k")
+node_to_force = NodePath("../Monster/MovementMachine/scream")
+state_machine = NodePath("../Monster/MovementMachine")
+sig_node = NodePath("../DetectSound")
+
+[node name="ForceScreech2" type="Node" parent="." node_paths=PackedStringArray("node_to_force", "state_machine", "sig_node")]
+script = ExtResource("19_cx74k")
+node_to_force = NodePath("../Monster/MovementMachine/scream")
+state_machine = NodePath("../Monster/MovementMachine")
+sig_node = NodePath("../DetectSound2")
 
 [node name="StateTimer" type="Timer" parent="."]
 one_shot = true

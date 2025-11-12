@@ -1,4 +1,4 @@
-[gd_scene load_steps=40 format=3 uid="uid://bevm8733iebep"]
+[gd_scene load_steps=43 format=3 uid="uid://bevm8733iebep"]
 
 [ext_resource type="Script" uid="uid://bi5hg7tb65moq" path="res://Scripts/State Machine/player.gd" id="1_cvnsp"]
 [ext_resource type="Script" uid="uid://bq2qoq5ybal0q" path="res://Scripts/State Machine/State_Machine.gd" id="1_v0iea"]
@@ -12,10 +12,15 @@
 [ext_resource type="PackedScene" uid="uid://xvqacbjtmvu3" path="res://Scenes/Other/vanish.tscn" id="10_eltkk"]
 [ext_resource type="Script" uid="uid://cow8tv5ufekqs" path="res://Scripts/State Machine/States/land.gd" id="11_tf8jh"]
 [ext_resource type="PackedScene" uid="uid://dc2qoqskj6apx" path="res://Scenes/Other/screech.tscn" id="12_j4rlg"]
+[ext_resource type="PackedScene" uid="uid://dy180hpj3xd1e" path="res://Scenes/Other/detect_sound.tscn" id="14_bq3id"]
 [ext_resource type="PackedScene" uid="uid://c803eehq2robn" path="res://Scenes/Other/trow_projectile.tscn" id="14_j4rlg"]
+[ext_resource type="Script" uid="uid://cjkh253nxy5ce" path="res://Scripts/Composition/spotted.gd" id="15_bq3id"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_tf8jh"]
 size = Vector2(14, 16)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_j4rlg"]
+size = Vector2(10, 13)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_wj16j"]
 atlas = ExtResource("2_10mje")
@@ -244,6 +249,13 @@ position = Vector2(0, 6)
 shape = SubResource("RectangleShape2D_tf8jh")
 debug_color = Color(0.717915, 0.717623, 1, 0)
 
+[node name="Hitbox" type="Area2D" parent="Player"]
+
+[node name="CollisionH" type="CollisionShape2D" parent="Player/Hitbox"]
+position = Vector2(0, 3.5)
+shape = SubResource("RectangleShape2D_j4rlg")
+debug_color = Color(1, 0.51, 0.893833, 0)
+
 [node name="AudioListener2D" type="AudioListener2D" parent="Player"]
 current = true
 
@@ -377,6 +389,16 @@ cooldown_time = 0.6
 use_cooldown = true
 use_input = true
 input = "down"
+
+[node name="DetectSound" parent="." node_paths=PackedStringArray("area") instance=ExtResource("14_bq3id")]
+area = NodePath("../Player/Hitbox")
+area_name = "mons"
+
+[node name="Spotted" type="Node" parent="." node_paths=PackedStringArray("sig_node")]
+script = ExtResource("15_bq3id")
+use_siganl = true
+sig_node = NodePath("../DetectSound")
+sig_to_get = "inside"
 
 [node name="ScreechTimer" type="Timer" parent="."]
 one_shot = true

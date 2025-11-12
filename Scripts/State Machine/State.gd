@@ -38,6 +38,7 @@ func enter() -> void:
 	particle = load(Textures.particles[particle_ID])
 	parent.normal_animation.play(animation_name)
 	parent.outline_animation.play(animation_name)
+	print(animation_name)
 
 func exit() -> void:
 	pass
@@ -77,8 +78,9 @@ func move(delta : float, spd : float, acc : float, deac : float, grav : float, m
 	if dir == 0 and !Input.is_action_pressed("checkMovement"):
 		parent.velocity.x = lerpf(parent.velocity.x, 0, deac * delta)
 	
+	Resources.player_pos = parent.global_position
 	parent.move_and_slide()
-func mv_monster(delta : float, nav : NavigationAgent2D) -> void:
+func mv_monster(delta : float, nav : NavigationAgent2D, stt : State = null) -> State:
 	parent.velocity.y += gravity * delta
 	parent.velocity.y = clampf(parent.velocity.y, 0, max_fall_speed)
 	
@@ -91,13 +93,18 @@ func mv_monster(delta : float, nav : NavigationAgent2D) -> void:
 			var temp : PackedVector2Array = nav.get_current_navigation_path()
 			var tmp : int = temp.size()
 			
-			Resources.tp_pos = temp[tmp - 2]
+			Resources.tp_pos = temp[tmp - 3]
 			Resources.can_tp = true
 		
 		parent.velocity.x = lerpf(parent.velocity.x, (move_speed * direction.x), m_acceleration * delta)
 		flip(parent.velocity.x)
+	else:
+		if !check_player():
+			Global.noise = false
+			return stt
 	
 	parent.move_and_slide()
+	return null
 func walk_monster(delta : float, dir : int) -> void:
 	parent.velocity.y += gravity * delta
 	parent.velocity.y = clampf(parent.velocity.y, 0, max_fall_speed)
@@ -115,11 +122,17 @@ func do_particle() -> void:
 	temp.global_position = Vector2(parent.global_position.x, parent.global_position.y + 12)
 	tree.get_parent().call_deferred("add_child", temp)
 
-func check_monster_state() -> bool:
-	if Global.chase:
+func check_player() -> bool:
+	if Global.chase_player:
 		return true
 	return false
 func check_range(dir : Vector2) -> bool:
 	if dir.y < parent.global_position.y - 16:
 		return true
 	return false
+func check_noise(sound_limit : int, stt : State) -> State:
+	
+	if Resources.sound_volume >= sound_limit:
+		return stt
+	
+	return null

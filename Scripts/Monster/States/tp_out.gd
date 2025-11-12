@@ -5,9 +5,12 @@ extends State
 @export var walk : State
 @export var idle : State
 
+signal echo
+
 func enter() -> void:
 	super()
 	Resources.can_tp = false
+	echo.emit()
 
 
 func process_physics(delta: float) -> State:

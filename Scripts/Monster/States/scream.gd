@@ -16,11 +16,10 @@ func enter() -> void:
 	hold = 0
 	rand_state = randi_range(change.x,change.y)
 
-
-
 func process_physics(delta: float) -> State:
 	parent.velocity.y += gravity * delta
 	parent.velocity.y = clampf(parent.velocity.y, 0, max_fall_speed)
+	parent.velocity.x = lerpf(parent.velocity.x, 0, m_deceleration * delta)
 	parent.move_and_slide()
 	
 	if parent.normal_animation.frame == 5 and hold == 0:
@@ -34,7 +33,7 @@ func process_physics(delta: float) -> State:
 		parent.outline_animation.play_backwards()
 		return null
 	
-	if check_monster_state():
+	if check_player():
 		return chase
 	
 	if rand_state == change.y:
