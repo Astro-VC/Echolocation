@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://bhdhvjgsj61qf"]
+
+[ext_resource type="Script" uid="uid://nrsrj0ow2k8m" path="res://Scripts/Composition/camare_stuff.gd" id="1_mw08v"]
+
+[node name="CamareStuff" type="Node"]
+script = ExtResource("1_mw08v")

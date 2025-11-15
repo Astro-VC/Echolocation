@@ -528,6 +528,8 @@ animations = [{
 [node name="Monster" type="Node2D"]
 
 [node name="Monster" type="CharacterBody2D" parent="." node_paths=PackedStringArray("normal_animation", "outline_animation", "state_machine")]
+collision_layer = 64
+collision_mask = 64
 script = ExtResource("1_ixs0l")
 normal_animation = NodePath("Base")
 outline_animation = NodePath("Outline")
@@ -545,6 +547,7 @@ shape = SubResource("RectangleShape2D_cx74k")
 debug_color = Color(1, 0.51, 0.893833, 0)
 
 [node name="Base" type="AnimatedSprite2D" parent="Monster"]
+modulate = Color(0.458824, 0.458824, 0.458824, 1)
 light_mask = 0
 position = Vector2(0, -7)
 sprite_frames = SubResource("SpriteFrames_q3ga3")
@@ -557,6 +560,8 @@ sprite_frames = SubResource("SpriteFrames_mv3y0")
 animation = &"scream"
 
 [node name="PathFinding" type="NavigationAgent2D" parent="Monster"]
+path_desired_distance = 30.0
+target_desired_distance = 50.0
 path_postprocessing = 1
 avoidance_enabled = true
 max_neighbors = 20
@@ -645,6 +650,32 @@ m_acceleration = 6.0
 m_deceleration = 4.0
 gravity = 200.0
 
+[node name="ScreechAudio" parent="Monster" node_paths=PackedStringArray("tree", "parent", "sig_node") instance=ExtResource("8_rhwn1")]
+tree = NodePath("../..")
+parent = NodePath("..")
+audio_id = 3
+volume = -20.0
+pitch_rand = Vector2(1.4, 1.4)
+random_pitch = true
+sig_node = NodePath("../MovementMachine/scream")
+use_signal = true
+
+[node name="TpAudio" parent="Monster" node_paths=PackedStringArray("tree", "parent", "sig_node") instance=ExtResource("8_rhwn1")]
+tree = NodePath("../..")
+parent = NodePath("..")
+audio_id = 5
+volume = -8.0
+sig_node = NodePath("../MovementMachine/tp_in")
+use_signal = true
+
+[node name="TpAudio2" parent="Monster" node_paths=PackedStringArray("tree", "parent", "sig_node") instance=ExtResource("8_rhwn1")]
+tree = NodePath("../..")
+parent = NodePath("..")
+audio_id = 5
+volume = -8.0
+sig_node = NodePath("../MovementMachine/tp_out")
+use_signal = true
+
 [node name="Screech" parent="." node_paths=PackedStringArray("parent", "tree", "sig_node", "timer") instance=ExtResource("5_yfhod")]
 parent = NodePath("../Monster")
 tree = NodePath("..")
@@ -684,8 +715,6 @@ timer = NodePath("../EchoTimer")
 [node name="Vanish" parent="." node_paths=PackedStringArray("to_fade") instance=ExtResource("6_cnkcl")]
 to_fade = NodePath("../Monster/Outline")
 use_global_sig = true
-
-[node name="ProduceAudio" parent="." instance=ExtResource("8_rhwn1")]
 
 [node name="DetectSound" parent="." node_paths=PackedStringArray("area") instance=ExtResource("18_ldsxp")]
 area = NodePath("../Monster/Hitbox")

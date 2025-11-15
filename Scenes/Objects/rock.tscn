@@ -79,6 +79,7 @@ shape = SubResource("CircleShape2D_nqguc")
 debug_color = Color(1, 0.774651, 0.292471, 0)
 
 [node name="Base" type="Sprite2D" parent="Projectile"]
+modulate = Color(0.458824, 0.458824, 0.458824, 1)
 light_mask = 0
 texture = ExtResource("1_8gfo0")
 hframes = 3

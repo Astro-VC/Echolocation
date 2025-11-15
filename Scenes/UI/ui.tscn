@@ -10,9 +10,9 @@ light_mode = 2
 [sub_resource type="LabelSettings" id="LabelSettings_c7mb3"]
 font = ExtResource("2_de23q")
 font_size = 80
-font_color = Color(0.160784, 0.160784, 0.160784, 1)
+font_color = Color(0.0745098, 0.0745098, 0.0745098, 1)
 outline_size = 4
-outline_color = Color(0.160784, 0.160784, 0.160784, 1)
+outline_color = Color(0.0745098, 0.0745098, 0.0745098, 1)
 
 [node name="UI" type="Control"]
 layout_mode = 3
@@ -40,7 +40,7 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="Life" type="Label" parent="Stats"]
-modulate = Color(1, 1, 1, 0.164706)
+modulate = Color(1, 1, 1, 0.0823529)
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -53,7 +53,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="Life2" type="Label" parent="Stats"]
-light_mask = 2
+light_mask = 4
 material = SubResource("CanvasItemMaterial_ahcct")
 layout_mode = 1
 anchors_preset = 15
@@ -69,17 +69,19 @@ vertical_alignment = 1
 [node name="UpdateText" type="Node" parent="Stats" node_paths=PackedStringArray("label")]
 script = ExtResource("3_c7mb3")
 label = NodePath("../Life")
-string = "Noise: "
-data_to_show = "sound_volume"
+string = "Life: "
+data_to_show = "life"
+is_array = true
 use_data = true
-global_sig = "noise_updated"
+global_sig = "damage"
 global_signal = true
 
 [node name="UpdateText2" type="Node" parent="Stats" node_paths=PackedStringArray("label")]
 script = ExtResource("3_c7mb3")
 label = NodePath("../Life2")
-string = "Noise: "
-data_to_show = "sound_volume"
+string = "Life: "
+data_to_show = "life"
+is_array = true
 use_data = true
-global_sig = "noise_updated"
+global_sig = "damage"
 global_signal = true

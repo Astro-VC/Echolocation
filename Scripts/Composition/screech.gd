@@ -9,6 +9,8 @@ extends Node
 @export var echo_size : Vector2 = Vector2(1,1)
 @export var fade_speed : Vector2
 @export var produce_noise : bool = true
+@export var show_tiles : bool = true
+@export var camera_zoom : bool = false
 
 @export_category("Area Settings")
 @export var detection_area_name : String
@@ -19,6 +21,7 @@ extends Node
 
 @export_category("Signal")
 @export var sig_node : Node
+@export var sig_name : String = "echo"
 @export var use_signal : bool
 
 @export_category("Cooldown")
@@ -33,7 +36,7 @@ func _ready() -> void:
 	timer.timeout.connect(update.bind())
 	
 	if use_signal == true and sig_node:
-		sig_node.echo.connect(screech.bind())
+		sig_node.get(sig_name).connect(screech.bind())
 
 func _unhandled_input(event: InputEvent) -> void:
 	if Input.is_action_just_pressed(input) and use_input == true:
@@ -42,11 +45,16 @@ func _unhandled_input(event: InputEvent) -> void:
 func screech(ec_sz : Vector2 = echo_size, nam : String = detection_area_name, clr_id : int = echo_color_id, tmr : float = cooldown) -> void:
 	if rdy == false:
 		return
-	
-	echo.emit(fade_speed.x, fade_speed.y)
-	Global.echo.emit(fade_speed.x, fade_speed.y)
-	
 	timer.start(tmr)
+	
+	if show_tiles:
+		echo.emit(fade_speed.x, fade_speed.y)
+		Global.echo.emit(fade_speed.x, fade_speed.y)
+	
+	if camera_zoom:
+		Global.zoom.emit()
+	
+	
 	rdy = false
 	var temp : Node2D = Textures.echo.instantiate()
 	temp.global_position = parent.global_position

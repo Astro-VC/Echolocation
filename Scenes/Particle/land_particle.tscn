@@ -12,6 +12,7 @@ particles_anim_v_frames = 1
 particles_anim_loop = false
 
 [node name="land_particle" type="CPUParticles2D"]
+light_mask = 3
 z_index = 1
 material = SubResource("CanvasItemMaterial_ylcmv")
 emitting = false

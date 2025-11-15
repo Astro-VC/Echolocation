@@ -2,8 +2,11 @@ extends Node
 
 #Stores values
 
-var projectiles : PackedInt32Array = [100]
+var projectiles : PackedInt64Array = [99999999]
 var life : PackedInt32Array = [3]
+
+## monster, parkour, maze
+var seals : Array[bool] = [true,true,true]
 
 var last_sound_pos : Vector2
 var sound_volume : float = 0

@@ -21,7 +21,7 @@ func process_physics(delta: float) -> State:
 	parent.move_and_slide()
 	
 	
-	if (Global.noise and Resources.sound_volume >= 3) or check_player():
+	if (Global.noise and Resources.sound_volume >= 5) or check_player():
 		return chase
 	
 	if !timer.is_stopped():

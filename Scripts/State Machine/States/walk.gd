@@ -8,6 +8,8 @@ extends State
 @export var coyote : Timer
 @export var cyt_time : float
 
+signal echo
+
 func enter() -> void:
 	super()
 
@@ -26,8 +28,12 @@ func process_physics(delta: float) -> State:
 	move(delta, move_speed, m_acceleration, m_deceleration, gravity)
 	reset_scale(delta, squish_speed)
 	
+	if Engine.get_physics_frames() % 20 == 0:
+		echo.emit()
+	
 	if Engine.get_physics_frames() % 30 == 0:
 		do_particle()
+		
 		parent.normal_animation.scale = squish_amount
 		parent.outline_animation.scale = squish_amount
 	

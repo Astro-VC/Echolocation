@@ -3,6 +3,8 @@ extends CharacterBody2D
 
 @export var normal_animation : AnimatedSprite2D
 @export var outline_animation : AnimatedSprite2D
+@export var white_animation : AnimatedSprite2D
+@export var color_animation : AnimatedSprite2D
 
 @export var state_machine : Node
 

@@ -9,15 +9,18 @@ var scale_to : Vector2
 var time : float
 
 func _ready() -> void:
-	timer.timeout.connect(delete.bind())
+	if timer:
+		timer.timeout.connect(delete.bind())
 	
-	original_scale = wave.scale
+		original_scale = wave.scale
 	
-	move_wave()
-	timer.start(time)
+	if wave:
+		move_wave()
+		timer.start(time)
 
 func _physics_process(delta: float) -> void:
-	wave.scale += (scale_to / 12) * delta
+	if wave != null:
+		wave.scale += (scale_to / 12) * delta
 
 func move_wave() -> void:
 	var tween : Tween = get_parent().create_tween()

@@ -38,7 +38,11 @@ func enter() -> void:
 	particle = load(Textures.particles[particle_ID])
 	parent.normal_animation.play(animation_name)
 	parent.outline_animation.play(animation_name)
-	print(animation_name)
+	if parent.white_animation:
+		parent.white_animation.play(animation_name)
+	
+	if parent.color_animation:
+		parent.color_animation.play(animation_name)
 
 func exit() -> void:
 	pass
@@ -55,11 +59,23 @@ func process_physics(delta: float) -> State:
 func reset_scale(delta : float, sqsh_speed : int) -> void:
 	parent.normal_animation.scale = lerp(parent.normal_animation.scale, Vector2(1, 1), delta * sqsh_speed)
 	parent.outline_animation.scale = lerp(parent.outline_animation.scale, Vector2(1, 1), delta * sqsh_speed)
+	
+	if parent.white_animation:
+		parent.white_animation.scale = lerp(parent.white_animation.scale, Vector2(1, 1), delta * sqsh_speed)
+	
+	if parent.color_animation:
+		parent.color_animation.scale = lerp(parent.color_animation.scale, Vector2(1, 1), delta * sqsh_speed)
 
 
 func flip(dir : float) -> void:
 	parent.normal_animation.flip_h = dir < 0
 	parent.outline_animation.flip_h = dir < 0
+	
+	if parent.white_animation:
+		parent.white_animation.flip_h = dir < 0
+	
+	if parent.color_animation:
+		parent.color_animation.flip_h = dir < 0
 
 func move(delta : float, spd : float, acc : float, deac : float, grav : float, min : float = 0) -> void:
 	parent.velocity.y += grav * delta
@@ -99,9 +115,8 @@ func mv_monster(delta : float, nav : NavigationAgent2D, stt : State = null) -> S
 		parent.velocity.x = lerpf(parent.velocity.x, (move_speed * direction.x), m_acceleration * delta)
 		flip(parent.velocity.x)
 	else:
-		if !check_player():
-			Global.noise = false
-			return stt
+		Global.noise = false
+		return stt
 	
 	parent.move_and_slide()
 	return null
@@ -116,6 +131,12 @@ func walk_monster(delta : float, dir : int) -> void:
 func squish(delta : float, sqsh_speed : float = squish_speed) -> void:
 	parent.normal_animation.scale = lerp(parent.normal_animation.scale, squish_amount, delta * sqsh_speed)
 	parent.outline_animation.scale = lerp(parent.outline_animation.scale, squish_amount, delta * sqsh_speed)
+	
+	if parent.white_animation:
+		parent.white_animation.scale = lerp(parent.white_animation.scale, squish_amount, delta * sqsh_speed)
+	
+	if parent.color_animation:
+		parent.color_animation.scale = lerp(parent.color_animation.scale, squish_amount, delta * sqsh_speed)
 
 func do_particle() -> void:
 	var temp := particle.instantiate()

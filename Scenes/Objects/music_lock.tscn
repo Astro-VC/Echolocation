@@ -1,0 +1,95 @@
+[gd_scene load_steps=11 format=3 uid="uid://bw5hkvsahdk77"]
+
+[ext_resource type="Texture2D" uid="uid://b2qdtboh0no62" path="res://Sprites/Objects/MusicTape.png" id="1_v2tsk"]
+[ext_resource type="Material" uid="uid://do00jxdie5vra" path="res://Resources/sonar.tres" id="2_yr2nx"]
+[ext_resource type="Texture2D" uid="uid://cj7b7mvsjmmo8" path="res://Sprites/Objects/MusicTapeOutline.png" id="3_swa1f"]
+[ext_resource type="Script" uid="uid://3rb5r4l7d7hm" path="res://Scripts/Composition/musics_control.gd" id="4_yr2nx"]
+[ext_resource type="Script" uid="uid://dxpvia2buqong" path="res://Scripts/Composition/collect.gd" id="5_swa1f"]
+[ext_resource type="PackedScene" uid="uid://d4nvdcxabix6v" path="res://Scenes/Other/delete.tscn" id="6_7q7p8"]
+[ext_resource type="PackedScene" uid="uid://dc2qoqskj6apx" path="res://Scenes/Other/screech.tscn" id="7_seu5m"]
+[ext_resource type="PackedScene" uid="uid://xvqacbjtmvu3" path="res://Scenes/Other/vanish.tscn" id="8_oajkr"]
+
+[sub_resource type="GDScript" id="GDScript_seu5m"]
+script/source = "extends Node2D
+
+@export var speed : float = 5
+var count : float
+
+
+func _physics_process(delta: float) -> void:
+	position.y = sin(count  + 1)
+	
+	count += delta * speed
+"
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_7q7p8"]
+
+[node name="MusicLock" type="Node2D"]
+
+[node name="Music" type="AudioStreamPlayer2D" parent="."]
+autoplay = true
+attenuation = 2.0
+
+[node name="Sprites" type="Node2D" parent="Music"]
+script = SubResource("GDScript_seu5m")
+
+[node name="Base" type="Sprite2D" parent="Music/Sprites"]
+modulate = Color(0.458824, 0.458824, 0.458824, 1)
+light_mask = 0
+texture = ExtResource("1_v2tsk")
+
+[node name="Outline" type="Sprite2D" parent="Music/Sprites"]
+material = ExtResource("2_yr2nx")
+texture = ExtResource("3_swa1f")
+
+[node name="detec" type="Area2D" parent="Music"]
+collision_layer = 0
+
+[node name="Collision" type="CollisionShape2D" parent="Music/detec"]
+shape = SubResource("CircleShape2D_7q7p8")
+debug_color = Color(0.515259, 0.546518, 0.493573, 0)
+
+[node name="MusicsControl" type="Node" parent="." node_paths=PackedStringArray("music", "area_to_use")]
+script = ExtResource("4_yr2nx")
+music = NodePath("../Music")
+seal_id = 3
+area_to_use = NodePath("../Music/detec")
+area_to_check = "on_echo"
+every_n_frames = 50
+
+[node name="Collect" type="Node" parent="." node_paths=PackedStringArray("tree", "parent", "sig_node", "delete_node", "sprite", "timer")]
+script = ExtResource("5_swa1f")
+tree = NodePath("..")
+parent = NodePath("../Music")
+sig_node = NodePath("../MusicsControl")
+delete_node = NodePath("../Delete")
+sprite = NodePath("../Music/Sprites/Base")
+timer = NodePath("../Timer")
+collected_id = 1
+duration = 0.5
+
+[node name="Delete" parent="." instance=ExtResource("6_7q7p8")]
+
+[node name="Screech" parent="." node_paths=PackedStringArray("parent", "tree", "sig_node", "timer") instance=ExtResource("7_seu5m")]
+parent = NodePath("../Music")
+tree = NodePath("..")
+echo_color_id = 3
+echo_size = Vector2(8, 8)
+fade_speed = Vector2(0.5, 2)
+produce_noise = false
+show_tiles = false
+detection_area_name = "musis"
+use_input = false
+sig_node = NodePath("../MusicsControl")
+use_signal = true
+timer = NodePath("../ScreechTimer")
+
+[node name="Vanish" parent="." node_paths=PackedStringArray("to_fade") instance=ExtResource("8_oajkr")]
+to_fade = NodePath("../Music/Sprites/Outline")
+use_global_sig = true
+
+[node name="ScreechTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="Timer" type="Timer" parent="."]
+one_shot = true

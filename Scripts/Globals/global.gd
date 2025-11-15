@@ -5,6 +5,10 @@ extends Node
 signal echo
 signal projectile_used
 signal noise_updated
+signal damage
+signal camera_shake
+signal update_color
+signal zoom
 
 var noise : bool = false
 

@@ -1,7 +1,7 @@
 extends Node
 
 @export var tree : Node2D
-@export var parent : RigidBody2D
+@export var parent : Node2D
 @export var sig_node : Node
 @export var delete_node : Node
 @export var projectile_id : int

@@ -23,6 +23,7 @@ extends Node
 @export var sig_node : Node
 @export var use_signal : bool
 
+signal echo
 
 var scene : PackedScene
 
@@ -49,6 +50,7 @@ func trow() -> void:
 	
 	tree.get_parent().add_child(temp)
 	Global.projectile_used.emit()
+	echo.emit()
 	
 	if use_cooldown:
 		timer.start(cooldown_time)

@@ -1,0 +1,87 @@
+[gd_scene load_steps=9 format=3 uid="uid://c32wbgwhpifc0"]
+
+[ext_resource type="PackedScene" uid="uid://dy180hpj3xd1e" path="res://Scenes/Other/detect_sound.tscn" id="1_i03vq"]
+[ext_resource type="Texture2D" uid="uid://ca3n0csedkalc" path="res://Sprites/Objects/Bell.png" id="2_gbqfk"]
+[ext_resource type="Material" uid="uid://do00jxdie5vra" path="res://Resources/sonar.tres" id="3_t54hc"]
+[ext_resource type="Texture2D" uid="uid://dxic3sypfk3m3" path="res://Sprites/Objects/BellOutline.png" id="3_u3c2g"]
+[ext_resource type="Texture2D" uid="uid://yuhj410ac8a6" path="res://Sprites/Objects/BellColor.png" id="4_t54hc"]
+[ext_resource type="PackedScene" uid="uid://co44s1prswpj4" path="res://Scenes/Other/produce_audio.tscn" id="6_0u3um"]
+[ext_resource type="PackedScene" uid="uid://dc2qoqskj6apx" path="res://Scenes/Other/screech.tscn" id="7_rm70y"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_q7own"]
+radius = 8.0
+
+[node name="Bell" type="Node2D"]
+
+[node name="Base" type="Sprite2D" parent="."]
+modulate = Color(0.458824, 0.458824, 0.458824, 1)
+light_mask = 0
+position = Vector2(0, -1)
+texture = ExtResource("2_gbqfk")
+
+[node name="Outline" type="Sprite2D" parent="."]
+material = ExtResource("3_t54hc")
+position = Vector2(0, -1)
+texture = ExtResource("3_u3c2g")
+
+[node name="Color" type="Sprite2D" parent="."]
+modulate = Color(0.7, 0.7, 0.7, 1)
+light_mask = 2
+material = ExtResource("3_t54hc")
+position = Vector2(0, -1)
+texture = ExtResource("4_t54hc")
+
+[node name="Area" type="Area2D" parent="."]
+collision_mask = 3
+
+[node name="Collision" type="CollisionShape2D" parent="Area"]
+shape = SubResource("CircleShape2D_q7own")
+debug_color = Color(0.8, 0.413333, 0, 0.0666667)
+
+[node name="DetectSound" parent="." node_paths=PackedStringArray("area", "collider") instance=ExtResource("1_i03vq")]
+area = NodePath("../Area")
+collider = NodePath("../Area")
+area_name = "on_rock"
+
+[node name="ProduceAudio" parent="." node_paths=PackedStringArray("tree", "parent", "sig_node") instance=ExtResource("6_0u3um")]
+tree = NodePath("..")
+parent = NodePath("..")
+audio_id = 7
+sig_node = NodePath("../DetectSound")
+use_signal = true
+sig_name = "inside"
+
+[node name="ProduceAudio2" parent="." node_paths=PackedStringArray("tree", "parent", "sig_node") instance=ExtResource("6_0u3um")]
+tree = NodePath("..")
+parent = NodePath("..")
+audio_id = 7
+sig_node = NodePath("../DetectSound")
+use_signal = true
+
+[node name="Screech" parent="." node_paths=PackedStringArray("parent", "tree", "sig_node", "timer") instance=ExtResource("7_rm70y")]
+parent = NodePath("../Base")
+tree = NodePath("..")
+echo_color_id = 9
+echo_noise = 8.0
+detection_area_name = "on_bell"
+use_input = false
+sig_node = NodePath("../DetectSound")
+sig_name = "inside"
+use_signal = true
+timer = NodePath("../BellTimer")
+cooldown = 1.0
+
+[node name="Screech2" parent="." node_paths=PackedStringArray("parent", "tree", "sig_node", "timer") instance=ExtResource("7_rm70y")]
+parent = NodePath("../Base")
+tree = NodePath("..")
+echo_color_id = 9
+echo_noise = 8.0
+detection_area_name = "on_bell"
+use_input = false
+sig_node = NodePath("../DetectSound")
+use_signal = true
+timer = NodePath("../BellTimer")
+cooldown = 1.0
+
+[node name="BellTimer" type="Timer" parent="."]
+one_shot = true

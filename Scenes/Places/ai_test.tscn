@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=4 uid="uid://cpb1428nlee0s"]
+[gd_scene load_steps=22 format=4 uid="uid://cpb1428nlee0s"]
 
 [ext_resource type="PackedScene" uid="uid://bevm8733iebep" path="res://Scenes/Beings/player.tscn" id="1_xlnwi"]
 [ext_resource type="PackedScene" uid="uid://hcdylxbcjni1" path="res://Scenes/Beings/monster.tscn" id="2_85ufl"]
@@ -9,6 +9,8 @@
 [ext_resource type="Texture2D" uid="uid://dew8lkq4u2h8m" path="res://Sprites/Tiles/BrickTile.png" id="7_llqbl"]
 [ext_resource type="Texture2D" uid="uid://buaj8226e6paf" path="res://Sprites/Tiles/Background .png" id="8_455e7"]
 [ext_resource type="PackedScene" uid="uid://xvqacbjtmvu3" path="res://Scenes/Other/vanish.tscn" id="9_eyq1x"]
+[ext_resource type="PackedScene" uid="uid://bw5hkvsahdk77" path="res://Scenes/Objects/music_lock.tscn" id="10_85ufl"]
+[ext_resource type="PackedScene" uid="uid://c32wbgwhpifc0" path="res://Scenes/Objects/bell.tscn" id="11_ar5xf"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_86ki6"]
 vertices = PackedVector2Array(314, 69, 314, 175.977, -314.977, 174.008, -314.688, 69, -37, -43, -37, -37, -43, -37, -43, -43)
@@ -518,7 +520,7 @@ texture = ExtResource("8_455e7")
 3:2/0 = 0
 
 [sub_resource type="TileSet" id="TileSet_eps6i"]
-physics_layer_0/collision_layer = 3
+physics_layer_0/collision_layer = 67
 physics_layer_0/collision_mask = 0
 terrain_set_0/mode = 2
 terrain_set_0/terrain_0/name = "Ground 0"
@@ -567,3 +569,9 @@ tile_set = SubResource("TileSet_eps6i")
 [node name="Vanish" parent="NavReg/Outlines2" node_paths=PackedStringArray("to_fade") instance=ExtResource("9_eyq1x")]
 to_fade = NodePath("..")
 use_global_sig = true
+
+[node name="MusicLock" parent="." instance=ExtResource("10_85ufl")]
+position = Vector2(-80, 20)
+
+[node name="Bell" parent="." instance=ExtResource("11_ar5xf")]
+position = Vector2(38, 26)

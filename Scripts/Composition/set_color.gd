@@ -6,5 +6,9 @@ extends Node
 var color_id : int = 0
 
 func _ready() -> void:
-	wave1.color = Textures.colors[color_id]
-	wave2.color = Textures.colors[color_id]
+	col(Textures.colors[color_id])
+	Global.update_color.connect(col.bind())
+
+func col(co : Color) -> void:
+	wave1.color = co
+	wave2.color = co

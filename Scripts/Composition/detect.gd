@@ -1,8 +1,9 @@
 extends Node
 
 @export var area : Area2D
-@export var collider : RigidBody2D
+@export var collider : Node2D
 @export var area_name : String = "on_echo"
+@export var coll_nam : String = "Player"
 
 var spawned_in : bool = false
 
@@ -21,5 +22,5 @@ func check(ar : Area2D) -> void:
 	if ar.name == area_name:
 		inside.emit()
 func check_collision(bdy : Node) -> void:
-	if bdy.name != "Player":
+	if bdy.name != coll_nam:
 		echo.emit()

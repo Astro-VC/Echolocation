@@ -15,13 +15,17 @@ extends State
 @export var buffer : Timer
 
 signal echo
+signal go
 
 func enter() -> void:
 	super()
 	do_particle()
 	echo.emit(size, area_name, color_id, cooldown)
+	go.emit()
 	parent.normal_animation.scale = squish_amount
 	parent.outline_animation.scale = squish_amount
+	parent.white_animation.scale = squish_amount
+	parent.color_animation.scale = squish_amount
 
 func process_physics(delta: float) -> State:
 	move(delta, move_speed, m_acceleration, m_deceleration, gravity)
