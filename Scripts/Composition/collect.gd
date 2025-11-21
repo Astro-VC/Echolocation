@@ -29,5 +29,6 @@ func collect() -> void:
 	var temp := particle.instantiate()
 	temp.global_position = parent.global_position
 	tree.get_parent().call_deferred("add_child", temp)
+	Global.tape_taken.emit()
 	
 	timer.start(duration)

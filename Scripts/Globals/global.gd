@@ -9,6 +9,7 @@ signal damage
 signal camera_shake
 signal update_color
 signal zoom
+signal tape_taken
 
 var noise : bool = false
 

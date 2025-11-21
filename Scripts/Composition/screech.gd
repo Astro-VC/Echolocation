@@ -1,7 +1,10 @@
 extends Node
 
+
 @export var parent : Node2D
 @export var tree : Node2D
+@export var custom_parent : bool
+@export var custom_name : String
 
 @export_category("Echo")
 @export var echo_color_id : int = 0
@@ -26,6 +29,7 @@ extends Node
 
 @export_category("Cooldown")
 @export var timer : Timer
+@export var use_timer : bool = true
 @export var cooldown : float = 2
 
 var rdy : bool = true
@@ -33,7 +37,8 @@ var rdy : bool = true
 signal echo
 
 func _ready() -> void:
-	timer.timeout.connect(update.bind())
+	if use_timer:
+		timer.timeout.connect(update.bind())
 	
 	if use_signal == true and sig_node:
 		sig_node.get(sig_name).connect(screech.bind())
@@ -57,7 +62,13 @@ func screech(ec_sz : Vector2 = echo_size, nam : String = detection_area_name, cl
 	
 	rdy = false
 	var temp : Node2D = Textures.echo.instantiate()
-	temp.global_position = parent.global_position
+	
+	if !custom_parent:
+		temp.global_position = parent.global_position
+	else:
+		temp.global_position = parent.get(custom_name).global_position
+	
+	
 	temp.find_child("SetColor").color_id = clr_id
 	temp.find_child("on_echo").name = nam
 	temp.find_child("Delete").time = fade_speed.x + fade_speed.y

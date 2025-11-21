@@ -1,8 +1,69 @@
-[gd_scene load_steps=6 format=3 uid="uid://d1chejkbwy6eg"]
+[gd_scene load_steps=11 format=3 uid="uid://d1chejkbwy6eg"]
 
+[ext_resource type="Material" uid="uid://do00jxdie5vra" path="res://Resources/sonar.tres" id="1_1c2ca"]
 [ext_resource type="LabelSettings" uid="uid://bbbqp22a6es0l" path="res://Resources/Fonts/Fade.tres" id="1_ahcct"]
+[ext_resource type="PackedScene" uid="uid://cecpcvluhc55j" path="res://Scenes/Objects/map_module.tscn" id="1_fo61o"]
 [ext_resource type="FontFile" uid="uid://dmrjoldmob4to" path="res://Resources/Fonts/Not Jam Atomic 20.ttf" id="2_de23q"]
 [ext_resource type="Script" uid="uid://b0q62gu1pgwwu" path="res://Scripts/Composition/update_text.gd" id="3_c7mb3"]
+[ext_resource type="Texture2D" uid="uid://x73pcrk26hql" path="res://Sprites/Tiles/HoverUiBack.png" id="3_jfwrg"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_1c2ca"]
+texture = ExtResource("3_jfwrg")
+0:0/0 = 0
+0:0/0/terrain = 0
+1:0/0 = 0
+1:0/0/terrain = 0
+2:0/0 = 0
+2:0/0/terrain = 0
+3:0/0 = 0
+3:0/0/terrain = 0
+0:1/0 = 0
+0:1/0/terrain = 0
+1:1/0 = 0
+1:1/0/terrain = 0
+3:1/0 = 0
+3:1/0/terrain = 0
+0:2/0 = 0
+0:2/0/terrain = 0
+1:2/0 = 0
+1:2/0/terrain = 0
+2:2/0 = 0
+2:2/0/terrain = 0
+3:2/0 = 0
+3:2/0/terrain = 0
+0:3/0 = 0
+0:3/0/terrain = 0
+1:3/0 = 0
+1:3/0/terrain = 0
+2:3/0 = 0
+2:3/0/terrain = 0
+3:3/0 = 0
+3:3/0/terrain = 0
+2:1/0 = 0
+2:1/0/terrain = 0
+4:0/0 = 0
+5:0/0 = 0
+4:1/0 = 0
+5:1/0 = 0
+4:2/0 = 0
+5:2/0 = 0
+4:3/0 = 0
+5:3/0 = 0
+0:4/0 = 0
+1:4/0 = 0
+2:4/0 = 0
+3:4/0 = 0
+4:4/0 = 0
+5:4/0 = 0
+0:5/0 = 0
+1:5/0 = 0
+2:5/0 = 0
+3:5/0 = 0
+4:5/0 = 0
+5:5/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_duuxe"]
+sources/0 = SubResource("TileSetAtlasSource_1c2ca")
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_ahcct"]
 light_mode = 2
@@ -30,12 +91,156 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
+[node name="MapModule" parent="Map" instance=ExtResource("1_fo61o")]
+layout_mode = 1
+
+[node name="MapModule2" parent="Map" instance=ExtResource("1_fo61o")]
+layout_mode = 1
+offset_left = 56.0
+offset_right = 56.0
+map_id = 1
+
+[node name="MapModule3" parent="Map" instance=ExtResource("1_fo61o")]
+layout_mode = 1
+offset_left = 56.0
+offset_top = 40.0
+offset_right = 56.0
+offset_bottom = 40.0
+map_id = 5
+
+[node name="MapModule4" parent="Map" instance=ExtResource("1_fo61o")]
+layout_mode = 1
+offset_left = 112.0
+offset_right = 112.0
+map_id = 2
+
+[node name="MapModule5" parent="Map" instance=ExtResource("1_fo61o")]
+layout_mode = 1
+offset_left = 112.0
+offset_top = 40.0
+offset_right = 112.0
+offset_bottom = 40.0
+map_id = 6
+
+[node name="MapModule6" parent="Map" instance=ExtResource("1_fo61o")]
+layout_mode = 1
+offset_left = -56.0
+offset_right = -56.0
+map_id = -1
+
+[node name="MapModule7" parent="Map" instance=ExtResource("1_fo61o")]
+layout_mode = 1
+offset_left = -112.0
+offset_right = -112.0
+map_id = -2
+
+[node name="MapModule8" parent="Map" instance=ExtResource("1_fo61o")]
+layout_mode = 1
+offset_left = -112.0
+offset_top = 40.0
+offset_right = -112.0
+offset_bottom = 40.0
+map_id = -5
+
+[node name="MapModule9" parent="Map" instance=ExtResource("1_fo61o")]
+layout_mode = 1
+offset_left = -168.0
+offset_top = 40.0
+offset_right = -168.0
+offset_bottom = 40.0
+map_id = -6
+
+[node name="MapModule10" parent="Map" instance=ExtResource("1_fo61o")]
+layout_mode = 1
+offset_left = -224.0
+offset_top = 40.0
+offset_right = -224.0
+offset_bottom = 40.0
+map_id = -7
+
+[node name="MapModule11" parent="Map" instance=ExtResource("1_fo61o")]
+layout_mode = 1
+offset_left = 168.0
+offset_top = 40.0
+offset_right = 168.0
+offset_bottom = 40.0
+map_id = 7
+
+[node name="MapModule12" parent="Map" instance=ExtResource("1_fo61o")]
+layout_mode = 1
+offset_left = 224.0
+offset_top = 40.0
+offset_right = 224.0
+offset_bottom = 40.0
+map_id = 8
+
+[node name="MapModule13" parent="Map" instance=ExtResource("1_fo61o")]
+layout_mode = 1
+offset_left = 224.0
+offset_right = 224.0
+map_id = 4
+
+[node name="Paths" type="Control" parent="."]
+visible = false
+modulate = Color(1, 1, 1, 0.305882)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Outline" type="TileMapLayer" parent="Paths"]
+material = ExtResource("1_1c2ca")
+position = Vector2(-300, -160)
+scale = Vector2(0.5, 0.5)
+tile_map_data = PackedByteArray(0, 0, 42, 0, 22, 0, 0, 0, 3, 0, 3, 0, 0, 0)
+tile_set = SubResource("TileSet_duuxe")
+
+[node name="Outline2" type="TileMapLayer" parent="Paths"]
+material = ExtResource("1_1c2ca")
+position = Vector2(-300, -160)
+scale = Vector2(0.5, 0.5)
+tile_map_data = PackedByteArray(0, 0, 49, 0, 22, 0, 0, 0, 3, 0, 3, 0, 0, 0)
+tile_set = SubResource("TileSet_duuxe")
+
+[node name="Outline3" type="TileMapLayer" parent="Paths"]
+material = ExtResource("1_1c2ca")
+position = Vector2(-304, -164)
+scale = Vector2(0.5, 0.5)
+tile_map_data = PackedByteArray(0, 0, 46, 0, 25, 0, 0, 0, 3, 0, 3, 0, 0, 0)
+tile_set = SubResource("TileSet_duuxe")
+
+[node name="Outline4" type="TileMapLayer" parent="Paths"]
+material = ExtResource("1_1c2ca")
+position = Vector2(-248, -164)
+scale = Vector2(0.5, 0.5)
+tile_map_data = PackedByteArray(0, 0, 46, 0, 25, 0, 0, 0, 3, 0, 3, 0, 0, 0)
+tile_set = SubResource("TileSet_duuxe")
+
+[node name="Outline5" type="TileMapLayer" parent="Paths"]
+material = ExtResource("1_1c2ca")
+position = Vector2(-276, -143)
+scale = Vector2(0.5, 0.5)
+tile_map_data = PackedByteArray(0, 0, 46, 0, 25, 0, 0, 0, 3, 0, 3, 0, 0, 0)
+tile_set = SubResource("TileSet_duuxe")
+
 [node name="Stats" type="Control" parent="."]
 z_index = -2
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = 250.0
+offset_top = 160.0
+offset_right = 250.0
+offset_bottom = 160.0
 grow_horizontal = 2
 grow_vertical = 2
 
@@ -69,19 +274,17 @@ vertical_alignment = 1
 [node name="UpdateText" type="Node" parent="Stats" node_paths=PackedStringArray("label")]
 script = ExtResource("3_c7mb3")
 label = NodePath("../Life")
-string = "Life: "
-data_to_show = "life"
-is_array = true
+string = "Noise: "
+data_to_show = "sound_volume"
 use_data = true
-global_sig = "damage"
+global_sig = "noise_updated"
 global_signal = true
 
 [node name="UpdateText2" type="Node" parent="Stats" node_paths=PackedStringArray("label")]
 script = ExtResource("3_c7mb3")
 label = NodePath("../Life2")
-string = "Life: "
-data_to_show = "life"
-is_array = true
+string = "Noise: "
+data_to_show = "sound_volume"
 use_data = true
-global_sig = "damage"
+global_sig = "noise_updated"
 global_signal = true

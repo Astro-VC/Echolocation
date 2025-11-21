@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://bw5hkvsahdk77"]
+[gd_scene load_steps=12 format=3 uid="uid://bw5hkvsahdk77"]
 
 [ext_resource type="Texture2D" uid="uid://b2qdtboh0no62" path="res://Sprites/Objects/MusicTape.png" id="1_v2tsk"]
 [ext_resource type="Material" uid="uid://do00jxdie5vra" path="res://Resources/sonar.tres" id="2_yr2nx"]
@@ -8,6 +8,13 @@
 [ext_resource type="PackedScene" uid="uid://d4nvdcxabix6v" path="res://Scenes/Other/delete.tscn" id="6_7q7p8"]
 [ext_resource type="PackedScene" uid="uid://dc2qoqskj6apx" path="res://Scenes/Other/screech.tscn" id="7_seu5m"]
 [ext_resource type="PackedScene" uid="uid://xvqacbjtmvu3" path="res://Scenes/Other/vanish.tscn" id="8_oajkr"]
+
+[sub_resource type="GDScript" id="GDScript_oajkr"]
+script/source = "extends Node2D
+
+@export var music_id : int
+@export var seal_id : int
+"
 
 [sub_resource type="GDScript" id="GDScript_seu5m"]
 script/source = "extends Node2D
@@ -25,6 +32,7 @@ func _physics_process(delta: float) -> void:
 [sub_resource type="CircleShape2D" id="CircleShape2D_7q7p8"]
 
 [node name="MusicLock" type="Node2D"]
+script = SubResource("GDScript_oajkr")
 
 [node name="Music" type="AudioStreamPlayer2D" parent="."]
 autoplay = true
@@ -49,9 +57,10 @@ collision_layer = 0
 shape = SubResource("CircleShape2D_7q7p8")
 debug_color = Color(0.515259, 0.546518, 0.493573, 0)
 
-[node name="MusicsControl" type="Node" parent="." node_paths=PackedStringArray("music", "area_to_use")]
+[node name="MusicsControl" type="Node" parent="." node_paths=PackedStringArray("music", "parent", "area_to_use")]
 script = ExtResource("4_yr2nx")
 music = NodePath("../Music")
+parent = NodePath("..")
 seal_id = 3
 area_to_use = NodePath("../Music/detec")
 area_to_check = "on_echo"

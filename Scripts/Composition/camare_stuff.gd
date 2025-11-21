@@ -25,6 +25,8 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	if shake > 0 and shaake:
 		camera_shake(shake, time, delta)
+	
+
 
 func camera_shake(force : float, time : float, delta : float) -> void:
 	shake = lerpf(force, 0, time * delta)
@@ -33,18 +35,25 @@ func update(force : float) -> void:
 	shake = force
 func change_cam() -> void:
 	
+	Resources.neutral_respawn = player.player.global_position + Vector2(0,-2)
+	
+	if player.player.global_position.y > 170 and player.player.global_position.y < 190:
+		camera.global_position.y = 360
+		Resources.map_coord += 4
+		return
+	if player.player.global_position.y < 170 and player.player.global_position.y > 160:
+		Resources.map_coord -= 4
+		camera.global_position.y = 0
+		return
+	
+	
 	if player.player.velocity.x > 0:
 		camera.global_position.x += 640
+		Resources.map_coord += 1
 		return
 	else:
 		camera.global_position.x -= 640
-		return
-	
-	if player.player.velocity.y > 0:
-		camera.global_position.y += 360
-		return
-	else:
-		camera.global_position.y -= 360
+		Resources.map_coord -= 1
 		return
 func zoom() -> void:
 	var tween : Tween = get_tree().create_tween()

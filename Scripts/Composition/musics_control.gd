@@ -1,6 +1,7 @@
 extends Node
 
 @export var music : AudioStreamPlayer2D
+@export var parent : Node2D
 @export var seal_id : int
 @export var music_id : int
 
@@ -16,6 +17,8 @@ signal echo
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	seal_id = parent.seal_id
+	music_id = parent.music_id
 	music.stream = load(Textures.musics[music_id])
 	music.play()
 	area_to_use.area_entered.connect(break_seal.bind())

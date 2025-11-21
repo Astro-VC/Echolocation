@@ -12,16 +12,25 @@ var buffer : PackedStringArray = ["res://Audio/object release.mp3",
 "res://Audio/Transition_2.wav", 
 "res://Audio/whoosh-axe-throw-389751.mp3", 
 "res://Audio/match-cave-164967.mp3",
-"res://Audio/Shatter.wav"
+"res://Audio/Shatter.wav",
+"res://Audio/Whah.wav"
 ]
 
-var musics : PackedStringArray = ["res://Audio/Musics/Title_Theme.mp3", "res://Audio/Musics/Theme_1.mp3", "res://Audio/Musics/Theme_2.mp3", "res://Audio/Musics/Puzzle_Zone_Theme.mp3"]
+var musics : PackedStringArray = [
+	"res://Audio/Musics/Title_Theme.mp3", 
+	"res://Audio/Musics/Theme_1.mp3", 
+	"res://Audio/Musics/Theme_2.mp3", 
+	"res://Audio/Musics/Puzzle_Zone_Theme.mp3", 
+	"res://Audio/Musics/Jumping_Zone_Theme.mp3", 
+	"res://Audio/Musics/Monster_Zone_Theme.mp3"
+	]
 
 var projectiles : PackedStringArray = ["res://Scenes/Objects/rock.tscn"]
 var particles : PackedStringArray = [
  "res://Scenes/Particle/breack_particle.tscn",
  "res://Scenes/Particle/common_particle.tscn",
- "res://Scenes/Particle/land_particle.tscn"
+ "res://Scenes/Particle/land_particle.tscn",
+ "res://Scenes/Particle/scream_particle.tscn"
 ]
 
 var colors : PackedColorArray = [

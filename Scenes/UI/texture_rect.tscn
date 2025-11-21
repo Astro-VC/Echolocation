@@ -1,0 +1,53 @@
+[gd_scene load_steps=6 format=3 uid="uid://bmlrlf266tldw"]
+
+[ext_resource type="Texture2D" uid="uid://cj7b7mvsjmmo8" path="res://Sprites/Objects/MusicTapeOutline.png" id="1_4377b"]
+[ext_resource type="Texture2D" uid="uid://dgq547tf3orfi" path="res://Sprites/Particles/EchoParticle.png" id="2_4i68u"]
+[ext_resource type="Gradient" uid="uid://dwjogb312p5di" path="res://Resources/Fade.tres" id="3_pgp1j"]
+
+[sub_resource type="GDScript" id="GDScript_ccttk"]
+script/source = "extends TextureRect
+
+@export var id : int
+
+# Called when the node enters the scene tree for the first time.
+func _ready() -> void:
+	Global.tape_taken.connect(change.bind())
+
+func change() -> void:
+	if Resources.seals[id] == false:
+		texture = load(Textures.collected[1])
+		$scream_particle.restart()
+"
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_v68uw"]
+particles_animation = true
+particles_anim_h_frames = 4
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[node name="TextureRect" type="TextureRect"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_4377b")
+expand_mode = 2
+script = SubResource("GDScript_ccttk")
+
+[node name="scream_particle" type="CPUParticles2D" parent="."]
+light_mask = 3
+z_index = 1
+material = SubResource("CanvasItemMaterial_v68uw")
+position = Vector2(20, 20)
+emitting = false
+amount = 1
+texture = ExtResource("2_4i68u")
+lifetime = 0.5
+one_shot = true
+gravity = Vector2(0, 0)
+scale_amount_min = 2.0
+scale_amount_max = 2.0
+color_ramp = ExtResource("3_pgp1j")
+anim_speed_min = 2.0
+anim_speed_max = 2.0

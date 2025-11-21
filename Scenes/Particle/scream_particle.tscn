@@ -1,0 +1,31 @@
+[gd_scene load_steps=5 format=3 uid="uid://magi4cr4cehk"]
+
+[ext_resource type="Texture2D" uid="uid://dgq547tf3orfi" path="res://Sprites/Particles/EchoParticle.png" id="1_boaak"]
+[ext_resource type="Gradient" uid="uid://dwjogb312p5di" path="res://Resources/Fade.tres" id="2_1b44n"]
+[ext_resource type="PackedScene" uid="uid://2ta1x0uihou2" path="res://Scenes/Other/stop.tscn" id="3_3rsff"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_th5k8"]
+light_mode = 2
+particles_animation = true
+particles_anim_h_frames = 4
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[node name="scream_particle" type="CPUParticles2D"]
+light_mask = 3
+z_index = 1
+material = SubResource("CanvasItemMaterial_th5k8")
+emitting = false
+amount = 1
+texture = ExtResource("1_boaak")
+lifetime = 0.5
+one_shot = true
+gravity = Vector2(0, 0)
+scale_amount_min = 2.0
+scale_amount_max = 2.0
+color_ramp = ExtResource("2_1b44n")
+anim_speed_min = 2.0
+anim_speed_max = 2.0
+
+[node name="Stop" parent="." node_paths=PackedStringArray("parent") instance=ExtResource("3_3rsff")]
+parent = NodePath("..")

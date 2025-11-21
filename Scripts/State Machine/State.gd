@@ -35,7 +35,7 @@ var particle : PackedScene
 var rand_state : int
 
 func enter() -> void:
-	particle = load(Textures.particles[particle_ID])
+	
 	parent.normal_animation.play(animation_name)
 	parent.outline_animation.play(animation_name)
 	if parent.white_animation:
@@ -138,7 +138,8 @@ func squish(delta : float, sqsh_speed : float = squish_speed) -> void:
 	if parent.color_animation:
 		parent.color_animation.scale = lerp(parent.color_animation.scale, squish_amount, delta * sqsh_speed)
 
-func do_particle() -> void:
+func do_particle(p : int = particle_ID) -> void:
+	particle = load(Textures.particles[p])
 	var temp := particle.instantiate()
 	temp.global_position = Vector2(parent.global_position.x, parent.global_position.y + 12)
 	tree.get_parent().call_deferred("add_child", temp)

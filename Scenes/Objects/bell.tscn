@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://c32wbgwhpifc0"]
+[gd_scene load_steps=10 format=3 uid="uid://c32wbgwhpifc0"]
 
 [ext_resource type="PackedScene" uid="uid://dy180hpj3xd1e" path="res://Scenes/Other/detect_sound.tscn" id="1_i03vq"]
 [ext_resource type="Texture2D" uid="uid://ca3n0csedkalc" path="res://Sprites/Objects/Bell.png" id="2_gbqfk"]
@@ -8,10 +8,20 @@
 [ext_resource type="PackedScene" uid="uid://co44s1prswpj4" path="res://Scenes/Other/produce_audio.tscn" id="6_0u3um"]
 [ext_resource type="PackedScene" uid="uid://dc2qoqskj6apx" path="res://Scenes/Other/screech.tscn" id="7_rm70y"]
 
+[sub_resource type="GDScript" id="GDScript_pxg6w"]
+script/source = "extends Node2D
+
+var area : Area2D
+
+func _ready() -> void:
+	area = find_child(\"Area\")
+"
+
 [sub_resource type="CircleShape2D" id="CircleShape2D_q7own"]
 radius = 8.0
 
 [node name="Bell" type="Node2D"]
+script = SubResource("GDScript_pxg6w")
 
 [node name="Base" type="Sprite2D" parent="."]
 modulate = Color(0.458824, 0.458824, 0.458824, 1)
@@ -38,10 +48,14 @@ collision_mask = 3
 shape = SubResource("CircleShape2D_q7own")
 debug_color = Color(0.8, 0.413333, 0, 0.0666667)
 
-[node name="DetectSound" parent="." node_paths=PackedStringArray("area", "collider") instance=ExtResource("1_i03vq")]
+[node name="DetectSound" parent="." node_paths=PackedStringArray("area", "collider", "timer") instance=ExtResource("1_i03vq")]
 area = NodePath("../Area")
 collider = NodePath("../Area")
 area_name = "on_rock"
+coll_nam = "Outlines"
+timer = NodePath("../BellTimer2")
+time = 1.0
+use_timer = true
 
 [node name="ProduceAudio" parent="." node_paths=PackedStringArray("tree", "parent", "sig_node") instance=ExtResource("6_0u3um")]
 tree = NodePath("..")
@@ -84,4 +98,7 @@ timer = NodePath("../BellTimer")
 cooldown = 1.0
 
 [node name="BellTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="BellTimer2" type="Timer" parent="."]
 one_shot = true

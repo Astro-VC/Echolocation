@@ -1,9 +1,10 @@
-[gd_scene load_steps=6 format=3 uid="uid://bp2k3u0g8mfdc"]
+[gd_scene load_steps=7 format=3 uid="uid://bp2k3u0g8mfdc"]
 
 [ext_resource type="Texture2D" uid="uid://d11qy25gidk0t" path="res://Sprites/Sound Waves/Light.png" id="1_nqw0r"]
 [ext_resource type="Texture2D" uid="uid://bfvw07dsbboqn" path="res://Sprites/Sound Waves/Full.png" id="2_1u7jf"]
 [ext_resource type="Script" uid="uid://cxlm1quq310ms" path="res://Scripts/Composition/delete.gd" id="2_gk1v2"]
 [ext_resource type="PackedScene" uid="uid://ctg3xodcramq2" path="res://Scenes/Other/set_color.tscn" id="4_0reps"]
+[ext_resource type="PackedScene" uid="uid://magi4cr4cehk" path="res://Scenes/Particle/scream_particle.tscn" id="5_vrygf"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_1u7jf"]
 radius = 8.0
@@ -55,3 +56,5 @@ wave = NodePath("../Outside")
 [node name="SetColor" parent="." node_paths=PackedStringArray("wave1", "wave2") instance=ExtResource("4_0reps")]
 wave1 = NodePath("../Outside")
 wave2 = NodePath("../Outside/Inside")
+
+[node name="scream_particle" parent="." instance=ExtResource("5_vrygf")]

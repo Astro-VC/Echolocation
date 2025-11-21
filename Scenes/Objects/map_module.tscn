@@ -1,0 +1,264 @@
+[gd_scene load_steps=11 format=4 uid="uid://cecpcvluhc55j"]
+
+[ext_resource type="Material" uid="uid://do00jxdie5vra" path="res://Resources/sonar.tres" id="1_5fmas"]
+[ext_resource type="Texture2D" uid="uid://domr611lkasfe" path="res://Sprites/Tiles/MapUITiles.png" id="1_bhrwg"]
+[ext_resource type="Texture2D" uid="uid://ndr5kkea8igf" path="res://Sprites/Tiles/MapUiTilesBackground.png" id="2_7sko8"]
+[ext_resource type="FontFile" uid="uid://dmrjoldmob4to" path="res://Resources/Fonts/Not Jam Atomic 20.ttf" id="3_7sko8"]
+
+[sub_resource type="GDScript" id="GDScript_2xkve"]
+script/source = "extends Control
+
+@export var map_id : int
+
+func _ready() -> void:
+	$Background/Life.text = str(map_id)
+
+func _process(delta: float) -> void:
+	if map_id == Resources.map_coord:
+		$Background.show()
+		$Outline.show()
+		return
+	$Background.hide()
+"
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_5fmas"]
+texture = ExtResource("2_7sko8")
+0:0/0 = 0
+0:0/0/terrain_set = 0
+0:0/0/terrain = 0
+0:0/0/terrains_peering_bit/bottom_side = 0
+1:0/0 = 0
+1:0/0/terrain_set = 0
+1:0/0/terrain = 0
+1:0/0/terrains_peering_bit/right_side = 0
+1:0/0/terrains_peering_bit/bottom_side = 0
+2:0/0 = 0
+2:0/0/terrain_set = 0
+2:0/0/terrain = 0
+2:0/0/terrains_peering_bit/right_side = 0
+2:0/0/terrains_peering_bit/bottom_side = 0
+2:0/0/terrains_peering_bit/left_side = 0
+3:0/0 = 0
+3:0/0/terrain_set = 0
+3:0/0/terrain = 0
+3:0/0/terrains_peering_bit/bottom_side = 0
+3:0/0/terrains_peering_bit/left_side = 0
+0:1/0 = 0
+0:1/0/terrain_set = 0
+0:1/0/terrain = 0
+0:1/0/terrains_peering_bit/bottom_side = 0
+0:1/0/terrains_peering_bit/top_side = 0
+1:1/0 = 0
+1:1/0/terrain_set = 0
+1:1/0/terrain = 0
+1:1/0/terrains_peering_bit/right_side = 0
+1:1/0/terrains_peering_bit/bottom_side = 0
+1:1/0/terrains_peering_bit/top_side = 0
+3:1/0 = 0
+3:1/0/terrain_set = 0
+3:1/0/terrain = 0
+3:1/0/terrains_peering_bit/bottom_side = 0
+3:1/0/terrains_peering_bit/left_side = 0
+3:1/0/terrains_peering_bit/top_side = 0
+0:2/0 = 0
+0:2/0/terrain_set = 0
+0:2/0/terrain = 0
+0:2/0/terrains_peering_bit/top_side = 0
+1:2/0 = 0
+1:2/0/terrain_set = 0
+1:2/0/terrain = 0
+1:2/0/terrains_peering_bit/right_side = 0
+1:2/0/terrains_peering_bit/top_side = 0
+2:2/0 = 0
+2:2/0/terrain_set = 0
+2:2/0/terrain = 0
+2:2/0/terrains_peering_bit/right_side = 0
+2:2/0/terrains_peering_bit/left_side = 0
+2:2/0/terrains_peering_bit/top_side = 0
+3:2/0 = 0
+3:2/0/terrain_set = 0
+3:2/0/terrain = 0
+3:2/0/terrains_peering_bit/left_side = 0
+3:2/0/terrains_peering_bit/top_side = 0
+0:3/0 = 0
+0:3/0/terrain_set = 0
+0:3/0/terrain = 0
+1:3/0 = 0
+1:3/0/terrain_set = 0
+1:3/0/terrain = 0
+1:3/0/terrains_peering_bit/right_side = 0
+2:3/0 = 0
+2:3/0/terrain_set = 0
+2:3/0/terrain = 0
+2:3/0/terrains_peering_bit/right_side = 0
+2:3/0/terrains_peering_bit/left_side = 0
+3:3/0 = 0
+3:3/0/terrain_set = 0
+3:3/0/terrain = 0
+3:3/0/terrains_peering_bit/left_side = 0
+2:1/0 = 0
+2:1/0/terrain_set = 0
+2:1/0/terrain = 0
+2:1/0/terrains_peering_bit/right_side = 0
+2:1/0/terrains_peering_bit/bottom_side = 0
+2:1/0/terrains_peering_bit/left_side = 0
+2:1/0/terrains_peering_bit/top_side = 0
+
+[sub_resource type="TileSet" id="TileSet_7sko8"]
+terrain_set_0/mode = 2
+terrain_set_0/terrain_0/name = "Terrain 0"
+terrain_set_0/terrain_0/color = Color(0.950432, 0.885426, 0.848572, 1)
+sources/0 = SubResource("TileSetAtlasSource_5fmas")
+
+[sub_resource type="LabelSettings" id="LabelSettings_2xkve"]
+font = ExtResource("3_7sko8")
+font_size = 20
+font_color = Color(0.796078, 0.796078, 0.796078, 1)
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_2xkve"]
+texture = ExtResource("1_bhrwg")
+0:0/0 = 0
+0:0/0/terrain_set = 0
+0:0/0/terrain = 0
+0:0/0/terrains_peering_bit/bottom_side = 0
+1:0/0 = 0
+1:0/0/terrain_set = 0
+1:0/0/terrain = 0
+1:0/0/terrains_peering_bit/right_side = 0
+1:0/0/terrains_peering_bit/bottom_side = 0
+2:0/0 = 0
+2:0/0/terrain_set = 0
+2:0/0/terrain = 0
+2:0/0/terrains_peering_bit/right_side = 0
+2:0/0/terrains_peering_bit/bottom_side = 0
+2:0/0/terrains_peering_bit/left_side = 0
+3:0/0 = 0
+3:0/0/terrain_set = 0
+3:0/0/terrain = 0
+3:0/0/terrains_peering_bit/bottom_side = 0
+3:0/0/terrains_peering_bit/left_side = 0
+0:1/0 = 0
+0:1/0/terrain_set = 0
+0:1/0/terrain = 0
+0:1/0/terrains_peering_bit/bottom_side = 0
+0:1/0/terrains_peering_bit/top_side = 0
+1:1/0 = 0
+1:1/0/terrain_set = 0
+1:1/0/terrain = 0
+1:1/0/terrains_peering_bit/right_side = 0
+1:1/0/terrains_peering_bit/bottom_side = 0
+1:1/0/terrains_peering_bit/top_side = 0
+3:1/0 = 0
+3:1/0/terrain_set = 0
+3:1/0/terrain = 0
+3:1/0/terrains_peering_bit/bottom_side = 0
+3:1/0/terrains_peering_bit/left_side = 0
+3:1/0/terrains_peering_bit/top_side = 0
+0:2/0 = 0
+0:2/0/terrain_set = 0
+0:2/0/terrain = 0
+0:2/0/terrains_peering_bit/top_side = 0
+1:2/0 = 0
+1:2/0/terrain_set = 0
+1:2/0/terrain = 0
+1:2/0/terrains_peering_bit/right_side = 0
+1:2/0/terrains_peering_bit/top_side = 0
+2:2/0 = 0
+2:2/0/terrain_set = 0
+2:2/0/terrain = 0
+2:2/0/terrains_peering_bit/right_side = 0
+2:2/0/terrains_peering_bit/left_side = 0
+2:2/0/terrains_peering_bit/top_side = 0
+3:2/0 = 0
+3:2/0/terrain_set = 0
+3:2/0/terrain = 0
+3:2/0/terrains_peering_bit/left_side = 0
+3:2/0/terrains_peering_bit/top_side = 0
+0:3/0 = 0
+0:3/0/terrain_set = 0
+0:3/0/terrain = 0
+1:3/0 = 0
+1:3/0/terrain_set = 0
+1:3/0/terrain = 0
+1:3/0/terrains_peering_bit/right_side = 0
+2:3/0 = 0
+2:3/0/terrain_set = 0
+2:3/0/terrain = 0
+2:3/0/terrains_peering_bit/right_side = 0
+2:3/0/terrains_peering_bit/left_side = 0
+3:3/0 = 0
+3:3/0/terrain_set = 0
+3:3/0/terrain = 0
+3:3/0/terrains_peering_bit/left_side = 0
+2:1/0 = 0
+2:1/0/terrain_set = 0
+2:1/0/terrain = 0
+2:1/0/terrains_peering_bit/right_side = 0
+2:1/0/terrains_peering_bit/bottom_side = 0
+2:1/0/terrains_peering_bit/left_side = 0
+2:1/0/terrains_peering_bit/top_side = 0
+
+[sub_resource type="TileSet" id="TileSet_vdj5e"]
+terrain_set_0/mode = 2
+terrain_set_0/terrain_0/name = "Terrain 0"
+terrain_set_0/terrain_0/color = Color(0.950432, 0.885426, 0.848572, 1)
+sources/0 = SubResource("TileSetAtlasSource_2xkve")
+
+[node name="MapModule" type="Control"]
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+script = SubResource("GDScript_2xkve")
+
+[node name="Background" type="TileMapLayer" parent="."]
+visible = false
+self_modulate = Color(1, 1, 1, 0.196078)
+tile_map_data = PackedByteArray("AAD/////AAACAAAAAAAAAP//AAADAAAAAAAAAAAAAAADAAIAAAD//wAAAAACAAIAAAD+/wAAAAABAAIAAAD+////AAABAAAAAAA=")
+tile_set = SubResource("TileSet_7sko8")
+
+[node name="Life" type="Label" parent="Background"]
+modulate = Color(1, 1, 1, 0.498039)
+offset_left = -14.0
+offset_top = -13.0
+offset_right = -3.0
+offset_bottom = 19.0
+text = "1"
+label_settings = SubResource("LabelSettings_2xkve")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Background2" type="TileMapLayer" parent="Background"]
+modulate = Color(0.09, 0.09, 0.09, 1)
+light_mask = 4
+material = ExtResource("1_5fmas")
+tile_map_data = PackedByteArray("AAD/////AAACAAAAAAAAAP//AAADAAAAAAAAAAAAAAADAAIAAAD//wAAAAACAAIAAAD+/wAAAAABAAIAAAD+////AAABAAAAAAA=")
+tile_set = SubResource("TileSet_7sko8")
+
+[node name="Life" type="Label" parent="Background/Background2"]
+modulate = Color(1, 1, 1, 0.498039)
+offset_left = -14.0
+offset_top = -13.0
+offset_right = -3.0
+offset_bottom = 19.0
+text = "1"
+label_settings = SubResource("LabelSettings_2xkve")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Outline" type="TileMapLayer" parent="."]
+visible = false
+self_modulate = Color(1, 1, 1, 0.196078)
+tile_map_data = PackedByteArray("AAD/////AAACAAAAAAAAAP//AAADAAAAAAAAAAAAAAADAAIAAAD//wAAAAACAAIAAAD+/wAAAAABAAIAAAD+////AAABAAAAAAA=")
+tile_set = SubResource("TileSet_vdj5e")
+
+[node name="Outline2" type="TileMapLayer" parent="Outline"]
+modulate = Color(0.09, 0.09, 0.09, 1)
+light_mask = 4
+material = ExtResource("1_5fmas")
+tile_map_data = PackedByteArray("AAD/////AAACAAAAAAAAAP//AAADAAAAAAAAAAAAAAADAAIAAAD//wAAAAACAAIAAAD+/wAAAAABAAIAAAD+////AAABAAAAAAA=")
+tile_set = SubResource("TileSet_vdj5e")

@@ -1,4 +1,4 @@
-[gd_scene load_steps=72 format=3 uid="uid://bevm8733iebep"]
+[gd_scene load_steps=74 format=3 uid="uid://bevm8733iebep"]
 
 [ext_resource type="Script" uid="uid://bi5hg7tb65moq" path="res://Scripts/State Machine/player.gd" id="1_cvnsp"]
 [ext_resource type="Script" uid="uid://cne7uawh6v0qo" path="res://Scripts/player.gd" id="1_emc7e"]
@@ -18,8 +18,10 @@
 [ext_resource type="PackedScene" uid="uid://dc2qoqskj6apx" path="res://Scenes/Other/screech.tscn" id="12_j4rlg"]
 [ext_resource type="PackedScene" uid="uid://dy180hpj3xd1e" path="res://Scenes/Other/detect_sound.tscn" id="14_bq3id"]
 [ext_resource type="PackedScene" uid="uid://c803eehq2robn" path="res://Scenes/Other/trow_projectile.tscn" id="14_j4rlg"]
+[ext_resource type="Script" uid="uid://85djjxlmvac1" path="res://Scripts/State Machine/States/death.gd" id="15_1430o"]
 [ext_resource type="Script" uid="uid://cjkh253nxy5ce" path="res://Scripts/Composition/spotted.gd" id="15_bq3id"]
 [ext_resource type="PackedScene" uid="uid://co44s1prswpj4" path="res://Scenes/Other/produce_audio.tscn" id="16_0n2th"]
+[ext_resource type="Script" uid="uid://c5u5hb6r00ebo" path="res://Scripts/Composition/force_node.gd" id="21_wj16j"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_tf8jh"]
 size = Vector2(14, 16)
@@ -474,6 +476,15 @@ position = Vector2(0, 3.5)
 shape = SubResource("RectangleShape2D_j4rlg")
 debug_color = Color(1, 0.51, 0.893833, 0)
 
+[node name="Hitbox2" type="Area2D" parent="Player"]
+collision_layer = 0
+collision_mask = 128
+
+[node name="CollisionH" type="CollisionShape2D" parent="Player/Hitbox2"]
+position = Vector2(0, 3.5)
+shape = SubResource("RectangleShape2D_j4rlg")
+debug_color = Color(1, 0.51, 0.893833, 0)
+
 [node name="AudioListener2D" type="AudioListener2D" parent="Player"]
 current = true
 
@@ -589,10 +600,19 @@ squish_amount = Vector2(1.3, 0.7)
 tree = NodePath("../../..")
 particle_ID = 2
 
+[node name="death" type="Node" parent="Player/MovementMachine" node_paths=PackedStringArray("fall", "tree")]
+script = ExtResource("15_1430o")
+fall = NodePath("../fall")
+animation_name = "fall"
+tree = NodePath("../../..")
+particle_ID = 3
+time = 0.3
+
 [node name="Screech" parent="." node_paths=PackedStringArray("parent", "tree", "timer") instance=ExtResource("12_j4rlg")]
 parent = NodePath("../Player")
 tree = NodePath("..")
 echo_noise = 5.0
+echo_size = Vector2(15, 15)
 camera_zoom = true
 detection_area_name = "on_echo"
 timer = NodePath("../ScreechTimer")
@@ -605,6 +625,19 @@ fade_speed = Vector2(0.5, 0.5)
 detection_area_name = "on_echo"
 use_input = false
 sig_node = NodePath("../Player/MovementMachine/land")
+use_signal = true
+timer = NodePath("../ScreechTimer")
+
+[node name="ScreechDie" parent="." node_paths=PackedStringArray("parent", "tree", "sig_node", "timer") instance=ExtResource("12_j4rlg")]
+parent = NodePath("../Player")
+tree = NodePath("..")
+echo_color_id = 4
+echo_noise = 1.0
+echo_size = Vector2(5, 5)
+fade_speed = Vector2(0.5, 0.5)
+detection_area_name = "on_death"
+use_input = false
+sig_node = NodePath("../ForceNode")
 use_signal = true
 timer = NodePath("../ScreechTimer")
 
@@ -668,6 +701,16 @@ random_pitch = true
 sig_node = NodePath("../Screech")
 use_signal = true
 
+[node name="ProduceAudio4" parent="." node_paths=PackedStringArray("tree", "parent", "sig_node") instance=ExtResource("16_0n2th")]
+tree = NodePath("..")
+parent = NodePath("../Player")
+audio_id = 8
+volume = -8.0
+pitch_rand = Vector2(0.8, 0.9)
+random_pitch = true
+sig_node = NodePath("../ForceNode")
+use_signal = true
+
 [node name="TrowAudio" parent="." node_paths=PackedStringArray("tree", "parent", "sig_node") instance=ExtResource("16_0n2th")]
 tree = NodePath("..")
 parent = NodePath("../Player")
@@ -677,6 +720,13 @@ pitch_rand = Vector2(0.7, 0.8)
 random_pitch = true
 sig_node = NodePath("../TrowProjectile")
 use_signal = true
+
+[node name="ForceNode" type="Node" parent="." node_paths=PackedStringArray("node_to_force", "state_machine", "sig_node")]
+script = ExtResource("21_wj16j")
+node_to_force = NodePath("../Player/MovementMachine/death")
+state_machine = NodePath("../Player/MovementMachine")
+sig_node = NodePath("../Player/Hitbox2")
+sig_name = "body_entered"
 
 [node name="ScreechTimer" type="Timer" parent="."]
 one_shot = true
