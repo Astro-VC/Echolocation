@@ -1,0 +1,15 @@
+[gd_scene load_steps=2 format=3 uid="uid://b80bcymc2xvsi"]
+
+[ext_resource type="LabelSettings" uid="uid://bbbqp22a6es0l" path="res://Resources/Fonts/Fade.tres" id="1_nhmg3"]
+
+[node name="Menu" type="Node2D"]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Label" type="Label" parent="CanvasLayer"]
+offset_right = 40.0
+offset_bottom = 23.0
+text = "teste"
+label_settings = ExtResource("1_nhmg3")

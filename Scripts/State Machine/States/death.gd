@@ -4,6 +4,7 @@ extends State
 
 
 var count : float = 0
+signal echo
 
 func enter() -> void:
 	super()
@@ -18,5 +19,6 @@ func process_physics(delta: float) -> State:
 		count += delta
 		return null
 	
+	echo.emit()
 	do_particle()
 	return fall

@@ -36,6 +36,7 @@ script = SubResource("GDScript_oajkr")
 
 [node name="Music" type="AudioStreamPlayer2D" parent="."]
 autoplay = true
+max_distance = 1300.0
 attenuation = 2.0
 
 [node name="Sprites" type="Node2D" parent="Music"]

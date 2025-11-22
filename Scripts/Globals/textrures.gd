@@ -43,7 +43,8 @@ var colors : PackedColorArray = [
 	Color("bca59a"), 
 	Color("c4a082"), 
 	Color("cbcbcb"),
-	Color("f1bf81")
+	Color("f1bf81"),
+	Color("ffc79d")
 	]
 
 var collected : PackedStringArray = ["res://Sprites/Objects/RocKWHite.png", "res://Sprites/Objects/TapeWhite.png"]

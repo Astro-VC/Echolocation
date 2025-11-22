@@ -10,9 +10,9 @@ config_version=5
 
 [application]
 
-config/name="Echolocation"
+config/name="Resonare"
 config/features=PackedStringArray("4.4", "Mobile")
-config/icon="res://Sprites/icon.svg"
+config/icon="uid://cp1hd2ywlajju"
 
 [autoload]
 
@@ -24,7 +24,6 @@ Resources="*res://Scripts/Globals/resources.gd"
 
 window/size/viewport_width=640
 window/size/viewport_height=360
-window/size/resizable=false
 window/stretch/mode="canvas_items"
 window/stretch/scale_mode="integer"
 

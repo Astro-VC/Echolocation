@@ -53,9 +53,9 @@ area = NodePath("../Area")
 collider = NodePath("../Area")
 area_name = "on_rock"
 coll_nam = "Outlines"
+another_nam = "Player"
 timer = NodePath("../BellTimer2")
 time = 1.0
-use_timer = true
 
 [node name="ProduceAudio" parent="." node_paths=PackedStringArray("tree", "parent", "sig_node") instance=ExtResource("6_0u3um")]
 tree = NodePath("..")

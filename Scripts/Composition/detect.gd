@@ -4,6 +4,7 @@ extends Node
 @export var collider : Node2D
 @export var area_name : String = "on_echo"
 @export var coll_nam : String = "Player"
+@export var another_nam : String
 
 @export_category("Timer")
 @export var timer : Timer
@@ -35,6 +36,8 @@ func check_collision(bdy : Node) -> void:
 		return
 	
 	if bdy.name != coll_nam:
+		if another_nam and bdy.name == another_nam:
+			return
 		print(bdy.name)
 		echo.emit()
 		if use_timer:

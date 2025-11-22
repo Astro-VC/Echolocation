@@ -612,7 +612,6 @@ time = 0.3
 parent = NodePath("../Player")
 tree = NodePath("..")
 echo_noise = 5.0
-echo_size = Vector2(15, 15)
 camera_zoom = true
 detection_area_name = "on_echo"
 timer = NodePath("../ScreechTimer")
@@ -638,6 +637,19 @@ fade_speed = Vector2(0.5, 0.5)
 detection_area_name = "on_death"
 use_input = false
 sig_node = NodePath("../ForceNode")
+use_signal = true
+timer = NodePath("../ScreechTimer")
+
+[node name="ScreechDie2" parent="." node_paths=PackedStringArray("parent", "tree", "sig_node", "timer") instance=ExtResource("12_j4rlg")]
+parent = NodePath("../Player")
+tree = NodePath("..")
+echo_color_id = 4
+echo_noise = 1.0
+echo_size = Vector2(5, 5)
+fade_speed = Vector2(0.5, 0.5)
+detection_area_name = "on_death"
+use_input = false
+sig_node = NodePath("../Player/MovementMachine/death")
 use_signal = true
 timer = NodePath("../ScreechTimer")
 

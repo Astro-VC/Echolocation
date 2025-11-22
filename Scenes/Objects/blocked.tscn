@@ -307,17 +307,9 @@ texture = ExtResource("4_6upiy")
 2:1/0/terrains_peering_bit/left_side = 1
 2:1/0/terrains_peering_bit/top_side = 1
 
-[sub_resource type="NavigationPolygon" id="NavigationPolygon_psnrn"]
-vertices = PackedVector2Array(8, 8, -8, 8, -8, -8, 8, -8)
-polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
-outlines = Array[PackedVector2Array]([PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)])
-agent_radius = 0.0
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_avdw4"]
 
-[sub_resource type="NavigationPolygon" id="NavigationPolygon_ptqw3"]
-vertices = PackedVector2Array(8, 8, -8, 8, -8, -8, 8, -8)
-polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
-outlines = Array[PackedVector2Array]([PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)])
-agent_radius = 0.0
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_bqp23"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_6upiy"]
 texture = ExtResource("5_imu6f")
@@ -361,11 +353,12 @@ texture = ExtResource("5_imu6f")
 2:1/0 = 0
 2:1/0/terrain_set = 0
 2:1/0/terrain = 2
+2:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 2:1/0/terrains_peering_bit/right_side = 2
 2:1/0/terrains_peering_bit/bottom_side = 2
 2:1/0/terrains_peering_bit/left_side = 2
 2:1/0/terrains_peering_bit/top_side = 2
-2:1/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_ptqw3")
+2:1/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_bqp23")
 3:1/0 = 0
 3:1/0/terrain_set = 0
 3:1/0/terrain = 2
@@ -400,7 +393,8 @@ texture = ExtResource("5_imu6f")
 0:3/0 = 0
 0:3/0/terrain_set = 0
 0:3/0/terrain = 2
-0:3/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_psnrn")
+0:3/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+0:3/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_avdw4")
 1:3/0 = 0
 1:3/0/terrain_set = 0
 1:3/0/terrain = 2
@@ -557,7 +551,7 @@ signal echo
 
 func _ready() -> void:
 	bll = bell.area
-	bll.body_entered.connect.call_deferred(unlock.bind())
+	bll.body_entered.connect.call_deferred(un.bind())
 	bll.area_entered.connect.call_deferred(unlock.bind())
 
 

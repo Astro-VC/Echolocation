@@ -1,0 +1,156 @@
+[gd_scene load_steps=19 format=3 uid="uid://b62xpp54yhly1"]
+
+[ext_resource type="AudioStream" uid="uid://dwqa1aulwotj6" path="res://Audio/alien-voices-142867.mp3" id="1_bf8ix"]
+[ext_resource type="Texture2D" uid="uid://chuumgfx4ilif" path="res://Sprites/Objects/MapSnakeOutline.png" id="1_rwwb0"]
+[ext_resource type="PackedScene" uid="uid://dc2qoqskj6apx" path="res://Scenes/Other/screech.tscn" id="2_4057i"]
+[ext_resource type="Material" uid="uid://do00jxdie5vra" path="res://Resources/sonar.tres" id="2_l46v4"]
+[ext_resource type="PackedScene" uid="uid://dy180hpj3xd1e" path="res://Scenes/Other/detect_sound.tscn" id="2_mqqko"]
+[ext_resource type="Script" uid="uid://dxpvia2buqong" path="res://Scripts/Composition/collect.gd" id="4_sfaus"]
+[ext_resource type="PackedScene" uid="uid://d4nvdcxabix6v" path="res://Scenes/Other/delete.tscn" id="5_sfaus"]
+[ext_resource type="PackedScene" uid="uid://xvqacbjtmvu3" path="res://Scenes/Other/vanish.tscn" id="8_ge8b3"]
+
+[sub_resource type="GDScript" id="GDScript_4057i"]
+script/source = "extends Node2D
+
+@export var speed : float = 5
+var count : float
+
+
+func _physics_process(delta: float) -> void:
+	$Outline.position.y = sin(count  + 1)
+	
+	count += delta * speed
+"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0shco"]
+atlas = ExtResource("1_rwwb0")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mqqko"]
+atlas = ExtResource("1_rwwb0")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sfaus"]
+atlas = ExtResource("1_rwwb0")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bf8ix"]
+atlas = ExtResource("1_rwwb0")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_l46v4"]
+atlas = ExtResource("1_rwwb0")
+region = Rect2(128, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ge8b3"]
+atlas = ExtResource("1_rwwb0")
+region = Rect2(160, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_6agcc"]
+animations = [{
+"frames": [{
+"duration": 2.0,
+"texture": SubResource("AtlasTexture_0shco")
+}, {
+"duration": 3.0,
+"texture": SubResource("AtlasTexture_mqqko")
+}, {
+"duration": 0.5,
+"texture": SubResource("AtlasTexture_sfaus")
+}, {
+"duration": 0.5,
+"texture": SubResource("AtlasTexture_bf8ix")
+}, {
+"duration": 0.5,
+"texture": SubResource("AtlasTexture_l46v4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ge8b3")
+}],
+"loop": true,
+"name": &"default",
+"speed": 8.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_bf8ix"]
+
+[sub_resource type="GDScript" id="GDScript_sfaus"]
+script/source = "extends Node
+
+signal echo
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta: float) -> void:
+	if Engine.get_process_frames() % 50 == 0:
+		echo.emit()
+"
+
+[node name="Collectable" type="Node2D"]
+script = SubResource("GDScript_4057i")
+
+[node name="Shimer" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("1_bf8ix")
+volume_db = -20.0
+autoplay = true
+max_distance = 300.0
+
+[node name="Outline" type="AnimatedSprite2D" parent="."]
+material = ExtResource("2_l46v4")
+sprite_frames = SubResource("SpriteFrames_6agcc")
+autoplay = "default"
+frame_progress = 0.398748
+
+[node name="Area2D" type="Area2D" parent="."]
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_bf8ix")
+debug_color = Color(0.77, 0.4466, 0.231, 0)
+
+[node name="DetectSound" parent="." node_paths=PackedStringArray("area", "timer") instance=ExtResource("2_mqqko")]
+area = NodePath("../Area2D")
+timer = NodePath("../Timer3")
+use_timer = true
+
+[node name="Screech" parent="." node_paths=PackedStringArray("parent", "tree", "sig_node", "timer") instance=ExtResource("2_4057i")]
+parent = NodePath("..")
+tree = NodePath("..")
+echo_color_id = 10
+echo_size = Vector2(7, 7)
+fade_speed = Vector2(0.5, 2)
+produce_noise = false
+show_tiles = false
+detection_area_name = "b"
+use_input = false
+sig_node = NodePath("../Sig")
+use_signal = true
+timer = NodePath("../Timer2")
+
+[node name="Collect" type="Node" parent="." node_paths=PackedStringArray("tree", "parent", "sig_node", "delete_node", "timer")]
+script = ExtResource("4_sfaus")
+tree = NodePath("..")
+parent = NodePath("../Outline")
+sig_node = NodePath("../DetectSound")
+delete_node = NodePath("../Delete")
+projectile_id = 1
+timer = NodePath("../Timer")
+duration = 0.3
+particle_id = 3
+
+[node name="Delete" parent="." instance=ExtResource("5_sfaus")]
+
+[node name="Vanish" parent="." node_paths=PackedStringArray("to_fade") instance=ExtResource("8_ge8b3")]
+to_fade = NodePath("../Outline")
+use_global_sig = true
+
+[node name="Sig" type="Node" parent="."]
+script = SubResource("GDScript_sfaus")
+
+[node name="Timer" type="Timer" parent="."]
+one_shot = true
+
+[node name="Timer2" type="Timer" parent="."]
+one_shot = true
+
+[node name="Timer3" type="Timer" parent="."]
+one_shot = true

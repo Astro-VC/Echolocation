@@ -24,7 +24,8 @@ func _ready() -> void:
 
 func collect() -> void:
 	Resources.projectiles[projectile_id] += 1
-	sprite.texture = load(Textures.collected[collected_id])
+	if sprite:
+		sprite.texture = load(Textures.collected[collected_id])
 	
 	var temp := particle.instantiate()
 	temp.global_position = parent.global_position

@@ -26,7 +26,7 @@ func process_physics(delta: float) -> State:
 	walk_monster(delta, dir)
 	
 	
-	if (Global.noise and Resources.sound_volume >= 5) or check_player():
+	if (Global.noise and Resources.sound_volume >= 8) or check_player():
 		return chase
 	
 	if !timer.is_stopped():
