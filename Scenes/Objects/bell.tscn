@@ -75,7 +75,6 @@ use_signal = true
 [node name="Screech" parent="." node_paths=PackedStringArray("parent", "tree", "sig_node", "timer") instance=ExtResource("7_rm70y")]
 parent = NodePath("../Base")
 tree = NodePath("..")
-echo_color_id = 9
 echo_noise = 8.0
 detection_area_name = "on_bell"
 use_input = false
@@ -87,7 +86,6 @@ timer = NodePath("../BellTimer")
 [node name="Screech2" parent="." node_paths=PackedStringArray("parent", "tree", "sig_node", "timer") instance=ExtResource("7_rm70y")]
 parent = NodePath("../Base")
 tree = NodePath("..")
-echo_color_id = 9
 echo_noise = 8.0
 detection_area_name = "on_bell"
 use_input = false

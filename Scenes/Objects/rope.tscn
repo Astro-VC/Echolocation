@@ -1,6 +1,7 @@
-[gd_scene load_steps=6 format=4 uid="uid://bkvofrk15b3pa"]
+[gd_scene load_steps=11 format=4 uid="uid://bkvofrk15b3pa"]
 
 [ext_resource type="Texture2D" uid="uid://bnit8f8i7j5hg" path="res://Sprites/Tiles/Rope (1).png" id="1_ig1xv"]
+[ext_resource type="LabelSettings" uid="uid://bbbqp22a6es0l" path="res://Resources/Fonts/Fade.tres" id="2_nww1f"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_nww1f"]
 texture = ExtResource("1_ig1xv")
@@ -23,6 +24,8 @@ sources/0 = SubResource("TileSetAtlasSource_nww1f")
 [sub_resource type="GDScript" id="GDScript_ig1xv"]
 script/source = "extends TileMapLayer
 
+@export var co : ColorRect
+@export var la : Label
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -42,17 +45,128 @@ func move() -> void:
 	if Resources.seals[3] == true:
 		return
 	
+	$Up/Collision.disabled = false
 	position = Vector2(-8, -211)
+
+
+
+func _on_up_body_entered(body: Node2D) -> void:
+	if body.name == \"Player\":
+		get_tree().paused = true
+		var tween : Tween = get_tree().create_tween().bind_node(self)
+		tween.TWEEN_PROCESS_PHYSICS
+		tween.tween_property(co, \"color\", Color(\"cbcbcb\"), 5)
+		tween.tween_property(la, \"modulate\", Color(\"131313\"), 5)
+		
+		await get_tree().create_timer(11).timeout
+		get_tree().paused = false
+		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+		get_tree().change_scene_to_file(\"res://Scenes/UI/menu.tscn\")
 "
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ig1xv"]
 size = Vector2(10, 240)
 
-[node name="Rope" type="TileMapLayer"]
+[sub_resource type="GDScript" id="GDScript_o1c34"]
+script/source = "extends Label
+
+@export var eco : Node
+
+var count : int = 0
+var characters : int
+
+signal echo
+
+func _ready() -> void:
+	Input.mouse_mode = Input.MOUSE_MODE_HIDDEN
+
+func _unhandled_input(_event: InputEvent) -> void:
+	
+	if !Input.is_action_just_pressed(\"shift\"):
+		return
+	
+	count += 1
+	
+	match count:
+		1:
+			visible_ratio = 0
+			text = \"what have\\nyou done?\"
+			echo.emit()
+		2:
+			visible_ratio = 0
+			text = '\"Born With No Wings,\\nBorn With No Future.\"'
+			echo.emit()
+		3:
+			visible_ratio = 0
+			text = \"I Can't Stand\\nThese Bells Anymore,\"
+			echo.emit()
+		4:
+			visible_ratio = 0
+			text = \"This Constant Ringing\\nWill Stop.\"
+			echo.emit()
+		5:
+			visible_ratio = 0
+			text = \"w-why would you\\nlisten to them?\"
+			echo.emit()
+		6:
+			visible_ratio = 0
+			text = \"I FOUND HIM!\\nHE'S HERE!\"
+			echo.emit()
+		7:
+			visible_ratio = 0
+			text = \"LET'S THROW IT\\nINTO THE DEPHTS!\"
+			echo.emit()
+		8:
+			visible_ratio = 0
+			text = \"please, no!\\nhe's lost!\"
+			echo.emit()
+		9:
+			get_tree().change_scene_to_file(\"res://Scenes/Places/main.tscn\")
+
+
+
+
+
+func _process(delta: float) -> void:
+	visible_ratio += delta
+"
+
+[sub_resource type="GDScript" id="GDScript_nww1f"]
+script/source = "extends Label
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta: float) -> void:
+	text = \"Deaths: \" + str(Resources.deaths)
+"
+
+[sub_resource type="GDScript" id="GDScript_s84mu"]
+script/source = "extends Label
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta: float) -> void:
+	text = \"Collectibles: \" + str(Resources.projectiles[1])
+"
+
+[sub_resource type="GDScript" id="GDScript_aui0j"]
+script/source = "extends Label
+
+var count : float
+@export var tm : Timer
+
+func _process(delta: float) -> void:
+	text = \"Time: \" + str((tm.time_left - 3600) / 60)
+"
+
+[node name="Rope" type="TileMapLayer" node_paths=PackedStringArray("co", "la")]
+process_mode = 3
 tile_map_data = PackedByteArray("AAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAMAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAUAAAAAAAAAAAAAAAYAAAAAAAAAAAAAAAcAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAkAAAAAAAAAAAAAAAoAAAAAAAAAAAAAAAsAAAAAAAAAAAAAAAwAAAAAAAAAAAAAAA0AAAAAAAAAAAAAAA4AAAABAAAAAAA=")
 tile_set = SubResource("TileSet_o1c34")
 navigation_enabled = false
 script = SubResource("GDScript_ig1xv")
+co = NodePath("CanvasLayer/ColorRect")
+la = NodePath("CanvasLayer/Label")
 
 [node name="Up" type="Area2D" parent="."]
 gravity_space_override = 3
@@ -61,4 +175,107 @@ gravity = -980.0
 [node name="Collision" type="CollisionShape2D" parent="Up"]
 position = Vector2(8, 120)
 shape = SubResource("RectangleShape2D_ig1xv")
+disabled = true
 debug_color = Color(1, 0.541333, 0.14, 0)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Label" type="Label" parent="CanvasLayer"]
+modulate = Color(1, 1, 1, 0)
+z_index = 2
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -65.0
+offset_top = -11.5
+offset_right = 65.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "May Silence Reign."
+label_settings = ExtResource("2_nww1f")
+horizontal_alignment = 1
+vertical_alignment = 1
+visible_characters_behavior = 1
+script = SubResource("GDScript_o1c34")
+
+[node name="Deaths" type="Label" parent="CanvasLayer/Label"]
+z_index = 2
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -260.0
+offset_top = 76.0
+offset_right = -71.0
+offset_bottom = 99.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Deaths: "
+label_settings = ExtResource("2_nww1f")
+horizontal_alignment = 1
+vertical_alignment = 1
+visible_characters_behavior = 1
+script = SubResource("GDScript_nww1f")
+
+[node name="Collected2" type="Label" parent="CanvasLayer/Label"]
+z_index = 2
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -88.0
+offset_top = 108.0
+offset_right = 101.0
+offset_bottom = 131.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Deaths: "
+label_settings = ExtResource("2_nww1f")
+horizontal_alignment = 1
+vertical_alignment = 1
+visible_characters_behavior = 1
+script = SubResource("GDScript_s84mu")
+
+[node name="Time" type="Label" parent="CanvasLayer/Label" node_paths=PackedStringArray("tm")]
+z_index = 2
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 72.0
+offset_top = 76.0
+offset_right = 261.0
+offset_bottom = 99.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Deaths: "
+label_settings = ExtResource("2_nww1f")
+horizontal_alignment = 1
+vertical_alignment = 1
+visible_characters_behavior = 1
+script = SubResource("GDScript_aui0j")
+tm = NodePath("../../../Timer")
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.8, 0.8, 0.8, 0)
+
+[node name="Timer" type="Timer" parent="."]
+process_mode = 1
+wait_time = 3600.0
+autostart = true
+
+[connection signal="body_entered" from="Up" to="." method="_on_up_body_entered"]

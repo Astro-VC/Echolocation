@@ -1,7 +1,7 @@
 extends Node
 
 
-@export var parent : Node2D
+@export var parent : Node
 @export var tree : Node2D
 @export var custom_parent : bool
 @export var custom_name : String

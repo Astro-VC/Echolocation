@@ -1062,7 +1062,7 @@ button = NodePath("..")
 label = NodePath("../Label")
 add_scale = Vector2(1.05, 1.05)
 duration = 0.1
-scene_to_go = "res://Scenes/Places/main.tscn"
+scene_to_go = "res://Scenes/UI/introduction.tscn"
 
 [node name="Vanish" parent="Camera2D/TextureButton" node_paths=PackedStringArray("to_fade", "sig_node") instance=ExtResource("3_tjcm1")]
 to_fade = NodePath("..")

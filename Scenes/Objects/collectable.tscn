@@ -115,7 +115,6 @@ use_timer = true
 [node name="Screech" parent="." node_paths=PackedStringArray("parent", "tree", "sig_node", "timer") instance=ExtResource("2_4057i")]
 parent = NodePath("..")
 tree = NodePath("..")
-echo_color_id = 10
 echo_size = Vector2(7, 7)
 fade_speed = Vector2(0.5, 2)
 produce_noise = false

@@ -22,6 +22,7 @@ func _physics_process(delta: float) -> void:
 	if wave != null:
 		wave.scale += (scale_to / 12) * delta
 
+
 func move_wave() -> void:
 	var tween : Tween = get_parent().create_tween()
 	

@@ -25,7 +25,7 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	if shake > 0 and shaake:
 		camera_shake(shake, time, delta)
-	
+	print(Resources.map_coord)
 
 
 func camera_shake(force : float, time : float, delta : float) -> void:

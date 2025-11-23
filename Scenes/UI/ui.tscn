@@ -153,7 +153,7 @@ vertical_alignment = 1
 [node name="UpdateText" type="Node" parent="Stats2" node_paths=PackedStringArray("label")]
 script = ExtResource("3_c7mb3")
 label = NodePath("../collectable")
-string = "10 / "
+string = "6 / "
 data_to_show = "projectiles"
 data_id = 1
 is_array = true
@@ -164,7 +164,7 @@ global_signal = true
 [node name="UpdateText2" type="Node" parent="Stats2" node_paths=PackedStringArray("label")]
 script = ExtResource("3_c7mb3")
 label = NodePath("../collectable2")
-string = "10 / "
+string = "6 / "
 data_to_show = "projectiles"
 data_id = 1
 is_array = true
@@ -189,18 +189,19 @@ script = SubResource("GDScript_fo61o")
 
 [node name="MapModule" parent="Map" instance=ExtResource("1_fo61o")]
 layout_mode = 1
+map_id = 10
 
 [node name="MapModule2" parent="Map" instance=ExtResource("1_fo61o")]
 layout_mode = 1
 offset_left = 52.0
 offset_right = 52.0
-map_id = 1
+map_id = 11
 
 [node name="MapModule3" parent="Map" instance=ExtResource("1_fo61o")]
 layout_mode = 1
 offset_left = 104.0
 offset_right = 104.0
-map_id = 2
+map_id = 12
 show_icon = true
 id = 3
 
@@ -208,7 +209,7 @@ id = 3
 layout_mode = 1
 offset_left = 208.0
 offset_right = 208.0
-map_id = 3
+map_id = 13
 show_icon = true
 id = 2
 
@@ -218,7 +219,7 @@ offset_left = 52.0
 offset_top = 36.0
 offset_right = 52.0
 offset_bottom = 36.0
-map_id = 4
+map_id = 14
 
 [node name="MapModule6" parent="Map" instance=ExtResource("1_fo61o")]
 layout_mode = 1
@@ -226,7 +227,7 @@ offset_left = 104.0
 offset_top = 36.0
 offset_right = 104.0
 offset_bottom = 36.0
-map_id = 5
+map_id = 15
 
 [node name="MapModule7" parent="Map" instance=ExtResource("1_fo61o")]
 layout_mode = 1
@@ -234,7 +235,7 @@ offset_left = 156.0
 offset_top = 36.0
 offset_right = 156.0
 offset_bottom = 36.0
-map_id = 6
+map_id = 16
 
 [node name="MapModule8" parent="Map" instance=ExtResource("1_fo61o")]
 layout_mode = 1
@@ -242,19 +243,19 @@ offset_left = 208.0
 offset_top = 36.0
 offset_right = 208.0
 offset_bottom = 36.0
-map_id = 7
+map_id = 17
 
 [node name="MapModule9" parent="Map" instance=ExtResource("1_fo61o")]
 layout_mode = 1
 offset_left = -52.0
 offset_right = -52.0
-map_id = -1
+map_id = 9
 
 [node name="MapModule10" parent="Map" instance=ExtResource("1_fo61o")]
 layout_mode = 1
 offset_left = -104.0
 offset_right = -104.0
-map_id = -2
+map_id = 8
 show_icon = true
 id = 1
 
@@ -264,7 +265,7 @@ offset_left = -104.0
 offset_top = 36.0
 offset_right = -104.0
 offset_bottom = 36.0
-map_id = -5
+map_id = 5
 
 [node name="MapModule12" parent="Map" instance=ExtResource("1_fo61o")]
 layout_mode = 1
@@ -272,5 +273,5 @@ offset_left = -156.0
 offset_top = 36.0
 offset_right = -156.0
 offset_bottom = 36.0
-map_id = -6
+map_id = 4
 show_icon = true
