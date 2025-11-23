@@ -1,9 +1,10 @@
-[gd_scene load_steps=8 format=3 uid="uid://d1chejkbwy6eg"]
+[gd_scene load_steps=9 format=3 uid="uid://d1chejkbwy6eg"]
 
 [ext_resource type="LabelSettings" uid="uid://bbbqp22a6es0l" path="res://Resources/Fonts/Fade.tres" id="1_ahcct"]
 [ext_resource type="PackedScene" uid="uid://cecpcvluhc55j" path="res://Scenes/Objects/map_module.tscn" id="1_fo61o"]
 [ext_resource type="FontFile" uid="uid://dmrjoldmob4to" path="res://Resources/Fonts/Not Jam Atomic 20.ttf" id="2_de23q"]
 [ext_resource type="Script" uid="uid://b0q62gu1pgwwu" path="res://Scripts/Composition/update_text.gd" id="3_c7mb3"]
+[ext_resource type="Script" uid="uid://c58jbpds114rl" path="res://Scripts/Composition/ui_crtl.gd" id="4_alcrr"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_ahcct"]
 light_mode = 2
@@ -22,12 +23,12 @@ var b : bool = true
 
 func _input(event: InputEvent) -> void:
 	if Input.is_action_just_pressed(\"m\") and b:
-		show()
+		hide()
 		b = false
 		return
 	
 	if Input.is_action_just_pressed(\"m\") and !b:
-		hide()
+		show()
 		b = true
 "
 
@@ -51,6 +52,8 @@ offset_right = 250.0
 offset_bottom = 160.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("4_alcrr")
+inpt = "q"
 
 [node name="Life" type="Label" parent="Stats"]
 modulate = Color(1, 1, 1, 0.0823529)
@@ -109,6 +112,8 @@ offset_right = -251.0
 offset_bottom = -136.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("4_alcrr")
+inpt = "q"
 
 [node name="collectable" type="Label" parent="Stats2"]
 modulate = Color(1, 1, 1, 0.0823529)
@@ -122,7 +127,7 @@ offset_right = -8.0
 offset_bottom = -1.0
 grow_horizontal = 2
 grow_vertical = 2
-text = "10 /"
+text = "6 /"
 label_settings = ExtResource("1_ahcct")
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -140,7 +145,7 @@ offset_right = -8.0
 offset_bottom = -1.0
 grow_horizontal = 2
 grow_vertical = 2
-text = "10 /"
+text = "6 /"
 label_settings = SubResource("LabelSettings_c7mb3")
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -196,12 +201,16 @@ layout_mode = 1
 offset_left = 104.0
 offset_right = 104.0
 map_id = 2
+show_icon = true
+id = 3
 
 [node name="MapModule4" parent="Map" instance=ExtResource("1_fo61o")]
 layout_mode = 1
 offset_left = 208.0
 offset_right = 208.0
 map_id = 3
+show_icon = true
+id = 2
 
 [node name="MapModule5" parent="Map" instance=ExtResource("1_fo61o")]
 layout_mode = 1
@@ -246,6 +255,8 @@ layout_mode = 1
 offset_left = -104.0
 offset_right = -104.0
 map_id = -2
+show_icon = true
+id = 1
 
 [node name="MapModule11" parent="Map" instance=ExtResource("1_fo61o")]
 layout_mode = 1
@@ -262,3 +273,4 @@ offset_top = 36.0
 offset_right = -156.0
 offset_bottom = 36.0
 map_id = -6
+show_icon = true

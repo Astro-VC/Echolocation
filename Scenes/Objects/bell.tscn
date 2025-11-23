@@ -83,7 +83,6 @@ sig_node = NodePath("../DetectSound")
 sig_name = "inside"
 use_signal = true
 timer = NodePath("../BellTimer")
-cooldown = 1.0
 
 [node name="Screech2" parent="." node_paths=PackedStringArray("parent", "tree", "sig_node", "timer") instance=ExtResource("7_rm70y")]
 parent = NodePath("../Base")
@@ -95,7 +94,6 @@ use_input = false
 sig_node = NodePath("../DetectSound")
 use_signal = true
 timer = NodePath("../BellTimer")
-cooldown = 1.0
 
 [node name="BellTimer" type="Timer" parent="."]
 one_shot = true

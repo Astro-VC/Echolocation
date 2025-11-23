@@ -497,7 +497,7 @@ animation = &"idle"
 [node name="OutlineSprite" type="AnimatedSprite2D" parent="Player"]
 material = SubResource("CanvasItemMaterial_mywf8")
 sprite_frames = SubResource("SpriteFrames_bl7w6")
-animation = &"walk"
+animation = &"idle"
 
 [node name="DamageSprite" type="AnimatedSprite2D" parent="Player"]
 visible = false
@@ -612,8 +612,11 @@ time = 0.3
 parent = NodePath("../Player")
 tree = NodePath("..")
 echo_noise = 5.0
+echo_size = Vector2(7, 7)
+fade_speed = Vector2(0.5, 5)
 camera_zoom = true
 detection_area_name = "on_echo"
+input = "down"
 timer = NodePath("../ScreechTimer")
 
 [node name="ScreechLand" parent="." node_paths=PackedStringArray("parent", "tree", "sig_node", "timer") instance=ExtResource("12_j4rlg")]
@@ -626,6 +629,19 @@ use_input = false
 sig_node = NodePath("../Player/MovementMachine/land")
 use_signal = true
 timer = NodePath("../ScreechTimer")
+
+[node name="ScreechWalk" parent="." node_paths=PackedStringArray("parent", "tree", "sig_node", "timer") instance=ExtResource("12_j4rlg")]
+parent = NodePath("../Player")
+tree = NodePath("..")
+echo_noise = 1.0
+echo_size = Vector2(5, 5)
+fade_speed = Vector2(0.5, 0.5)
+detection_area_name = "on_echo"
+use_input = false
+sig_node = NodePath("../Player/MovementMachine/walk")
+use_signal = true
+timer = NodePath("../ScreechTimer")
+cooldown = 1.0
 
 [node name="ScreechDie" parent="." node_paths=PackedStringArray("parent", "tree", "sig_node", "timer") instance=ExtResource("12_j4rlg")]
 parent = NodePath("../Player")
@@ -669,7 +685,7 @@ timer = NodePath("../CooldownTimer")
 cooldown_time = 0.6
 use_cooldown = true
 use_input = true
-input = "down"
+input = "shift"
 
 [node name="DetectSound" parent="." node_paths=PackedStringArray("area") instance=ExtResource("14_bq3id")]
 area = NodePath("../Player/Hitbox")
@@ -696,7 +712,6 @@ use_signal = true
 [node name="ProduceAudio3" parent="." node_paths=PackedStringArray("tree", "parent", "sig_node") instance=ExtResource("16_0n2th")]
 tree = NodePath("..")
 parent = NodePath("../Player")
-volume = -5.0
 pitch_rand = Vector2(0.8, 1)
 random_pitch = true
 sig_node = NodePath("../Player/MovementMachine/land")

@@ -1,18 +1,26 @@
-[gd_scene load_steps=11 format=4 uid="uid://cecpcvluhc55j"]
+[gd_scene load_steps=12 format=4 uid="uid://cecpcvluhc55j"]
 
 [ext_resource type="Material" uid="uid://do00jxdie5vra" path="res://Resources/sonar.tres" id="1_5fmas"]
 [ext_resource type="Texture2D" uid="uid://domr611lkasfe" path="res://Sprites/Tiles/MapUITiles.png" id="1_bhrwg"]
 [ext_resource type="Texture2D" uid="uid://ndr5kkea8igf" path="res://Sprites/Tiles/MapUiTilesBackground.png" id="2_7sko8"]
 [ext_resource type="FontFile" uid="uid://dmrjoldmob4to" path="res://Resources/Fonts/Not Jam Atomic 20.ttf" id="3_7sko8"]
+[ext_resource type="Texture2D" uid="uid://8tn67oc3igwm" path="res://Sprites/Objects/Note.png" id="4_vdj5e"]
 
 [sub_resource type="GDScript" id="GDScript_2xkve"]
 script/source = "extends Control
 
 @export var map_id : int
+@export var show_icon : bool
+@export var id : int
 
 func _ready() -> void:
 	$Background/Life.text = str(map_id)
 	$Background/Background2/Life.text = str(map_id)
+	
+	if show_icon:
+		$Outline/Note.show()
+		$Outline/Outline2/Note2.show()
+
 
 func _process(delta: float) -> void:
 	if map_id == Resources.map_coord:
@@ -20,6 +28,12 @@ func _process(delta: float) -> void:
 		$Outline.show()
 		return
 	$Background.hide()
+	
+	
+	if show_icon:
+		if Resources.seals[id] == false:
+			$Outline/Outline2/Note2.hide()
+			$Outline/Note.hide()
 "
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_5fmas"]
@@ -262,3 +276,20 @@ light_mask = 4
 material = ExtResource("1_5fmas")
 tile_map_data = PackedByteArray("AAD/////AAACAAAAAAAAAP//AAADAAAAAAAAAAAAAAADAAIAAAD//wAAAAACAAIAAAD+/wAAAAABAAIAAAD+////AAABAAAAAAA=")
 tile_set = SubResource("TileSet_vdj5e")
+
+[node name="Note2" type="Sprite2D" parent="Outline/Outline2"]
+visible = false
+modulate = Color(1, 1, 1, 0.498039)
+self_modulate = Color(0.09, 0.09, 0.09, 1)
+light_mask = 4
+use_parent_material = true
+position = Vector2(10, 10)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("4_vdj5e")
+
+[node name="Note" type="Sprite2D" parent="Outline"]
+visible = false
+modulate = Color(1, 1, 1, 0.498039)
+position = Vector2(10, 10)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("4_vdj5e")

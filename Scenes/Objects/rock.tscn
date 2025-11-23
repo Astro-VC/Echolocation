@@ -115,7 +115,6 @@ use_global_sig = true
 [node name="Screech" parent="." node_paths=PackedStringArray("parent", "tree", "sig_node", "timer") instance=ExtResource("7_fsbm5")]
 parent = NodePath("../Projectile")
 tree = NodePath("..")
-echo_color_id = 6
 echo_noise = 3.0
 echo_size = Vector2(5, 5)
 detection_area_name = "on_rock"

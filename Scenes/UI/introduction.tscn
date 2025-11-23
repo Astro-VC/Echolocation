@@ -1,0 +1,56 @@
+[gd_scene load_steps=3 format=3 uid="uid://ce4xo3djyw2jp"]
+
+[ext_resource type="LabelSettings" uid="uid://bbbqp22a6es0l" path="res://Resources/Fonts/Fade.tres" id="1_rka6h"]
+
+[sub_resource type="GDScript" id="GDScript_rka6h"]
+script/source = "extends Label
+
+var clr : PackedColorArray = [Textures.colors[5], Textures.colors[0]]
+
+var count : int = 0
+var characters : int
+
+func _unhandled_input(_event: InputEvent) -> void:
+	
+	if !Input.is_action_just_pressed(\"shift\"):
+		return
+	
+	count += 1
+	
+	match count:
+		1:
+			visible_ratio = 0
+			text = \"What have you done?\"
+			characters = text.length()
+			modulate = clr[0]
+
+
+
+func _process(delta: float) -> void:
+	visible_ratio += delta * characters / 2
+"
+
+[node name="Introduction" type="Node2D"]
+
+[node name="Label" type="Label" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -11.5
+offset_right = 20.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "teste"
+label_settings = ExtResource("1_rka6h")
+visible_characters = 0
+visible_ratio = 0.0
+script = SubResource("GDScript_rka6h")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="Timer" type="Timer" parent="."]
+one_shot = true

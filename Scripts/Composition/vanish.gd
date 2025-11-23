@@ -1,6 +1,6 @@
 extends Node
 
-@export var to_fade : Node2D
+@export var to_fade : Node
 
 @export_category("Signal")
 @export var sig_node : Node

@@ -1,0 +1,64 @@
+[gd_scene load_steps=6 format=4 uid="uid://bkvofrk15b3pa"]
+
+[ext_resource type="Texture2D" uid="uid://bnit8f8i7j5hg" path="res://Sprites/Tiles/Rope (1).png" id="1_ig1xv"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_nww1f"]
+texture = ExtResource("1_ig1xv")
+0:0/0 = 0
+0:0/0/terrain_set = 0
+0:0/0/terrain = 0
+0:0/0/terrains_peering_bit/bottom_side = 0
+0:0/0/terrains_peering_bit/top_side = 0
+1:0/0 = 0
+1:0/0/terrain_set = 0
+1:0/0/terrain = 0
+1:0/0/terrains_peering_bit/top_side = 0
+
+[sub_resource type="TileSet" id="TileSet_o1c34"]
+terrain_set_0/mode = 2
+terrain_set_0/terrain_0/name = "Terrain 0"
+terrain_set_0/terrain_0/color = Color(1, 0.709605, 0.757587, 1)
+sources/0 = SubResource("TileSetAtlasSource_nww1f")
+
+[sub_resource type="GDScript" id="GDScript_ig1xv"]
+script/source = "extends TileMapLayer
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready() -> void:
+	Global.tape_taken.connect(move.bind())
+
+
+func move() -> void:
+	if Resources.seals[0] == true:
+		return
+	
+	if Resources.seals[1] == true:
+		return
+	
+	if Resources.seals[2] == true:
+		return
+	
+	if Resources.seals[3] == true:
+		return
+	
+	position = Vector2(-8, -211)
+"
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ig1xv"]
+size = Vector2(10, 240)
+
+[node name="Rope" type="TileMapLayer"]
+tile_map_data = PackedByteArray("AAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAMAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAUAAAAAAAAAAAAAAAYAAAAAAAAAAAAAAAcAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAkAAAAAAAAAAAAAAAoAAAAAAAAAAAAAAAsAAAAAAAAAAAAAAAwAAAAAAAAAAAAAAA0AAAAAAAAAAAAAAA4AAAABAAAAAAA=")
+tile_set = SubResource("TileSet_o1c34")
+navigation_enabled = false
+script = SubResource("GDScript_ig1xv")
+
+[node name="Up" type="Area2D" parent="."]
+gravity_space_override = 3
+gravity = -980.0
+
+[node name="Collision" type="CollisionShape2D" parent="Up"]
+position = Vector2(8, 120)
+shape = SubResource("RectangleShape2D_ig1xv")
+debug_color = Color(1, 0.541333, 0.14, 0)

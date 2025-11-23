@@ -557,7 +557,7 @@ animation = &"scream"
 material = SubResource("CanvasItemMaterial_y7xhm")
 position = Vector2(0, -7)
 sprite_frames = SubResource("SpriteFrames_mv3y0")
-animation = &"scream"
+animation = &"idle"
 
 [node name="PathFinding" type="NavigationAgent2D" parent="Monster"]
 path_desired_distance = 30.0

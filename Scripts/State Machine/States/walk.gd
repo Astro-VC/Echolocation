@@ -28,7 +28,7 @@ func process_physics(delta: float) -> State:
 	move(delta, move_speed, m_acceleration, m_deceleration, gravity)
 	reset_scale(delta, squish_speed)
 	
-	if Engine.get_physics_frames() % 20 == 0:
+	if Engine.get_physics_frames() % 30 == 0:
 		echo.emit()
 	
 	if Engine.get_physics_frames() % 30 == 0:
