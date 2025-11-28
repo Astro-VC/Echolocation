@@ -29,7 +29,6 @@ func spotted() -> void:
 	Global.damage.emit()
 	Global.camera_shake.emit(3)
 	Global.update_color.emit(Textures.colors[5])
-	Global.chase_player = true
 	Engine.time_scale = 0.3
 	await get_tree().create_timer(0.3).timeout
 	Engine.time_scale = 1

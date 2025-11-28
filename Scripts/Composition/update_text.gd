@@ -8,6 +8,7 @@ extends Node
 @export var data_id : int
 @export var is_array : bool
 @export var use_data : bool
+@export var invert : bool
 
 @export_category("Signal")
 @export var sig_node : Node
@@ -43,4 +44,9 @@ func get_data() -> String:
 		
 	return ""
 func update_text() -> void:
+	
+	if invert:
+		label.text = get_data() + string
+		return
+	
 	label.text = string + get_data()

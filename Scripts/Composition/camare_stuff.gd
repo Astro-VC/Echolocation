@@ -39,11 +39,11 @@ func change_cam() -> void:
 	
 	if player.player.global_position.y > 170 and player.player.velocity.y > 0:
 		camera.global_position.y = 360
-		Resources.map_coord += 3
+		Resources.map_coord += 4
 		return
 	if player.player.global_position.y < 170 and player.player.velocity.y < 0:
 		camera.global_position.y = 0
-		Resources.map_coord -= 3
+		Resources.map_coord -= 4
 		return
 	
 	

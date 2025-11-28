@@ -22,7 +22,7 @@ func process_physics(delta: float) -> State:
 	if parent.normal_animation.is_playing():
 		return null
 	
-	if check_player() or Global.noise:
+	if (Global.noise and Resources.sound_volume >= 10):
 		return chase
 	
 	return walk

@@ -149,7 +149,7 @@ func check_player() -> bool:
 		return true
 	return false
 func check_range(dir : Vector2) -> bool:
-	if dir.y < parent.global_position.y - 16:
+	if dir.y < parent.global_position.y - 16 or dir.y > parent.global_position.y + 16:
 		return true
 	return false
 func check_noise(sound_limit : int, stt : State) -> State:

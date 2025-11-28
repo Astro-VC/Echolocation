@@ -1,4 +1,4 @@
-[gd_scene load_steps=67 format=4 uid="uid://bfm3xvet4o1ne"]
+[gd_scene load_steps=71 format=4 uid="uid://bfm3xvet4o1ne"]
 
 [ext_resource type="Texture2D" uid="uid://vc7yckai04o8" path="res://Sprites/Sound Waves/Untitled 11-15-2025 11-11-38.png" id="1_h431x"]
 [ext_resource type="Material" uid="uid://do00jxdie5vra" path="res://Resources/sonar.tres" id="1_vdyja"]
@@ -16,7 +16,10 @@
 [ext_resource type="PackedScene" uid="uid://xvqacbjtmvu3" path="res://Scenes/Other/vanish.tscn" id="8_txy4j"]
 [ext_resource type="Texture2D" uid="uid://t7xn3ajla1r3" path="res://Sprites/Objects/Spike.png" id="9_4ugmx"]
 [ext_resource type="Texture2D" uid="uid://bhfhwbrhwmxmf" path="res://Sprites/Tiles/Purpleeer.png" id="9_o7pxu"]
+[ext_resource type="LabelSettings" uid="uid://bbbqp22a6es0l" path="res://Resources/Fonts/Fade.tres" id="9_xd4uf"]
 [ext_resource type="Texture2D" uid="uid://bla804heuckup" path="res://Sprites/Tiles/Untitled 11-06-2025 06-51-40 (3).png" id="10_4ugmx"]
+[ext_resource type="Script" uid="uid://6vhftrblln81" path="res://Scripts/label.gd" id="10_h8nqi"]
+[ext_resource type="FontFile" uid="uid://dmrjoldmob4to" path="res://Resources/Fonts/Not Jam Atomic 20.ttf" id="10_wqhwc"]
 [ext_resource type="Texture2D" uid="uid://x73pcrk26hql" path="res://Sprites/Tiles/HoverUiBack.png" id="12_h431x"]
 [ext_resource type="PackedScene" uid="uid://bhdhvjgsj61qf" path="res://Scenes/Other/camare_stuff.tscn" id="12_x25bf"]
 [ext_resource type="Texture2D" uid="uid://bv2btbvf6panb" path="res://Sprites/Tiles/Untitled 11-06-2025 06-51-40 (4).png" id="13_1vksa"]
@@ -32,6 +35,13 @@
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_n48p0"]
 light_mode = 2
+
+[sub_resource type="LabelSettings" id="LabelSettings_h8nqi"]
+font = ExtResource("10_wqhwc")
+font_size = 20
+font_color = Color(0.0745098, 0.0745098, 0.0745098, 1)
+outline_size = 2
+outline_color = Color(0.0745098, 0.0745098, 0.0745098, 1)
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_n48p0"]
 texture = ExtResource("2_x25bf")
@@ -2096,6 +2106,33 @@ position = Vector2(-302, -139)
 texture = ExtResource("6_n48p0")
 hframes = 6
 
+[node name="Label" type="Label" parent="Camera2D"]
+modulate = Color(1, 1, 1, 0.0823529)
+z_index = 20
+offset_left = 56.0
+offset_top = -166.0
+offset_right = 313.0
+offset_bottom = -143.0
+text = "Bring silence to the well"
+label_settings = ExtResource("9_xd4uf")
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("10_h8nqi")
+
+[node name="Label2" type="Label" parent="Camera2D"]
+light_mask = 4
+z_index = 20
+material = ExtResource("1_vdyja")
+offset_left = 56.0
+offset_top = -166.0
+offset_right = 313.0
+offset_bottom = -143.0
+text = "Bring silence to the well"
+label_settings = SubResource("LabelSettings_h8nqi")
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("10_h8nqi")
+
 [node name="Outlines" type="TileMapLayer" parent="."]
 self_modulate = Color(0.889543, 0.897506, 0.936697, 1)
 material = ExtResource("1_vdyja")
@@ -2451,9 +2488,6 @@ position = Vector2(670, -592)
 
 [node name="Monster" parent="." instance=ExtResource("29_88s7l")]
 position = Vector2(1297, 266)
-
-[node name="Monster2" parent="." instance=ExtResource("29_88s7l")]
-position = Vector2(-1097, -34)
 
 [node name="clear" type="Node" parent="."]
 script = SubResource("GDScript_88s7l")

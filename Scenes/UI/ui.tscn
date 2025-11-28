@@ -127,7 +127,7 @@ offset_right = -8.0
 offset_bottom = -1.0
 grow_horizontal = 2
 grow_vertical = 2
-text = "6 /"
+text = " / 6"
 label_settings = ExtResource("1_ahcct")
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -145,7 +145,7 @@ offset_right = -8.0
 offset_bottom = -1.0
 grow_horizontal = 2
 grow_vertical = 2
-text = "6 /"
+text = " / 6"
 label_settings = SubResource("LabelSettings_c7mb3")
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -153,22 +153,24 @@ vertical_alignment = 1
 [node name="UpdateText" type="Node" parent="Stats2" node_paths=PackedStringArray("label")]
 script = ExtResource("3_c7mb3")
 label = NodePath("../collectable")
-string = "6 / "
+string = " / 6"
 data_to_show = "projectiles"
 data_id = 1
 is_array = true
 use_data = true
+invert = true
 global_sig = "noise_updated"
 global_signal = true
 
 [node name="UpdateText2" type="Node" parent="Stats2" node_paths=PackedStringArray("label")]
 script = ExtResource("3_c7mb3")
 label = NodePath("../collectable2")
-string = "6 / "
+string = " / 6"
 data_to_show = "projectiles"
 data_id = 1
 is_array = true
 use_data = true
+invert = true
 global_sig = "noise_updated"
 global_signal = true
 
@@ -214,7 +216,7 @@ down = true
 layout_mode = 1
 offset_left = 208.0
 offset_right = 208.0
-map_id = 13
+map_id = 14
 show_icon = true
 id = 2
 down = true
@@ -225,7 +227,7 @@ offset_left = 52.0
 offset_top = 36.0
 offset_right = 52.0
 offset_bottom = 36.0
-map_id = 14
+map_id = 15
 right = true
 
 [node name="MapModule6" parent="Map" instance=ExtResource("1_fo61o")]
@@ -234,7 +236,7 @@ offset_left = 104.0
 offset_top = 36.0
 offset_right = 104.0
 offset_bottom = 36.0
-map_id = 15
+map_id = 16
 right = true
 
 [node name="MapModule7" parent="Map" instance=ExtResource("1_fo61o")]
@@ -243,7 +245,7 @@ offset_left = 156.0
 offset_top = 36.0
 offset_right = 156.0
 offset_bottom = 36.0
-map_id = 16
+map_id = 17
 right = true
 
 [node name="MapModule8" parent="Map" instance=ExtResource("1_fo61o")]
@@ -252,7 +254,7 @@ offset_left = 208.0
 offset_top = 36.0
 offset_right = 208.0
 offset_bottom = 36.0
-map_id = 17
+map_id = 18
 
 [node name="MapModule9" parent="Map" instance=ExtResource("1_fo61o")]
 layout_mode = 1
@@ -276,7 +278,7 @@ offset_left = -104.0
 offset_top = 36.0
 offset_right = -104.0
 offset_bottom = 36.0
-map_id = 5
+map_id = 4
 left = true
 
 [node name="MapModule12" parent="Map" instance=ExtResource("1_fo61o")]
@@ -285,5 +287,5 @@ offset_left = -156.0
 offset_top = 36.0
 offset_right = -156.0
 offset_bottom = 36.0
-map_id = 4
+map_id = 3
 show_icon = true

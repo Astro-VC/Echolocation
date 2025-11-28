@@ -578,7 +578,6 @@ target_desired_distance = 50.0
 path_postprocessing = 1
 avoidance_enabled = true
 max_neighbors = 20
-debug_enabled = true
 debug_path_custom_color = Color(1, 0.33, 0.33, 1)
 
 [node name="MovementMachine" type="Node" parent="Monster" node_paths=PackedStringArray("starting_state")]

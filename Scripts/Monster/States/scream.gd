@@ -33,7 +33,7 @@ func process_physics(delta: float) -> State:
 		parent.outline_animation.play_backwards()
 		return null
 	
-	if check_player():
+	if (Global.noise and Resources.sound_volume >= 10):
 		return chase
 	
 	if rand_state == change.y:
