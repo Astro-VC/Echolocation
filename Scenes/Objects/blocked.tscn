@@ -515,7 +515,7 @@ texture = ExtResource("8_rwova")
 2:2/0 = 0
 
 [sub_resource type="TileSet" id="TileSet_rwova"]
-physics_layer_0/collision_layer = 67
+physics_layer_0/collision_layer = 3
 physics_layer_0/collision_mask = 0
 physics_layer_1/collision_layer = 128
 physics_layer_1/collision_mask = 0
@@ -562,8 +562,9 @@ func unlock(d : Node2D)-> void:
 
 func un(d : Node2D) -> void:
 	if d.name != coll_nam and d.name != \"Player\":
-		clear()
-		echo.emit()
+		if d.name != \"Outlines2\" and d.name != \"Outlines3\":
+			clear()
+			echo.emit()
 "
 
 [node name="Blocked" type="TileMapLayer"]

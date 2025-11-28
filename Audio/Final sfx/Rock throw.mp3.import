@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://dqn6gycbibg5"
+path="res://.godot/imported/Rock throw.mp3-dd619e470258a3d8d984acf8a19b4fab.mp3str"
+
+[deps]
+
+source_file="res://Audio/Final sfx/Rock throw.mp3"
+dest_files=["res://.godot/imported/Rock throw.mp3-dd619e470258a3d8d984acf8a19b4fab.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

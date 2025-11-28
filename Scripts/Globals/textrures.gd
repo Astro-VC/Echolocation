@@ -5,15 +5,18 @@ extends Node
 var echo : PackedScene = load("res://Scenes/Other/echo.tscn")
 var audio : PackedScene = load("res://Scenes/Other/sound.tscn")
 
-var buffer : PackedStringArray = ["res://Audio/object release.mp3", 
-"res://Audio/WalkStone3.mp3", 
-"res://Audio/Whoosh.wav", 
-"res://Audio/wormhole-129234.mp3", 
+var buffer : PackedStringArray = [
+"res://Audio/Final sfx/Landing Stone (mp3cut.net).mp3", 
+"res://Audio/Final sfx/Rocks steps.mp3", 
+"res://Audio/Final sfx/Rock throw.mp3", 
+"res://Audio/Final sfx/sonar enemy.mp3",
 "res://Audio/Transition_2.wav", 
-"res://Audio/whoosh-axe-throw-389751.mp3", 
-"res://Audio/match-cave-164967.mp3",
-"res://Audio/Shatter.wav",
-"res://Audio/Whah.wav"
+"res://Audio/Final sfx/Enemy teleport 1.mp3", 
+"res://Audio/Final sfx/sonar player.mp3",
+"res://Audio/Final sfx/Bells.mp3",
+"res://Audio/Final sfx/Collect.mp3",
+"res://Audio/Final sfx/Rock land.mp3",
+"res://Audio/Final sfx/Collect.mp3"
 ]
 
 var musics : PackedStringArray = [
@@ -22,7 +25,8 @@ var musics : PackedStringArray = [
 	"res://Audio/Musics/Theme_2.mp3", 
 	"res://Audio/Musics/Puzzle_Zone_Theme.mp3", 
 	"res://Audio/Musics/Jumping_Zone_Theme.mp3", 
-	"res://Audio/Musics/Monster_Zone_Theme.mp3"
+	"res://Audio/Musics/Monster_Zone_Theme.mp3",
+	"res://Audio/Musics/Chase_Theme.mp3"
 	]
 
 var projectiles : PackedStringArray = ["res://Scenes/Objects/rock.tscn"]

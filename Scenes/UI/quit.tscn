@@ -11,7 +11,7 @@ script/source = "extends Control
 
 var cycle : bool
 
-func _unhandled_input(event: InputEvent) -> void:
+func _unhandled_input(_event: InputEvent) -> void:
 	
 	if Resources.seals[0] == false:
 		if Resources.seals[1] == false:
@@ -52,6 +52,7 @@ script = SubResource("GDScript_h04m2")
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="Control" type="Control" parent="CanvasLayer"]
+process_mode = 3
 visible = false
 layout_mode = 3
 anchors_preset = 15
@@ -70,6 +71,7 @@ grow_vertical = 2
 color = Color(0.09, 0.09, 0.09, 0.498039)
 
 [node name="TextureButton" type="TextureButton" parent="CanvasLayer/Control"]
+process_mode = 3
 z_index = 5
 layout_mode = 1
 anchors_preset = 8
@@ -133,6 +135,7 @@ patch_margin_right = 16
 patch_margin_bottom = 16
 
 [node name="Buttton" type="Node" parent="CanvasLayer/Control/TextureButton" node_paths=PackedStringArray("textur", "button", "label", "second")]
+process_mode = 3
 script = ExtResource("4_eubmv")
 textur = NodePath("../NinePatchRect")
 button = NodePath("..")
@@ -143,6 +146,7 @@ duration = 0.1
 scene_to_go = "res://Scenes/UI/menu.tscn"
 
 [node name="TextureButton2" type="TextureButton" parent="CanvasLayer/Control"]
+process_mode = 3
 z_index = 5
 layout_mode = 1
 anchors_preset = 8

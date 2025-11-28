@@ -1,10 +1,12 @@
-[gd_scene load_steps=10 format=4 uid="uid://ce4xo3djyw2jp"]
+[gd_scene load_steps=13 format=4 uid="uid://ce4xo3djyw2jp"]
 
 [ext_resource type="Material" uid="uid://do00jxdie5vra" path="res://Resources/sonar.tres" id="1_b3k4y"]
-[ext_resource type="LabelSettings" uid="uid://bbbqp22a6es0l" path="res://Resources/Fonts/Fade.tres" id="1_rka6h"]
 [ext_resource type="Texture2D" uid="uid://x73pcrk26hql" path="res://Sprites/Tiles/HoverUiBack.png" id="2_jhg63"]
 [ext_resource type="PackedScene" uid="uid://xvqacbjtmvu3" path="res://Scenes/Other/vanish.tscn" id="3_jhg63"]
 [ext_resource type="PackedScene" uid="uid://dc2qoqskj6apx" path="res://Scenes/Other/screech.tscn" id="3_x8vq6"]
+[ext_resource type="FontFile" uid="uid://dmrjoldmob4to" path="res://Resources/Fonts/Not Jam Atomic 20.ttf" id="4_y5r6s"]
+[ext_resource type="Script" uid="uid://bcjiwokbiaaj3" path="res://Scenes/UI/label.gd" id="5_y5r6s"]
+[ext_resource type="AudioStream" uid="uid://cbw00e05a72yw" path="res://Audio/Final sfx/Rock land.mp3" id="7_okqrw"]
 
 [sub_resource type="GDScript" id="GDScript_ja067"]
 script/source = "extends Camera2D
@@ -68,69 +70,13 @@ texture_region_size = Vector2i(4, 4)
 tile_size = Vector2i(4, 4)
 sources/0 = SubResource("TileSetAtlasSource_y5r6s")
 
-[sub_resource type="GDScript" id="GDScript_rka6h"]
-script/source = "extends Label
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_okqrw"]
+light_mode = 2
 
-@export var eco : Node
-
-var count : int = 0
-var characters : int
-
-signal echo
-
-func _ready() -> void:
-	Input.mouse_mode = Input.MOUSE_MODE_HIDDEN
-
-func _unhandled_input(_event: InputEvent) -> void:
-	
-	if !Input.is_action_just_pressed(\"shift\"):
-		return
-	
-	count += 1
-	
-	match count:
-		1:
-			visible_ratio = 0
-			text = \"what have\\nyou done?\"
-			echo.emit()
-		2:
-			visible_ratio = 0
-			text = '\"Born With No Wings,\\nBorn With No Future.\"'
-			echo.emit()
-		3:
-			visible_ratio = 0
-			text = \"I Can't Stand\\nThese Bells Anymore,\"
-			echo.emit()
-		4:
-			visible_ratio = 0
-			text = \"This Constant Ringing\\nWill Stop.\"
-			echo.emit()
-		5:
-			visible_ratio = 0
-			text = \"w-why would you\\nlisten to them?\"
-			echo.emit()
-		6:
-			visible_ratio = 0
-			text = \"I FOUND HIM!\\nHE'S HERE!\"
-			echo.emit()
-		7:
-			visible_ratio = 0
-			text = \"LET'S THROW IT\\nINTO THE DEPHTS!\"
-			echo.emit()
-		8:
-			visible_ratio = 0
-			text = \"please, no!\\nhe's lost!\"
-			echo.emit()
-		9:
-			get_tree().change_scene_to_file(\"res://Scenes/Places/main.tscn\")
-
-
-
-
-
-func _process(delta: float) -> void:
-	visible_ratio += delta
-"
+[sub_resource type="LabelSettings" id="LabelSettings_uuhf8"]
+font = ExtResource("4_y5r6s")
+font_size = 20
+font_color = Color(0.796078, 0.796078, 0.796078, 1)
 
 [node name="Introduction" type="Node2D"]
 
@@ -149,8 +95,8 @@ tile_set = SubResource("TileSet_okqrw")
 to_fade = NodePath("..")
 sig_node = NodePath("../../Screech")
 
-[node name="Label" type="Label" parent="." node_paths=PackedStringArray("eco")]
-material = ExtResource("1_b3k4y")
+[node name="Label" type="Label" parent="."]
+material = SubResource("CanvasItemMaterial_okqrw")
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -162,13 +108,11 @@ offset_right = 20.0
 offset_bottom = 11.5
 grow_horizontal = 2
 grow_vertical = 2
-text = "oh.. oh god.."
-label_settings = ExtResource("1_rka6h")
+text = "..."
+label_settings = SubResource("LabelSettings_uuhf8")
 horizontal_alignment = 1
 vertical_alignment = 1
 visible_characters_behavior = 1
-script = SubResource("GDScript_rka6h")
-eco = NodePath("../Screech")
 
 [node name="Vanish" parent="Label" node_paths=PackedStringArray("to_fade", "sig_node") instance=ExtResource("3_jhg63")]
 to_fade = NodePath("..")
@@ -181,11 +125,34 @@ echo_size = Vector2(15, 15)
 fade_speed = Vector2(0.5, 5)
 produce_noise = false
 detection_area_name = "whasuup"
-use_input = false
-sig_node = NodePath("../Label")
-use_signal = true
+input = "mouse"
+sig_node = NodePath("../Node")
 timer = NodePath("../Timer")
 cooldown = 0.0
 
+[node name="Node" type="Node" parent="." node_paths=PackedStringArray("eco", "label", "timer", "audio", "audio2")]
+script = ExtResource("5_y5r6s")
+eco = NodePath("../Screech")
+label = NodePath("../Label")
+timer = NodePath("../Timer2")
+audio = NodePath("../AudioStreamPlayer")
+audio2 = NodePath("../AudioStreamPlayer2")
+
 [node name="Timer" type="Timer" parent="."]
 one_shot = true
+
+[node name="Timer2" type="Timer" parent="."]
+one_shot = true
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("7_okqrw")
+volume_db = -15.0
+pitch_scale = 0.6
+max_polyphony = 8
+bus = &"echo"
+
+[node name="AudioStreamPlayer2" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("7_okqrw")
+volume_db = -15.0
+max_polyphony = 8
+bus = &"echo"

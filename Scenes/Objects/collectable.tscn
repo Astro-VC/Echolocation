@@ -1,6 +1,6 @@
-[gd_scene load_steps=19 format=3 uid="uid://b62xpp54yhly1"]
+[gd_scene load_steps=20 format=3 uid="uid://b62xpp54yhly1"]
 
-[ext_resource type="AudioStream" uid="uid://dwqa1aulwotj6" path="res://Audio/alien-voices-142867.mp3" id="1_bf8ix"]
+[ext_resource type="AudioStream" uid="uid://bdri0pvdnruwt" path="res://Audio/Final sfx/Heart beat.mp3" id="1_6agcc"]
 [ext_resource type="Texture2D" uid="uid://chuumgfx4ilif" path="res://Sprites/Objects/MapSnakeOutline.png" id="1_rwwb0"]
 [ext_resource type="PackedScene" uid="uid://dc2qoqskj6apx" path="res://Scenes/Other/screech.tscn" id="2_4057i"]
 [ext_resource type="Material" uid="uid://do00jxdie5vra" path="res://Resources/sonar.tres" id="2_l46v4"]
@@ -8,6 +8,7 @@
 [ext_resource type="Script" uid="uid://dxpvia2buqong" path="res://Scripts/Composition/collect.gd" id="4_sfaus"]
 [ext_resource type="PackedScene" uid="uid://d4nvdcxabix6v" path="res://Scenes/Other/delete.tscn" id="5_sfaus"]
 [ext_resource type="PackedScene" uid="uid://xvqacbjtmvu3" path="res://Scenes/Other/vanish.tscn" id="8_ge8b3"]
+[ext_resource type="PackedScene" uid="uid://co44s1prswpj4" path="res://Scenes/Other/produce_audio.tscn" id="9_8kyuf"]
 
 [sub_resource type="GDScript" id="GDScript_4057i"]
 script/source = "extends Node2D
@@ -89,10 +90,12 @@ func _process(delta: float) -> void:
 script = SubResource("GDScript_4057i")
 
 [node name="Shimer" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource("1_bf8ix")
-volume_db = -20.0
+stream = ExtResource("1_6agcc")
+volume_db = 5.0
+pitch_scale = 1.2
 autoplay = true
 max_distance = 300.0
+bus = &"echo"
 
 [node name="Outline" type="AnimatedSprite2D" parent="."]
 material = ExtResource("2_l46v4")
@@ -144,6 +147,14 @@ use_global_sig = true
 
 [node name="Sig" type="Node" parent="."]
 script = SubResource("GDScript_sfaus")
+
+[node name="ProduceAudio" parent="." node_paths=PackedStringArray("tree", "parent", "sig_node") instance=ExtResource("9_8kyuf")]
+tree = NodePath("..")
+parent = NodePath("../Shimer")
+audio_id = 10
+sig_node = NodePath("../DetectSound")
+use_signal = true
+sig_name = "inside"
 
 [node name="Timer" type="Timer" parent="."]
 one_shot = true

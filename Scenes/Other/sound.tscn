@@ -16,6 +16,7 @@ func _on_finished() -> void:
 stream = ExtResource("1_ubnvw")
 autoplay = true
 max_distance = 550.0
+bus = &"echo"
 script = SubResource("GDScript_ubnvw")
 
 [connection signal="finished" from="Sound" to="Sound" method="_on_finished"]

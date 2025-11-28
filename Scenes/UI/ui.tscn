@@ -190,12 +190,16 @@ script = SubResource("GDScript_fo61o")
 [node name="MapModule" parent="Map" instance=ExtResource("1_fo61o")]
 layout_mode = 1
 map_id = 10
+left = true
+right = true
 
 [node name="MapModule2" parent="Map" instance=ExtResource("1_fo61o")]
 layout_mode = 1
 offset_left = 52.0
 offset_right = 52.0
 map_id = 11
+right = true
+down = true
 
 [node name="MapModule3" parent="Map" instance=ExtResource("1_fo61o")]
 layout_mode = 1
@@ -204,6 +208,7 @@ offset_right = 104.0
 map_id = 12
 show_icon = true
 id = 3
+down = true
 
 [node name="MapModule4" parent="Map" instance=ExtResource("1_fo61o")]
 layout_mode = 1
@@ -212,6 +217,7 @@ offset_right = 208.0
 map_id = 13
 show_icon = true
 id = 2
+down = true
 
 [node name="MapModule5" parent="Map" instance=ExtResource("1_fo61o")]
 layout_mode = 1
@@ -220,6 +226,7 @@ offset_top = 36.0
 offset_right = 52.0
 offset_bottom = 36.0
 map_id = 14
+right = true
 
 [node name="MapModule6" parent="Map" instance=ExtResource("1_fo61o")]
 layout_mode = 1
@@ -228,6 +235,7 @@ offset_top = 36.0
 offset_right = 104.0
 offset_bottom = 36.0
 map_id = 15
+right = true
 
 [node name="MapModule7" parent="Map" instance=ExtResource("1_fo61o")]
 layout_mode = 1
@@ -236,6 +244,7 @@ offset_top = 36.0
 offset_right = 156.0
 offset_bottom = 36.0
 map_id = 16
+right = true
 
 [node name="MapModule8" parent="Map" instance=ExtResource("1_fo61o")]
 layout_mode = 1
@@ -250,6 +259,7 @@ layout_mode = 1
 offset_left = -52.0
 offset_right = -52.0
 map_id = 9
+left = true
 
 [node name="MapModule10" parent="Map" instance=ExtResource("1_fo61o")]
 layout_mode = 1
@@ -258,6 +268,7 @@ offset_right = -104.0
 map_id = 8
 show_icon = true
 id = 1
+down = true
 
 [node name="MapModule11" parent="Map" instance=ExtResource("1_fo61o")]
 layout_mode = 1
@@ -266,6 +277,7 @@ offset_top = 36.0
 offset_right = -104.0
 offset_bottom = 36.0
 map_id = 5
+left = true
 
 [node name="MapModule12" parent="Map" instance=ExtResource("1_fo61o")]
 layout_mode = 1

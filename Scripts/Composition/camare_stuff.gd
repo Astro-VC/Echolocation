@@ -25,7 +25,7 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	if shake > 0 and shaake:
 		camera_shake(shake, time, delta)
-	print(Resources.map_coord)
+	
 
 
 func camera_shake(force : float, time : float, delta : float) -> void:
@@ -37,13 +37,13 @@ func change_cam() -> void:
 	
 	Resources.neutral_respawn = player.player.global_position + Vector2(0,-2)
 	
-	if player.player.global_position.y > 170 and player.player.global_position.y < 190:
+	if player.player.global_position.y > 170 and player.player.velocity.y > 0:
 		camera.global_position.y = 360
 		Resources.map_coord += 3
 		return
-	if player.player.global_position.y < 170 and player.player.global_position.y > 160:
-		Resources.map_coord -= 3
+	if player.player.global_position.y < 170 and player.player.velocity.y < 0:
 		camera.global_position.y = 0
+		Resources.map_coord -= 3
 		return
 	
 	

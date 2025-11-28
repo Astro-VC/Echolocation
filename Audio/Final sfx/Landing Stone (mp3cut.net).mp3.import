@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://bva3q5p2htkqh"
+path="res://.godot/imported/Landing Stone (mp3cut.net).mp3-5e9c04854fc9e74b2c79817d06a4b982.mp3str"
+
+[deps]
+
+source_file="res://Audio/Final sfx/Landing Stone (mp3cut.net).mp3"
+dest_files=["res://.godot/imported/Landing Stone (mp3cut.net).mp3-5e9c04854fc9e74b2c79817d06a4b982.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

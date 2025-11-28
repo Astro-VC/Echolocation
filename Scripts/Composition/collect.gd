@@ -32,4 +32,5 @@ func collect() -> void:
 	tree.get_parent().call_deferred("add_child", temp)
 	Global.tape_taken.emit()
 	
+	Resources.neutral_respawn = parent.global_position
 	timer.start(duration)

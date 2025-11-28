@@ -17,6 +17,7 @@ signal echo
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	music.max_distance = parent.distance
 	seal_id = parent.seal_id
 	music_id = parent.music_id
 	music.stream = load(Textures.musics[music_id])

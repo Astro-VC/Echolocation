@@ -1,4 +1,4 @@
-[gd_scene load_steps=74 format=3 uid="uid://bevm8733iebep"]
+[gd_scene load_steps=75 format=3 uid="uid://bevm8733iebep"]
 
 [ext_resource type="Script" uid="uid://bi5hg7tb65moq" path="res://Scripts/State Machine/player.gd" id="1_cvnsp"]
 [ext_resource type="Script" uid="uid://cne7uawh6v0qo" path="res://Scripts/player.gd" id="1_emc7e"]
@@ -22,6 +22,7 @@
 [ext_resource type="Script" uid="uid://cjkh253nxy5ce" path="res://Scripts/Composition/spotted.gd" id="15_bq3id"]
 [ext_resource type="PackedScene" uid="uid://co44s1prswpj4" path="res://Scenes/Other/produce_audio.tscn" id="16_0n2th"]
 [ext_resource type="Script" uid="uid://c5u5hb6r00ebo" path="res://Scripts/Composition/force_node.gd" id="21_wj16j"]
+[ext_resource type="AudioStream" uid="uid://mh0uh2ddxkcx" path="res://Audio/Final sfx/Cave ambience.mp3" id="23_0v33m"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_tf8jh"]
 size = Vector2(14, 16)
@@ -606,7 +607,7 @@ fall = NodePath("../fall")
 animation_name = "fall"
 tree = NodePath("../../..")
 particle_ID = 3
-time = 0.3
+time = 0.1
 
 [node name="Screech" parent="." node_paths=PackedStringArray("parent", "tree", "timer") instance=ExtResource("12_j4rlg")]
 parent = NodePath("../Player")
@@ -615,7 +616,7 @@ echo_noise = 5.0
 camera_zoom = true
 detection_area_name = "on_echo"
 input = "down"
-timer = NodePath("../ScreechTimer")
+timer = NodePath("../ScreechTimer2")
 
 [node name="ScreechLand" parent="." node_paths=PackedStringArray("parent", "tree", "sig_node", "timer") instance=ExtResource("12_j4rlg")]
 parent = NodePath("../Player")
@@ -627,6 +628,7 @@ use_input = false
 sig_node = NodePath("../Player/MovementMachine/land")
 use_signal = true
 timer = NodePath("../ScreechTimer")
+cooldown = 1.0
 
 [node name="ScreechDie" parent="." node_paths=PackedStringArray("parent", "tree", "sig_node", "timer") instance=ExtResource("12_j4rlg")]
 parent = NodePath("../Player")
@@ -639,7 +641,8 @@ detection_area_name = "on_death"
 use_input = false
 sig_node = NodePath("../ForceNode")
 use_signal = true
-timer = NodePath("../ScreechTimer")
+timer = NodePath("../ScreechTimer3")
+cooldown = 1.0
 
 [node name="ScreechDie2" parent="." node_paths=PackedStringArray("parent", "tree", "sig_node", "timer") instance=ExtResource("12_j4rlg")]
 parent = NodePath("../Player")
@@ -652,7 +655,8 @@ detection_area_name = "on_death"
 use_input = false
 sig_node = NodePath("../Player/MovementMachine/death")
 use_signal = true
-timer = NodePath("../ScreechTimer")
+timer = NodePath("../ScreechTimer4")
+cooldown = 1.0
 
 [node name="Vanish" parent="." node_paths=PackedStringArray("to_fade", "sig_node") instance=ExtResource("10_eltkk")]
 to_fade = NodePath("../Player/OutlineSprite")
@@ -672,9 +676,23 @@ use_cooldown = true
 use_input = true
 input = "shift"
 
-[node name="DetectSound" parent="." node_paths=PackedStringArray("area") instance=ExtResource("14_bq3id")]
+[node name="TrowProjectile2" parent="." node_paths=PackedStringArray("parent", "tree", "timer") instance=ExtResource("14_j4rlg")]
+parent = NodePath("../Player")
+tree = NodePath("..")
+amount = 1
+trow_velocity = Vector2(-500, 0)
+direction = 1.0
+global_dir = true
+timer = NodePath("../CooldownTimer")
+cooldown_time = 0.6
+use_cooldown = true
+use_input = true
+input = "mouse"
+
+[node name="DetectSound" parent="." node_paths=PackedStringArray("area", "timer") instance=ExtResource("14_bq3id")]
 area = NodePath("../Player/Hitbox")
 area_name = "mons"
+timer = NodePath("../CooldownTimer2")
 
 [node name="Spotted" type="Node" parent="." node_paths=PackedStringArray("sig_node", "dmage_sprite", "timer")]
 script = ExtResource("15_bq3id")
@@ -688,8 +706,9 @@ time = 1.5
 [node name="ProduceAudio" parent="." node_paths=PackedStringArray("tree", "parent", "sig_node") instance=ExtResource("16_0n2th")]
 tree = NodePath("..")
 parent = NodePath("../Player")
-volume = -5.0
-pitch_rand = Vector2(0.8, 1)
+audio_id = 1
+volume = -15.0
+pitch_rand = Vector2(0.8, 0.9)
 random_pitch = true
 sig_node = NodePath("../Player/MovementMachine/walk")
 use_signal = true
@@ -697,7 +716,8 @@ use_signal = true
 [node name="ProduceAudio3" parent="." node_paths=PackedStringArray("tree", "parent", "sig_node") instance=ExtResource("16_0n2th")]
 tree = NodePath("..")
 parent = NodePath("../Player")
-pitch_rand = Vector2(0.8, 1)
+audio_id = 1
+pitch_rand = Vector2(0.8, 0.9)
 random_pitch = true
 sig_node = NodePath("../Player/MovementMachine/land")
 use_signal = true
@@ -707,7 +727,6 @@ sig_name = "go"
 tree = NodePath("..")
 parent = NodePath("../Player")
 audio_id = 6
-volume = -8.0
 pitch_rand = Vector2(0.8, 0.9)
 random_pitch = true
 sig_node = NodePath("../Screech")
@@ -716,11 +735,21 @@ use_signal = true
 [node name="ProduceAudio4" parent="." node_paths=PackedStringArray("tree", "parent", "sig_node") instance=ExtResource("16_0n2th")]
 tree = NodePath("..")
 parent = NodePath("../Player")
-audio_id = 8
+audio_id = 5
 volume = -8.0
 pitch_rand = Vector2(0.8, 0.9)
 random_pitch = true
 sig_node = NodePath("../ForceNode")
+use_signal = true
+
+[node name="ProduceAudio5" parent="." node_paths=PackedStringArray("tree", "parent", "sig_node") instance=ExtResource("16_0n2th")]
+tree = NodePath("..")
+parent = NodePath("../Player")
+audio_id = 5
+volume = -8.0
+pitch_rand = Vector2(0.8, 0.9)
+random_pitch = true
+sig_node = NodePath("../Player/MovementMachine/death")
 use_signal = true
 
 [node name="TrowAudio" parent="." node_paths=PackedStringArray("tree", "parent", "sig_node") instance=ExtResource("16_0n2th")]
@@ -740,7 +769,24 @@ state_machine = NodePath("../Player/MovementMachine")
 sig_node = NodePath("../Player/Hitbox2")
 sig_name = "body_entered"
 
+[node name="ForceNode2" type="Node" parent="." node_paths=PackedStringArray("node_to_force", "state_machine", "sig_node")]
+script = ExtResource("21_wj16j")
+node_to_force = NodePath("../Player/MovementMachine/death")
+state_machine = NodePath("../Player/MovementMachine")
+sig_node = NodePath("../Player/Hitbox")
+sig_name = "area_entered"
+obj_name = "mons"
+
 [node name="ScreechTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="ScreechTimer2" type="Timer" parent="."]
+one_shot = true
+
+[node name="ScreechTimer3" type="Timer" parent="."]
+one_shot = true
+
+[node name="ScreechTimer4" type="Timer" parent="."]
 one_shot = true
 
 [node name="BufferTimer" type="Timer" parent="."]
@@ -754,3 +800,8 @@ one_shot = true
 
 [node name="CooldownTimer2" type="Timer" parent="."]
 one_shot = true
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("23_0v33m")
+volume_db = -10.0
+autoplay = true

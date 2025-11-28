@@ -2,6 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://bnit8f8i7j5hg" path="res://Sprites/Tiles/Rope (1).png" id="1_ig1xv"]
 [ext_resource type="LabelSettings" uid="uid://bbbqp22a6es0l" path="res://Resources/Fonts/Fade.tres" id="2_nww1f"]
+[ext_resource type="AudioStream" uid="uid://7drlihpihgdd" path="res://Audio/Final sfx/Outro Song no drums.mp3" id="3_o1c34"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_nww1f"]
 texture = ExtResource("1_ig1xv")
@@ -31,7 +32,6 @@ script/source = "extends TileMapLayer
 func _ready() -> void:
 	Global.tape_taken.connect(move.bind())
 
-
 func move() -> void:
 	if Resources.seals[0] == true:
 		return
@@ -45,7 +45,7 @@ func move() -> void:
 	if Resources.seals[3] == true:
 		return
 	
-	$Up/Collision.disabled = false
+
 	position = Vector2(-8, -211)
 
 
@@ -58,7 +58,11 @@ func _on_up_body_entered(body: Node2D) -> void:
 		tween.tween_property(co, \"color\", Color(\"cbcbcb\"), 5)
 		tween.tween_property(la, \"modulate\", Color(\"131313\"), 5)
 		
-		await get_tree().create_timer(11).timeout
+		await get_tree().create_timer(25).timeout
+		tween.tween_property(co, \"color\", Color(\"ffffff00\"), 5)
+		tween.tween_property(la, \"modulate\", Color(\"ffffff00\"), 5)
+		
+		await get_tree().create_timer(35).timeout
 		get_tree().paused = false
 		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 		get_tree().change_scene_to_file(\"res://Scenes/UI/menu.tscn\")
@@ -66,70 +70,6 @@ func _on_up_body_entered(body: Node2D) -> void:
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ig1xv"]
 size = Vector2(10, 240)
-
-[sub_resource type="GDScript" id="GDScript_o1c34"]
-script/source = "extends Label
-
-@export var eco : Node
-
-var count : int = 0
-var characters : int
-
-signal echo
-
-func _ready() -> void:
-	Input.mouse_mode = Input.MOUSE_MODE_HIDDEN
-
-func _unhandled_input(_event: InputEvent) -> void:
-	
-	if !Input.is_action_just_pressed(\"shift\"):
-		return
-	
-	count += 1
-	
-	match count:
-		1:
-			visible_ratio = 0
-			text = \"what have\\nyou done?\"
-			echo.emit()
-		2:
-			visible_ratio = 0
-			text = '\"Born With No Wings,\\nBorn With No Future.\"'
-			echo.emit()
-		3:
-			visible_ratio = 0
-			text = \"I Can't Stand\\nThese Bells Anymore,\"
-			echo.emit()
-		4:
-			visible_ratio = 0
-			text = \"This Constant Ringing\\nWill Stop.\"
-			echo.emit()
-		5:
-			visible_ratio = 0
-			text = \"w-why would you\\nlisten to them?\"
-			echo.emit()
-		6:
-			visible_ratio = 0
-			text = \"I FOUND HIM!\\nHE'S HERE!\"
-			echo.emit()
-		7:
-			visible_ratio = 0
-			text = \"LET'S THROW IT\\nINTO THE DEPHTS!\"
-			echo.emit()
-		8:
-			visible_ratio = 0
-			text = \"please, no!\\nhe's lost!\"
-			echo.emit()
-		9:
-			get_tree().change_scene_to_file(\"res://Scenes/Places/main.tscn\")
-
-
-
-
-
-func _process(delta: float) -> void:
-	visible_ratio += delta
-"
 
 [sub_resource type="GDScript" id="GDScript_nww1f"]
 script/source = "extends Label
@@ -152,11 +92,22 @@ func _process(delta: float) -> void:
 [sub_resource type="GDScript" id="GDScript_aui0j"]
 script/source = "extends Label
 
-var count : float
+var secs : float
 @export var tm : Timer
 
+var min : int
+
 func _process(delta: float) -> void:
-	text = \"Time: \" + str((tm.time_left - 3600) / 60)
+	text = \"Time: \" + str(min) + \":\" + str(secs)
+	
+	secs += int(delta)
+	
+	ount()
+
+func ount() -> void:
+	if secs >= 60:
+		min += 1
+		secs = 0
 "
 
 [node name="Rope" type="TileMapLayer" node_paths=PackedStringArray("co", "la")]
@@ -175,10 +126,10 @@ gravity = -980.0
 [node name="Collision" type="CollisionShape2D" parent="Up"]
 position = Vector2(8, 120)
 shape = SubResource("RectangleShape2D_ig1xv")
-disabled = true
 debug_color = Color(1, 0.541333, 0.14, 0)
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
+layer = 0
 
 [node name="Label" type="Label" parent="CanvasLayer"]
 modulate = Color(1, 1, 1, 0)
@@ -188,18 +139,19 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -65.0
-offset_top = -11.5
-offset_right = 65.0
-offset_bottom = 11.5
+offset_left = -116.0
+offset_top = -80.0
+offset_right = 119.0
+offset_bottom = 32.0
 grow_horizontal = 2
 grow_vertical = 2
-text = "May Silence Reign."
+text = "As the saying goes: 
+
+\"There is nothingnew under the sun\""
 label_settings = ExtResource("2_nww1f")
 horizontal_alignment = 1
 vertical_alignment = 1
 visible_characters_behavior = 1
-script = SubResource("GDScript_o1c34")
 
 [node name="Deaths" type="Label" parent="CanvasLayer/Label"]
 z_index = 2
@@ -209,10 +161,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -260.0
-offset_top = 76.0
-offset_right = -71.0
-offset_bottom = 99.0
+offset_left = -265.5
+offset_top = 128.0
+offset_right = -76.5
+offset_bottom = 151.0
 grow_horizontal = 2
 grow_vertical = 2
 text = "Deaths: "
@@ -230,10 +182,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -88.0
-offset_top = 108.0
-offset_right = 101.0
-offset_bottom = 131.0
+offset_left = -93.5
+offset_top = 160.0
+offset_right = 95.5
+offset_bottom = 183.0
 grow_horizontal = 2
 grow_vertical = 2
 text = "Deaths: "
@@ -244,6 +196,7 @@ visible_characters_behavior = 1
 script = SubResource("GDScript_s84mu")
 
 [node name="Time" type="Label" parent="CanvasLayer/Label" node_paths=PackedStringArray("tm")]
+process_mode = 1
 z_index = 2
 layout_mode = 1
 anchors_preset = 8
@@ -251,10 +204,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = 72.0
-offset_top = 76.0
-offset_right = 261.0
-offset_bottom = 99.0
+offset_left = 66.5
+offset_top = 128.0
+offset_right = 255.5
+offset_bottom = 151.0
 grow_horizontal = 2
 grow_vertical = 2
 text = "Deaths: "
@@ -266,16 +219,19 @@ script = SubResource("GDScript_aui0j")
 tm = NodePath("../../../Timer")
 
 [node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
+light_mask = 0
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0.8, 0.8, 0.8, 0)
+color = Color(1, 1, 1, 0)
 
 [node name="Timer" type="Timer" parent="."]
 process_mode = 1
-wait_time = 3600.0
-autostart = true
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_o1c34")
+volume_db = -8.0
 
 [connection signal="body_entered" from="Up" to="." method="_on_up_body_entered"]

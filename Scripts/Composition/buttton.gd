@@ -9,6 +9,7 @@ extends Node
 @export_category("Values")
 @export var add_scale : Vector2
 @export var duration : float = 0.5
+@export var awa : bool
 
 @export_category("Scene")
 @export var scene_to_go : String
@@ -24,7 +25,7 @@ func _ready() -> void:
 		parent.quit = quit
 	original_scale = button.scale
 	
-	if quit:
+	if !awa:
 		Input.mouse_mode = Input.MOUSE_MODE_HIDDEN
 	
 	button.mouse_entered.connect(change_texture.bind())
@@ -32,6 +33,10 @@ func _ready() -> void:
 	button.pressed.connect(change_scene.bind())
 
 func change_scene() -> void:
+	if awa == true:
+		if button.modulate.a <= 0.3:
+			return
+	
 	if second:
 		second.get_parent().get_tree().paused = false
 	
@@ -40,7 +45,10 @@ func change_scene() -> void:
 		return
 	
 	if scene_to_go:
+		Resources.deaths = 0
+		print(scene_to_go)
 		get_tree().change_scene_to_file(scene_to_go)
+
 
 func change_texture() -> void:
 	tween = get_parent().create_tween()

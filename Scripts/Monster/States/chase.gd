@@ -25,7 +25,13 @@ func enter() -> void:
 func process_physics(delta: float) -> State:
 	
 	if !check_player():
-		nav_agent.target_position = Resources.last_sound_pos
+		if Resources.last_sound_pos.distance_to(parent.global_position) <= 500:
+			nav_agent.target_position = Resources.last_sound_pos
+		else:
+			if rand_state == change.y:
+				return walk
+			return idle
+		
 	if check_player():
 		nav_agent.target_position = Resources.player_pos
 	

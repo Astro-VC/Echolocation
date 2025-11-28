@@ -17,6 +17,7 @@ func _ready() -> void:
 	if wave:
 		move_wave()
 		timer.start(time)
+		Global.clear.connect(delete.bind())
 
 func _physics_process(delta: float) -> void:
 	if wave != null:

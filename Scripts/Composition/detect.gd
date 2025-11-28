@@ -38,6 +38,10 @@ func check_collision(bdy : Node) -> void:
 	if bdy.name != coll_nam:
 		if another_nam and bdy.name == another_nam:
 			return
+		if another_nam and bdy.name == "Oulines2":
+			return
+		if another_nam and bdy.name == "Outlines3":
+			return
 		print(bdy.name)
 		echo.emit()
 		if use_timer:

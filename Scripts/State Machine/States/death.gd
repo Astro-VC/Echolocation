@@ -10,12 +10,13 @@ func enter() -> void:
 	super()
 	do_particle()
 	
+	Resources.deaths += 1
 	count = 0
 	parent.global_position = Resources.neutral_respawn
 
 
 func process_physics(delta: float) -> State:
-	if count != time:
+	if count <= time:
 		count += delta
 		return null
 	

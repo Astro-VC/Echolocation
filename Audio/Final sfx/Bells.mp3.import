@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://jgibgmtlwkdb"
+path="res://.godot/imported/Bells.mp3-95d432164946d9f822f57b758d18a96b.mp3str"
+
+[deps]
+
+source_file="res://Audio/Final sfx/Bells.mp3"
+dest_files=["res://.godot/imported/Bells.mp3-95d432164946d9f822f57b758d18a96b.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4
