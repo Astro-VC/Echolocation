@@ -1,4 +1,4 @@
-[gd_scene load_steps=75 format=3 uid="uid://bevm8733iebep"]
+[gd_scene load_steps=76 format=3 uid="uid://bevm8733iebep"]
 
 [ext_resource type="Script" uid="uid://bi5hg7tb65moq" path="res://Scripts/State Machine/player.gd" id="1_cvnsp"]
 [ext_resource type="Script" uid="uid://cne7uawh6v0qo" path="res://Scripts/player.gd" id="1_emc7e"]
@@ -23,6 +23,7 @@
 [ext_resource type="PackedScene" uid="uid://co44s1prswpj4" path="res://Scenes/Other/produce_audio.tscn" id="16_0n2th"]
 [ext_resource type="Script" uid="uid://c5u5hb6r00ebo" path="res://Scripts/Composition/force_node.gd" id="21_wj16j"]
 [ext_resource type="AudioStream" uid="uid://mh0uh2ddxkcx" path="res://Audio/Final sfx/Cave ambience.mp3" id="23_0v33m"]
+[ext_resource type="AudioStream" uid="uid://de8knwodsben4" path="res://Audio/Musics/Title_Theme.mp3" id="24_drq6x"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_tf8jh"]
 size = Vector2(14, 16)
@@ -805,5 +806,9 @@ one_shot = true
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("23_0v33m")
-volume_db = -10.0
+autoplay = true
+
+[node name="AudioStreamPlayer2" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("24_drq6x")
+volume_db = -30.0
 autoplay = true
